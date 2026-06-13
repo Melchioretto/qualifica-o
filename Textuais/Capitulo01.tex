@@ -1,0 +1,82 @@
+\chapter{Introdução}
+\label{cap:introducao}
+
+
+\section{Contexto Industrial}
+\label{sec:contexto_industrial}
+
+Esta seção apresenta o contexto industrial em que o problema desta pesquisa se manifesta. A fabricação de fios esmaltados de cobre e alumínio é um processo contínuo que parte do vergalhão recebido como matéria-prima e o transforma, ao longo de etapas sucessivas, em fio pronto para aplicações de enrolamento elétrico em motores, transformadores e demais componentes magnéticos. As subseções seguintes descrevem as três etapas principais da cadeia produtiva. A primeira aborda a produção do vergalhão pelo fornecedor, origem da matéria-prima utilizada pela fábrica. A segunda trata da trefilação primária, responsável pela transformação do vergalhão em fio nu na linha da fábrica. A terceira apresenta o esmaltamento, etapa que aplica as camadas de isolamento elétrico necessárias para o uso final do produto.
+
+
+\subsection{Fundição para criação da matéria-prima}
+\label{subsec:fundicao}
+
+A Figura~\ref{fig:fluxo_vergalhao} apresenta o fluxo simplificado da produção do vergalhão de cobre por lingotamento contínuo e laminação. O processo inicia com cátodos de cobre eletro-refinado, que são carregados no forno de fusão. Após a fusão, o cobre líquido é transferido por canal para o forno de retenção e, em seguida, conduzido à máquina de lingotamento contínuo. Na rota Southwire descrita por Cuypers, a máquina de lingotamento utiliza uma roda de aço com canal periférico, fechado por uma cinta metálica, formando a cavidade de solidificação. Durante a rotação, o cobre é resfriado com água e forma uma barra contínua \cite{cuypers1987continuous}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{Figuras/fundicao.pdf}
+    \caption{Fluxo simplificado da produção do vergalhão de cobre por lingotamento contínuo e laminação.}
+    \label{fig:fluxo_vergalhao}
+    \fonte{Adaptado de \citeonline{cuypers1987continuous}.}
+\end{figure}
+
+Após o lingotamento, a barra contínua passa por uma etapa de remoção de rebarbas antes de seguir para a laminação. Em seguida, a barra é processada em um trem de laminação com múltiplos passes, responsável pela redução progressiva da seção até a obtenção do diâmetro especificado para o vergalhão. As linhas de \emph{Continuous Casting and Rolling} (CCR) são compostas por forno de fusão, forno de retenção, unidade de lingotamento, trem de laminação, sistema de decapagem e bobinador.
+
+Na sequência final, o vergalhão passa por decapagem e resfriamento para remoção da camada superficial de óxidos e preparação do produto. Por fim, o material é cortado e bobinado, originando o vergalhão de cobre que será utilizado como matéria-prima nas etapas posteriores de trefilação. Essa sequência corresponde à rota CCR, na qual o cobre é continuamente fundido, solidificado, laminado, decapado e bobinado.
+
+
+\subsection{Trefilação primária}
+\label{subsec:trefilacao}
+
+A trefilação primária recebe o vergalhão fornecido por terceiros e o transforma em fio de cobre ou alumínio nu próprio para alimentar a linha de esmaltação. Na fábrica de fios analisada, o vergalhão é adquirido de múltiplos fornecedores e processado em uma máquina de trefilação que executa uma sequência de passes em fieiras, reduzindo o diâmetro a cada estágio até o calibre intermediário desejado \cite{wright2011wire}. Para cobre, a linha produz três bitolas iniciais distintas, cada uma destinada a famílias específicas de produtos. Para alumínio, há uma única bitola intermediária. A Figura~\ref{fig:pretrefilacao} ilustra a etapa na fábrica analisada.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{Figuras/pretrefilacao.pdf}
+    \caption{Etapa de trefilação primária na fábrica analisada.}
+    \label{fig:pretrefilacao}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{figure}
+
+O cobre passa, ainda nesta linha, por uma etapa de recozimento posterior à trefilação. Essa etapa restaura a ductilidade reduzida pelo trabalho a frio dos múltiplos passes e recupera a condutividade elétrica degradada durante a deformação \cite{wright2011wire}. O alumínio, com resposta de encruamento menos pronunciada sob as mesmas reduções, dispensa essa etapa intermediária.
+
+O fio nu resultante é acondicionado em cestos identificados por lote, prática que preserva a rastreabilidade entre o vergalhão original e o produto trefilado e permite isolar lotes específicos quando defeitos são observados nas etapas posteriores.
+
+
+\subsection{Esmaltamento}
+\label{subsec:esmaltamento}
+
+Após a trefilação primária, o fio de cobre ou alumínio nu segue para a linha de esmaltamento, etapa que aplica camadas de verniz isolante sobre a superfície do fio. O esmalte cumpre principalmente a função de insulação elétrica, condição necessária para que o fio possa ser enrolado em bobinas próximas umas das outras sem provocar curto-circuito entre espiras vizinhas. Esmaltes finos minimizam ainda o espaço ocupado pelo isolamento nas bobinas, mantêm alta rigidez dielétrica e oferecem resistência a umidade e a solventes do ambiente de operação \cite{wright2011wire}. A Figura~\ref{fig:esmaltamento} apresenta o fluxo da etapa na fábrica analisada.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{Figuras/esmaltacao.pdf}
+    \caption{Fluxo da etapa de esmaltamento na fábrica analisada. \textcolor{red}{Falta melhorar cores e nomenclaturas.}}
+    \label{fig:esmaltamento}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{figure}
+
+Antes do início do ciclo de esmaltamento, o fio nu retirado dos cestos passa por uma etapa de ajuste final de bitola, equivalente a uma trefilação fina, seguida de uma etapa de limpeza superficial. O ciclo de esmaltamento propriamente dito combina aplicação, cura e resfriamento em sequência, repetidos até seis vezes \cite{wright2011wire}. O fio passa por um aplicador que deposita uma camada de esmalte em solução resinosa e em seguida entra no forno de esmaltação, onde uma zona de evaporação remove o solvente e uma zona de cura completa a polimerização do filme. Após o resfriamento, o fio retorna ao aplicador para receber a próxima camada.
+
+O aumento total de diâmetro do fio decorrente das camadas é denominado build, com especificações comerciais classificadas em single, heavy e triple, em ordem crescente de espessura. A montagem física da linha é vertical, motivo pelo qual o equipamento é chamado enameling tower \cite{wright2011wire}. Concluído o build especificado, o fio esmaltado é bobinado em sua apresentação final.
+
+
+\section{Dados disponíveis}
+\label{sec:dados_disponiveis}
+
+A análise conduzida nesta pesquisa baseia-se em três conjuntos de dados produzidos pela operação da fábrica. O primeiro consiste em registros operacionais das máquinas das linhas de trefilação e de esmaltação, que reúnem leituras de sensores e parâmetros de processo amostrados continuamente durante a produção. O segundo é o histórico de ordens de produção, que vincula cada janela operacional ao lote de matéria-prima processado, ao fornecedor do vergalhão, ao calibre alvo e às demais variáveis de contexto da ordem. O terceiro corresponde aos eventos de rompimento registrados durante a produção, com informações sobre a máquina, o momento do evento e o material em processo.
+
+Um aspecto central do problema é a ausência de rótulos sobre a causa de cada rompimento. Os eventos são registrados, mas não vêm acompanhados de uma atribuição padronizada da origem provável, isto é, se o rompimento decorreu de defeito de matéria-prima, de falha de equipamento ou de efeito combinado dos dois. Essa ausência de rótulo impede o uso direto de abordagens supervisionadas de aprendizado de máquina sobre o evento em si e justifica a estratégia adotada nesta dissertação, baseada em detecção de anomalias operacionais e em análise estatística histórica como evidências independentes a serem combinadas para inferir a origem provável.
+
+
+\section{Problema de pesquisa}
+\label{sec:problema_pesquisa}
+
+A descrição do processo produtivo apresentada na Seção~\ref{sec:contexto_industrial} mostra que um evento de rompimento durante a fabricação do fio esmaltado pode ser produzido por mecanismos distintos. Defeitos da matéria-prima e falhas de equipamento manifestam-se sob formas semelhantes ao longo da linha e dificultam a atribuição da causa por inspeção direta. A Seção~\ref{sec:dados_disponiveis} mostrou ainda que os dados disponíveis não trazem rótulo de causa associado a cada evento, o que afasta a aplicação direta de técnicas supervisionadas de aprendizado de máquina sobre o evento em si. Forma-se assim a lacuna que motiva esta pesquisa.
+
+Diante desse cenário, o trabalho se organiza em torno de uma pergunta central, enunciada como segue.
+
+\begin{center}
+    \emph{Como combinar sinais operacionais de máquina e evidências estatísticas históricas de rompimentos para apoiar a inferência da provável origem de eventos de rompimento em uma fábrica de fios?}
+\end{center}
