@@ -3,110 +3,7 @@
 
 A produção industrial de fios esmaltados de cobre e alumínio é a base de componentes de enrolamento elétrico amplamente empregados em motores, transformadores e demais máquinas magnéticas \textcolor{red}{[CITAR: referência geral de aplicação de magnet wire em máquinas elétricas — pode ser livro de máquinas elétricas, panorama de mercado, ou norma IEC 60317]}. A operação desse tipo de fábrica articula etapas metalúrgicas e químicas em uma linha contínua, na qual o vergalhão recebido como matéria-prima é progressivamente reduzido em diâmetro, revestido por camadas de verniz isolante e entregue ao mercado com propriedades elétricas e mecânicas estritamente especificadas \cite{wright2011wire}. Variações na matéria-prima e no comportamento do equipamento durante o processo afetam diretamente a qualidade e a continuidade da produção \cite{karabay2018failure}.
 
-
-\section{Contexto Industrial}
-\label{sec:contexto_industrial}
-
-Esta seção apresenta o contexto industrial em que o problema desta pesquisa se manifesta. A fabricação de fios esmaltados de cobre e alumínio é um processo contínuo que parte do vergalhão recebido como matéria-prima e o transforma, ao longo de etapas sucessivas, em fio pronto para aplicações de enrolamento elétrico em motores, transformadores e demais componentes magnéticos. As subseções seguintes descrevem as três etapas principais da cadeia produtiva. A primeira aborda a produção do vergalhão pelo fornecedor, origem da matéria-prima utilizada pela fábrica. A segunda trata da trefilação primária, responsável pela transformação do vergalhão em fio nu na linha da fábrica. A terceira apresenta o esmaltamento, etapa que aplica as camadas de isolamento elétrico necessárias para o uso final do produto.
-
-
-\subsection{Fundição para criação da matéria-prima}
-\label{subsec:fundicao}
-
-A Figura~\ref{fig:fluxo_vergalhao} apresenta o fluxo simplificado da produção do vergalhão de cobre por lingotamento contínuo e laminação. O processo inicia com cátodos de cobre eletro-refinado, que são carregados no forno de fusão. Após a fusão, o cobre líquido é transferido por canal para o forno de retenção e, em seguida, conduzido à máquina de lingotamento contínuo. Na rota Southwire descrita por Cuypers, a máquina de lingotamento utiliza uma roda de aço com canal periférico, fechado por uma cinta metálica, formando a cavidade de solidificação. Durante a rotação, o cobre é resfriado com água e forma uma barra contínua \cite{cuypers1987continuous}.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{Figuras/fundicao.pdf}
-    \caption{Fluxo simplificado da produção do vergalhão de cobre por lingotamento contínuo e laminação.}
-    \label{fig:fluxo_vergalhao}
-    \fonte{Adaptado de \citeonline{cuypers1987continuous}.}
-\end{figure}
-
-Após o lingotamento, a barra contínua passa por uma etapa de remoção de rebarbas antes de seguir para a laminação. Em seguida, a barra é processada em um trem de laminação com múltiplos passes, responsável pela redução progressiva da seção até a obtenção do diâmetro especificado para o vergalhão. As linhas de \emph{Continuous Casting and Rolling} (CCR) são compostas por forno de fusão, forno de retenção, unidade de lingotamento, trem de laminação, sistema de decapagem e bobinador.
-
-Na sequência final, o vergalhão passa por decapagem e resfriamento para remoção da camada superficial de óxidos e preparação do produto. Por fim, o material é cortado e bobinado, originando o vergalhão de cobre que será utilizado como matéria-prima nas etapas posteriores de trefilação. Essa sequência corresponde à rota CCR, na qual o cobre é continuamente fundido, solidificado, laminado, decapado e bobinado.
-
-
-\subsection{Trefilação primária}
-\label{subsec:trefilacao}
-
-A trefilação primária recebe o vergalhão fornecido por terceiros e o transforma em fio de cobre ou alumínio nu próprio para alimentar a linha de esmaltação. Na fábrica de fios analisada, o vergalhão é adquirido de múltiplos fornecedores e processado em uma máquina de trefilação que executa uma sequência de passes em fieiras, reduzindo o diâmetro a cada estágio até o calibre intermediário desejado \cite{wright2011wire}. Para cobre, a linha produz três bitolas iniciais distintas, cada uma destinada a famílias específicas de produtos. Para alumínio, há uma única bitola intermediária. A Figura~\ref{fig:pretrefilacao} ilustra a etapa na fábrica analisada.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{Figuras/pretrefilacao.pdf}
-    \caption{Etapa de trefilação primária na fábrica analisada.}
-    \label{fig:pretrefilacao}
-    \fonte{Elaborado pelo autor (\the\year).}
-\end{figure}
-
-O cobre passa, ainda nesta linha, por uma etapa de recozimento posterior à trefilação. Essa etapa restaura a ductilidade reduzida pelo trabalho a frio dos múltiplos passes e recupera a condutividade elétrica degradada durante a deformação \cite{wright2011wire}. O alumínio, com resposta de encruamento menos pronunciada sob as mesmas reduções, dispensa essa etapa intermediária.
-
-O fio nu resultante é acondicionado em cestos identificados por lote, prática que preserva a rastreabilidade entre o vergalhão original e o produto trefilado e permite isolar lotes específicos quando defeitos são observados nas etapas posteriores.
-
-
-\subsection{Esmaltamento}
-\label{subsec:esmaltamento}
-
-Após a trefilação primária, o fio de cobre ou alumínio nu segue para a linha de esmaltamento, etapa que aplica camadas de verniz isolante sobre a superfície do fio. O esmalte cumpre principalmente a função de insulação elétrica, condição necessária para que o fio possa ser enrolado em bobinas próximas umas das outras sem provocar curto-circuito entre espiras vizinhas. Esmaltes finos minimizam ainda o espaço ocupado pelo isolamento nas bobinas, mantêm alta rigidez dielétrica e oferecem resistência a umidade e a solventes do ambiente de operação \cite{wright2011wire}. A Figura~\ref{fig:esmaltamento} apresenta o fluxo da etapa na fábrica analisada.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{Figuras/esmaltacao.pdf}
-    \caption{Fluxo da etapa de esmaltamento na fábrica analisada. \textcolor{red}{Falta melhorar cores e nomenclaturas.}}
-    \label{fig:esmaltamento}
-    \fonte{Elaborado pelo autor (\the\year).}
-\end{figure}
-
-Antes do início do ciclo de esmaltamento, o fio nu retirado dos cestos passa por uma etapa de ajuste final de bitola, equivalente a uma trefilação fina, seguida de uma etapa de limpeza superficial. O ciclo de esmaltamento propriamente dito combina aplicação, cura e resfriamento em sequência, repetidos até seis vezes \cite{wright2011wire}. O fio passa por um aplicador que deposita uma camada de esmalte em solução resinosa e em seguida entra no forno de esmaltação, onde uma zona de evaporação remove o solvente e uma zona de cura completa a polimerização do filme. Após o resfriamento, o fio retorna ao aplicador para receber a próxima camada.
-
-O aumento total de diâmetro do fio decorrente das camadas é denominado build, com especificações comerciais classificadas em single, heavy e triple, em ordem crescente de espessura. A montagem física da linha é vertical, motivo pelo qual o equipamento é chamado enameling tower \cite{wright2011wire}. Concluído o build especificado, o fio esmaltado é bobinado em sua apresentação final.
-
-
-\section{Problema de rompimentos de fios de cobre e alumínio}
-\label{sec:problema_rompimentos}
-
-% Texto inicial baseado em Karabay et al. (2018) e Demiri (2014). Revisar redacao e o encaixe com a Secao~\ref{sec:contexto_industrial}.
-
-Um rompimento corresponde à interrupção da continuidade do fio durante a passagem pela linha de produção. Quando ocorre, a máquina para de operar, o material em curso precisa ser religado ou descartado e o ciclo produtivo é retomado após intervenção do operador. Em uma fábrica de fios esmaltados, esses eventos concentram a maior parte das paradas não programadas e impactam tanto a produtividade da linha quanto o retrabalho associado ao produto interrompido. Por essa razão, o rompimento é tratado nesta dissertação como o sintoma operacional central a ser analisado.
-
-Os rompimentos podem ocorrer em diferentes pontos da cadeia produtiva descrita na Seção~\ref{sec:contexto_industrial}. Na trefilação primária, o fio nu é submetido a múltiplos passes de redução de seção, e qualquer descontinuidade interna ou superficial pode atuar como concentrador de tensão e dar origem ao rompimento. No esmaltamento, o fio passa por aplicações sucessivas de verniz, evaporação de solvente e cura em forno, etapas em que defeitos térmicos, de aplicação ou de contaminação do filme isolante também levam à interrupção do fio. Apesar da diferença de etapa, o evento observado pelo operador é semelhante em ambos os casos: um fio rompido na linha. A inspeção direta após o evento raramente é suficiente para determinar a causa, porque mecanismos distintos produzem fenótipos semelhantes na superfície de fratura.
-
-A literatura agrupa esses mecanismos em duas grandes categorias de causa raiz: defeitos originados na matéria-prima e defeitos originados na interação do material com o equipamento \cite{karabay2018failure}. A primeira categoria inclui descontinuidades formadas nas etapas de fundição e laminação do vergalhão, e a segunda inclui danos introduzidos durante a trefilação, o transporte entre estações e a passagem pela linha de esmaltamento. Os defeitos da primeira categoria viajam embutidos no fio até serem expostos por solicitação mecânica posterior, o que torna o ponto de ruptura espacialmente desacoplado da causa de origem.
-
-No fio nu, sete modos de falha foram identificados em análise por microscopia eletrônica de varredura e espectroscopia por energia dispersiva: cavidades de solidificação no núcleo do fio, oriundas de resfriamento inadequado na roda de cristalização; inclusões de óxido embutidas na superfície, resultantes de fluxagem insuficiente ou turbulência no vazamento; o defeito conhecido como \emph{check}, originado pelo rasgamento da camada oxidada do vergalhão; o \emph{splinter}, lasca destacada a partir de partículas oxidadas duras que entram em contato com o cone da fieira; o \emph{overfill}, formado por gaps inadequados na laminação do vergalhão trapezoidal; e zonas de acumulação de óxido metálico nas guias das máquinas de encordoamento \cite{karabay2018failure}. A Figura~\ref{fig:karabay_fig04} ilustra dois desses modos no fio nu de alumínio: um defeito de \emph{hole} no fio trefilado, associado à extrusão excessiva do vergalhão, e cavidades de solidificação no núcleo do fio, associadas a resfriamento inadequado na roda de cristalização.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{Figuras/Karabay_2018_fig04_hole_solidification.jpg}
-    \caption{Defeitos metalúrgicos típicos em fio nu de alumínio. (a) Defeito de \emph{hole} no fio trefilado a partir do vergalhão AA6101. (b) Cavidades de solidificação no núcleo do fio.}
-    \label{fig:karabay_fig04}
-    \fonte{\citeonline{karabay2018failure}.}
-\end{figure}
-
-A esses mecanismos de origem metalúrgica somam-se ainda danos superficiais introduzidos pela trefilação propriamente dita, como riscos longitudinais associados a desgaste das fieiras, ruptura do filme lubrificante e deformação plástica de superfície por impacto de spool. A Figura~\ref{fig:karabay_fig07} ilustra um exemplo característico desse segundo grupo: uma zona de acumulação de óxido metálico formada nas guias da linha, em que tensões repetidas de flexão e torção concentram-se em região fragilizada e levam à fratura.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{Figuras/Karabay_2018_fig07_metal_oxide_accumulation.jpg}
-    \caption{Zona de acumulação de óxido metálico em fio de alumínio, modo característico de falha por interação metal-máquina.}
-    \label{fig:karabay_fig07}
-    \fonte{\citeonline{karabay2018failure}.}
-\end{figure}
-
-No fio esmaltado, os defeitos de fabricação detectáveis por teste de continuidade são organizados em seis classes principais \cite{demiri2014enamel}. As duas primeiras coincidem com a categoria de matéria-prima discutida acima: defeitos do vergalhão de cobre, sob a forma de \emph{slivers} e trincas longitudinais geradas no lingotamento e na laminação, e danos da trefilação, sob a forma de riscos e pontos de \emph{copper fines} compactados na fieira. As demais classes são específicas da etapa de esmaltação. Contaminação do fio nu por resíduos da solução de trefilação ou por partículas conduzidas até o aplicador pode provocar falhas de continuidade ao se fundir à superfície de cobre. Danos físicos ao filme já curado, como cavidades e arranhões, decorrem do contato do fio com objetos duros ou polias durante o manuseio. Contaminantes aéreos no interior do forno de cura, incluindo flocos queimados de esmalte e partículas de óxido de cobre, ficam embutidos no filme em formação e geram pontos defeituosos. Por fim, defeitos da própria aplicação do verniz produzem bolhas no filme, atribuídas a sujeira ou partículas duras não filtradas pela solução, e \emph{pinholes}, atribuídos a molhamento inadequado do fio na passagem pela solução.
-
-% TODO: recortar Fig 30 (pinhole) e Fig 28 (gel/bolhas) da pagina 34 do Demiri (arquivo Demiri_2014_page34_fig28_gel_fig29_voids_fig30_pinhole.png na pasta revisao_literatura). Salvar como Demiri_2014_fig30_pinhole.jpg e Demiri_2014_fig28_gel_bolhas.jpg em vmdi/Figuras e descomentar o bloco abaixo.
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics[width=0.7\textwidth]{Figuras/Demiri_2014_fig30_pinhole.jpg}
-%     \caption{Pinhole no filme de esmalte do fio de cobre.}
-%     \label{fig:demiri_pinhole}
-%     \fonte{\citeonline{demiri2014enamel}.}
-% \end{figure}
-
-A coexistência desses mecanismos justifica a dificuldade central enfrentada pela operação: um mesmo rompimento pode ter origem na matéria-prima, no equipamento ou em uma combinação dos dois, e as evidências visuais imediatamente disponíveis após o evento não são suficientes para discriminar entre essas hipóteses. Esse cenário motiva a pergunta de pesquisa formulada na Seção~\ref{sec:problema_pesquisa}.
+% TODO: P2 do texto de abertura - escrever segundo paragrafo cobrindo: rompimentos como evento operacional critico, dificuldade de inferir causa sem rotulo, e mini-roadmap do capitulo.
 
 
 \section{Dados disponíveis}
@@ -120,7 +17,7 @@ Um aspecto central do problema é a ausência de rótulos sobre a causa de cada 
 \section{Problema de pesquisa}
 \label{sec:problema_pesquisa}
 
-A Seção~\ref{sec:problema_rompimentos} mostrou que um evento de rompimento pode resultar de defeitos de matéria-prima, da interação do fio com o equipamento ao longo da linha, ou de uma combinação dos dois, e que esses mecanismos produzem fenótipos semelhantes na fratura. A Seção~\ref{sec:dados_disponiveis} mostrou ainda que os dados operacionais disponíveis não trazem rótulo de causa associado a cada evento, o que afasta a aplicação direta de técnicas supervisionadas de aprendizado de máquina sobre o evento em si. Forma-se assim a lacuna que motiva esta pesquisa.
+Eventos de rompimento durante a fabricação de fios esmaltados podem ser produzidos por defeitos de matéria-prima, por danos decorrentes da interação do fio com o equipamento ao longo da linha, ou pela combinação dos dois. Como esses mecanismos manifestam-se sob formas semelhantes ao longo do processo, a atribuição da causa raiz por inspeção direta após o evento é frequentemente inconclusiva. Soma-se a esse cenário a ausência de rótulo padronizado de causa nos dados operacionais disponíveis, conforme apresentado na Seção~\ref{sec:dados_disponiveis}, o que afasta a aplicação direta de técnicas supervisionadas de aprendizado de máquina sobre o evento em si. Forma-se assim a lacuna que motiva esta pesquisa.
 
 Diante desse cenário, o trabalho se organiza em torno de uma pergunta central, enunciada como segue.
 
@@ -156,4 +53,4 @@ Os objetivos específicos a serem alcançados ao longo do trabalho são os segui
 \section{Estrutura do trabalho}
 \label{sec:estrutura_trabalho}
 
-% Paragrafo descrevendo o que cada capitulo seguinte trata. Preencher depois que a estrutura final dos capitulos estiver fechada (Cap. 2 Fundamentacao, Cap. 3 Revisao Sistematica, Cap. 4 Metodologia, Cap. 5 Resultados, Cap. 6 Conclusao).
+% Paragrafo descrevendo o que cada capitulo seguinte trata. Preencher depois que a estrutura final dos capitulos estiver consolidada (Cap. 2 Fundamentacao Teorica, Cap. 3 Metodologia, Cap. 4 Desenvolvimento da Ferramenta, Cap. 5 Resultados, Cap. 6 Conclusao).
