@@ -10,13 +10,16 @@
 %   2.2  Estabelece que o problema é real e multifatorial,
 %        ancorado em Karabay (2018) e Demiri (2014). Cobre os
 %        modos de falha do fio nu e do esmaltado. RQ5.
-%   2.3  Mostra a tradição de apoio à decisão técnica e suas
+%   2.3  Inventaria os dados produzidos pela operação que
+%        sustentam a análise da dissertação e destaca a
+%        ausência de rótulo de causa.
+%   2.4  Mostra a tradição de apoio à decisão técnica e suas
 %        limitações diante de dados sensoriais modernos.
-%   2.4  Apresenta a primeira família de técnicas (anomalias
+%   2.5  Apresenta a primeira família de técnicas (anomalias
 %        em séries operacionais) que sustenta o Pilar EQ. RQ1.
-%   2.5  Apresenta a segunda família (estatística histórica por
+%   2.6  Apresenta a segunda família (estatística histórica por
 %        lote, fornecedor, máquina) que sustenta o Pilar MP. RQ3.
-%   2.6  Discute a integração das duas famílias e a
+%   2.7  Discute a integração das duas famílias e a
 %        explicabilidade, apontando a lacuna que o WireSense
 %        ocupa. RQ2 e RQ4.
 %
@@ -131,6 +134,14 @@ No fio esmaltado, os defeitos de fabricação detectáveis por teste de continui
 % \end{figure}
 
 A coexistência desses mecanismos justifica a dificuldade central enfrentada pela operação: um mesmo rompimento pode ter origem na matéria-prima, no equipamento ou em uma combinação dos dois, e as evidências visuais imediatamente disponíveis após o evento não são suficientes para discriminar entre essas hipóteses. Esse cenário motiva a pergunta de pesquisa formulada na Seção~\ref{sec:problema_pesquisa}.
+
+
+\section{Dados disponíveis}
+\label{sec:dados_disponiveis}
+
+A análise conduzida nesta pesquisa baseia-se em três conjuntos de dados produzidos pela operação da fábrica. O primeiro consiste em registros operacionais das máquinas das linhas de trefilação e de esmaltação, que reúnem leituras de sensores e parâmetros de processo amostrados continuamente durante a produção. O segundo é o histórico de ordens de produção, que vincula cada janela operacional ao lote de matéria-prima processado, ao fornecedor do vergalhão, ao calibre alvo e às demais variáveis de contexto da ordem. O terceiro corresponde aos eventos de rompimento registrados durante a produção, com informações sobre a máquina, o momento do evento e o material em processo.
+
+Um aspecto central do problema é a ausência de rótulos sobre a causa de cada rompimento. Os eventos são registrados, mas não vêm acompanhados de uma atribuição padronizada da origem provável, isto é, se o rompimento decorreu de defeito de matéria-prima, de falha de equipamento ou de efeito combinado dos dois. Essa ausência de rótulo impede o uso direto de abordagens supervisionadas de aprendizado de máquina sobre o evento em si e justifica a estratégia adotada nesta dissertação, baseada em detecção de anomalias operacionais e em análise estatística histórica como evidências independentes a serem combinadas para inferir a origem provável.
 
 
 \section{Diagnóstico de falhas, manutenção e qualidade}
