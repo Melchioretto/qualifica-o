@@ -58,6 +58,10 @@
 
 \newcommand{\me}[1]{Elaborado pelo autor (#1).}
 
+% Comando para siglas com hyperlink para a Lista de Siglas
+% Uso: \sigla{KEY} produz a sigla clicável que leva para a entrada com \hypertarget{sigla:KEY}{...} na Lista de Siglas
+\newcommand{\sigla}[1]{\hyperlink{sigla:#1}{#1}}
+
 % Configuração do pgfplots
 \pgfplotsset{compat=newest} %compat=1.14
 \pgfplotsset{plot coordinates/math parser=false} 
