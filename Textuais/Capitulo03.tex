@@ -2,135 +2,217 @@
 \label{cap:revisao_sistematica}
 
 % -----------------------------------------------------------------
-% Função do capítulo: revisar de forma sistemática, dentro da
-% literatura de Computação, os métodos orientados a dados que
-% endereçam o problema descrito no Capítulo 2. A revisão segue o
-% protocolo de Kitchenham e cobre as duas famílias de técnicas que
-% sustentam a proposta (detecção de anomalias em séries operacionais
-% e estratégias de integração com explicabilidade), além de fechar
-% com a lacuna que o trabalho preenche.
+% Estrutura inspirada em Henings (2026), TCC UDESC. Duas seções:
 %
-%   3.1  Protocolo da revisão (Kitchenham): pergunta de pesquisa
-%        orientadora, PICOC, string de busca, bases, critérios de
-%        inclusão e exclusão, fluxograma PRISMA.
-%   3.2  Detecção de anomalias em dados industriais. RQ1.
-%   3.3  Análise estatística histórica de falhas em manufatura. RQ3.
-%   3.4  Sistemas híbridos e explicabilidade. RQ2 e RQ4.
-%   3.5  Síntese da revisão e identificação da lacuna que motiva
-%        a proposta do Capítulo 4.
+%   3.1  Pesquisa Bibliográfica Sistemática (PBS)
+%        Apresenta o protocolo metodológico de forma transparente
+%        e replicável, em quatro subseções: pergunta de pesquisa,
+%        processo de busca, processo de seleção e processo de
+%        análise e síntese.
+%   3.2  Trabalhos Correlatos
+%        Apresenta os trabalhos selecionados, agrupados por tema
+%        relevante para a proposta, com discussão crítica e
+%        identificação da lacuna que o WireSense preenche.
 %
-% Sementes para bootstrap:
-%   Chandola et al. (2009), Pang et al. (2021), Liu et al. (2008).
-% Protocolo detalhado em:
-%   docs/dissertacao/protocolo_revisao.md
+% Material de apoio em revisao_literatura/:
+%   - review_context.md (protocolo, RQs, critérios)
+%   - screening/prisma_counts.md (funil)
+%   - screening/full_text_include_core.csv (12 centrais)
+%   - screening/full_text_include_support.csv (23 de suporte)
+%   - sintese/strings_de_busca.md (a refazer)
 % -----------------------------------------------------------------
 
-Este capítulo conduz a revisão sistemática da literatura de Computação aplicada a sistemas industriais, com foco nos métodos orientados a dados que se propõem a detectar anomalias em séries operacionais e a integrar evidências de múltiplas fontes em diagnósticos interpretáveis. A revisão segue o protocolo de Kitchenham e Charters, com pergunta de pesquisa orientadora, estratégia de busca em bases científicas reconhecidas, critérios formais de inclusão e exclusão e síntese dos trabalhos selecionados. As tradições de diagnóstico oriundas do próprio domínio industrial, baseadas em ferramentas de qualidade e em análise estatística clássica de confiabilidade, foram apresentadas no Capítulo~\ref{cap:fundamentacao} e não constituem objeto desta revisão sistemática.
+Este capítulo apresenta a revisão sistemática da literatura que fundamenta a parte computacional desta dissertação, conduzida segundo as diretrizes de Pesquisa Bibliográfica Sistemática (PBS). A revisão investiga, de forma transparente e replicável, como a literatura de Computação aplicada a sistemas industriais aborda as quatro vertentes de método relevantes para a proposta: detecção de anomalias em séries temporais de variáveis operacionais, análise estatística histórica de falhas por lote e fornecedor, sistemas híbridos de fusão de evidências e explicabilidade em diagnóstico industrial. As tradições de diagnóstico oriundas do próprio domínio industrial, baseadas em ferramentas clássicas de qualidade e em análise estatística de confiabilidade, foram apresentadas no Capítulo~\ref{cap:fundamentacao} e não constituem objeto desta revisão.
 
 
-\section{Protocolo da revisão}
-\label{sec:protocolo}
+\section{Pesquisa Bibliográfica Sistemática}
+\label{sec:pbs}
 
-% Função: detalhar o protocolo Kitchenham aplicado neste trabalho.
-% Conteúdo a desenvolver:
-%   - Pergunta de pesquisa orientadora da revisão.
-%   - Estratégia PICOC (População, Intervenção, Comparação, Outcome, Contexto).
-%   - String de busca aplicada nas bases.
-%   - Bases consultadas (Scopus, IEEE Xplore, ACM Digital Library, Web of Science).
-%   - Critérios de inclusão e exclusão.
-%   - Fluxograma PRISMA com contagem de artigos por etapa.
-%   - Avaliação de qualidade dos artigos selecionados.
-%   - Síntese e extração de dados dos artigos.
-% Protocolo detalhado em docs/dissertacao/protocolo_revisao.md
+Esta seção detalha o protocolo de Pesquisa Bibliográfica Sistemática (PBS) aplicado, da formulação da pergunta orientadora à análise e síntese dos trabalhos selecionados, passando pelo processo de busca e pelos critérios objetivos de seleção. O objetivo é tornar o protocolo explícito e reprodutível, em conformidade com o padrão de relato \emph{Preferred Reporting Items for Systematic Reviews and Meta-Analyses} (PRISMA).
 
 
-\section{Detecção de anomalias em dados industriais}
-\label{sec:anomalias}
+\subsection{Pergunta de pesquisa}
+\label{subsec:pergunta_pesquisa}
 
-% Função: RQ1.
-% Síntese da revisão sobre técnicas de detecção de anomalias em séries
-% temporais de variáveis operacionais em manufatura.
-% Conteúdo a desenvolver a partir dos artigos selecionados na revisão
-% sistemática (full_text_include_core.csv e full_text_include_support.csv
-% em revisao_literatura/screening/):
-%   - Conceito de anomalia em séries temporais multivariadas industriais.
-%   - Famílias de métodos: estatísticos clássicos, baseados em densidade
-%     (LOF), baseados em isolamento (Isolation Forest), modelos
-%     profundos (autoencoders, variational autoencoders, LSTM, GRU,
-%     Transformers).
-%   - Aplicações em manufatura: monitoramento de condição, manutenção
-%     preditiva, detecção de falhas, controle de qualidade.
-%   - Tratamento de não-estacionariedade e deriva conceitual.
-%   - Métricas de avaliação em ausência de rótulo.
-%   - Artigos centrais relevantes para detalhar:
-%     * Field Kalman Filter para anomalia em processos multimodo (2021)
-%     * Causal strength contrast-based abnormal path detection (2026)
-%     * Variational Autoencoder + wire manufacturing (2021) - dominio
-%     * Unsupervised Fault Event Detection in Historical Industrial
-%       Telemetry With Temporal Event Structuring (2026)
-%     * Convolutional kernel-based classification of industrial alarm
-%       floods (2024)
-% Conclui apontando o limite estrutural da detecção de anomalia
-% isolada (sinaliza desvio, não atribui causa) e o gancho para a
-% análise estatística histórica (Seção~\ref{sec:estatistica_historica_revisao}).
+% TODO: enunciar a pergunta de pesquisa orientadora da revisão e
+% as sub-perguntas RQ1-RQ4 derivadas dela.
+%
+% Versão atual em revisao_literatura/review_context.md:
+%   Pergunta orientadora: "Como combinar sinais operacionais de
+%   máquina e evidências estatísticas históricas de rompimentos
+%   para apoiar a inferência da provável origem de eventos de
+%   rompimento em uma fábrica de fios?"
+%
+%   RQ1 (anomalia em série temporal industrial)
+%   RQ2 (sistemas híbridos / fusão de evidências)
+%   RQ3 (análise estatística histórica de lotes/fornecedores)
+%   RQ4 (explicabilidade / XAI industrial)
 
 
-\section{Análise estatística histórica de falhas em manufatura}
-\label{sec:estatistica_historica_revisao}
+\subsection{Processo de busca}
+\label{subsec:processo_busca}
 
-% Função: RQ3.
-% Síntese da revisão sobre abordagens de análise estatística histórica
-% de lotes, fornecedores, variabilidade de batch, exposição operacional
-% e controle de qualidade em manufatura.
-% Conteúdo a desenvolver a partir dos artigos selecionados:
-%   - Taxa de falha relativa, normalização por exposição operacional,
-%     ranking por percentil, z-score por categoria.
-%   - Batch effects e variabilidade entre lotes/fornecedores.
-%   - Risco relativo, recorrência entre máquinas, cruzamento de padrões.
-%   - Indicadores de qualidade de matéria-prima em processo contínuo.
-% Conclui apontando o limite estrutural da estatística histórica
-% isolada (resolução temporal baixa, depende de agregação) e o gancho
-% para sistemas híbridos (Seção~\ref{sec:hibridos_xai}).
-% A versão enxuta de fundamentação está na Seção~\ref{sec:estatistica_historica}
-% do Capítulo~\ref{cap:fundamentacao}; esta seção apresenta a revisão
-% sistemática propriamente dita.
-
-
-\section{Sistemas híbridos e explicabilidade}
-\label{sec:hibridos_xai}
-
-% Função retórica: mostrar que combinar a detecção de anomalias em
-% séries operacionais com a análise estatística histórica de falhas
-% é a direção promissora, mas pouco consolidada no domínio de fios
-% esmaltados, e apontar a lacuna.
-% RQ2 e RQ4.
-% Conteúdo a desenvolver:
-%   - Estratégias de combinação: regras, ensemble, fusão de
-%     evidências, sistemas em camadas.
-%   - Importância de resultados interpretáveis em chão de fábrica.
-%   - Interpretabilidade aplicada a manutenção, qualidade e
-%     engenharia.
-% Conclui com o parágrafo da lacuna:
-%   - Existe maturidade nas duas famílias isoladas.
-%   - Há trabalhos pontuais de integração em outros domínios.
-%   - Falta uma arquitetura híbrida e explicável aplicada ao
-%     domínio específico de fios esmaltados, com regra de
-%     cruzamento entre máquinas para diferenciar falha de
-%     equipamento de suspeita de matéria-prima.
-%   - Essa lacuna motiva a proposta do Capítulo~\ref{cap:proposta}.
+% TODO (REINICIAR ESTA PARTE): definir do zero a estratégia de busca.
+% A estratégia anterior (sintese/strings_de_busca.md) precisa ser
+% revisitada à luz do escopo definitivo da dissertação.
+%
+% Pontos a desenvolver:
+%   - Bases de dados a consultar (Scopus, IEEE Xplore, ACM
+%     Digital Library, possivelmente Web of Science).
+%   - Blocos canônicos de busca por eixo da revisão:
+%       Bloco ANOMALIA: ?
+%       Bloco MANUTENCAO_QUALIDADE: ?
+%       Bloco INDUSTRIA: ?
+%       Bloco HIBRIDO_FUSAO: ?
+%       Bloco EXPLICABILIDADE: ?
+%   - Estratégia de combinação (funil com vertentes ou strings
+%     independentes por RQ).
+%   - String final por base.
+%   - Janela temporal (sugerido: 2020-2026).
+%   - Idioma (sugerido: inglês e português).
+%   - Apresentar resultado em tabela com contagem bruta por base.
+%
+% Os 35 incluídos da rodada anterior (core 12 + support 23)
+% servem como seeds para validar se a nova string captura os
+% trabalhos canônicos do domínio.
 
 
-\section{Síntese da revisão e identificação da lacuna}
-\label{sec:sintese_revisao}
+\subsection{Processo de seleção}
+\label{subsec:processo_selecao}
 
-% Função: consolidar achados da revisão, organizar os trabalhos
-% selecionados em tabela de síntese e amarrar a lacuna que a proposta
-% do Capítulo 4 endereça.
-% Conteúdo a desenvolver:
-%   - Tabela com os trabalhos mais relevantes, classificados por
-%     família (anomalia, estatística histórica, híbrido) e por
-%     domínio de aplicação.
-%   - Pontos fortes e limites de cada família.
-%   - Identificação explícita da lacuna que o trabalho preenche.
-%   - Como a Proposta do Capítulo~\ref{cap:proposta} se posiciona em
-%     relação aos trabalhos selecionados.
+% TODO: apresentar critérios de inclusão (CI) e exclusão (CE)
+% conforme review_context.md, e o funil PRISMA conforme
+% screening/prisma_counts.md (atualizado para a nova rodada
+% de busca).
+%
+% Estrutura esperada:
+%   - Critérios de inclusão (CI1-CIn) — listar
+%   - Critérios de exclusão (CE1-CEn) — listar
+%   - Tabela de funil PRISMA, etapa a etapa, da identificação
+%     ao conjunto final de trabalhos correlatos
+%   - Caracterização quantitativa do corpus bruto (distribuição
+%     anual, principais veículos)
+
+
+\subsection{Processo de análise e síntese}
+\label{subsec:processo_analise_sintese}
+
+% TODO: descrever a leitura integral dos trabalhos pré-selecionados,
+% o esquema de fichamento por eixo temático e a decisão final sobre
+% pertinência. Indicar que cada artigo foi classificado em um ou
+% mais dos quatro eixos (RQ1-RQ4) usados como base da Seção~\ref{sec:trabalhos_correlatos}.
+
+
+\section{Trabalhos correlatos}
+\label{sec:trabalhos_correlatos}
+
+% TODO: parágrafo introdutório dizendo quantos correlatos resultaram
+% e em torno de quais temas se agruparam, apresentando a Tabela 3.4
+% (trabalhos por tema) no estilo de Henings (2026). Cada um dos
+% temas é examinado em uma subseção própria.
+
+
+\subsection{Detecção de anomalias em séries temporais industriais}
+\label{subsec:correlatos_anomalias}
+
+% RQ1.
+% TODO: discussão narrativa dos trabalhos centrais do tema,
+% comparando abordagens, dados e limitações.
+%
+% Sementes do core (full_text_include_core.csv) relevantes ao tema:
+%   - Anomaly Detection and Mode Identification in Multimode
+%     Processes Using the Field Kalman Filter (2021)
+%   - Variational Autoencoder and Joint Recurrence plot based
+%     automated condition monitoring in the context of wire
+%     manufacturing in the Philippines (2021) — DOMÍNIO DIRETO
+%   - Unsupervised Fault Event Detection in Historical Industrial
+%     Telemetry With Temporal Event Structuring (2026)
+%   - Convolutional kernel-based classification of industrial
+%     alarm floods (2024)
+%   - Causal strength contrast-based abnormal path detection and
+%     root cause diagnosis for nonstationary industrial processes (2026)
+%
+% Trabalhos de suporte para citação seletiva listados em
+% full_text_include_support.csv (autoencoders, LSTM, transformers,
+% DTW, GRU, etc.)
+
+
+\subsection{Análise estatística histórica de lotes e fornecedores}
+\label{subsec:correlatos_estatistica}
+
+% RQ3.
+% TODO: discussão narrativa dos trabalhos do tema, com foco em
+% taxa de falha relativa, normalização por exposição, batch
+% effects, variabilidade entre lotes/fornecedores e indicadores
+% de qualidade de matéria-prima em processo contínuo.
+%
+% Identificar nos arquivos de screening quais artigos cobrem
+% explicitamente esta vertente (eixo "historico_qualidade_lote"
+% com 209 ocorrências na triagem).
+
+
+\subsection{Sistemas híbridos e fusão de evidências}
+\label{subsec:correlatos_hibridos}
+
+% RQ2.
+% TODO: discussão narrativa de arquiteturas que combinam
+% múltiplas fontes de evidência (sensores, histórico, regras,
+% conhecimento especialista) para diagnóstico industrial.
+%
+% Sementes do core relevantes:
+%   - Network-based Root Cause Identification to Improve OEE
+%     in High-Precision Manufacturing (2025)
+%   - A novel dynamic machine learning-based explainable fusion
+%     monitoring: application to industrial and chemical processes (2025)
+%   - An Integrated Distributed Fault Diagnosis Framework for
+%     Large-Scale Industrial Processes Based on Spatio-Temporal
+%     Causal Analysis (2025)
+%   - Dynamic Causal Entropy-Spatiotemporal Convolutional Network
+%     for Quality-Related Fault Diagnosis (2026)
+%   - Digital Twin-Based Real-Time Fault Prediction for Smart
+%     Manufacturing (2026)
+
+
+\subsection{Explicabilidade em diagnóstico industrial}
+\label{subsec:correlatos_xai}
+
+% RQ4.
+% TODO: discussão narrativa de trabalhos que tratam
+% interpretabilidade e comunicação da decisão para equipes de
+% manutenção, qualidade e engenharia.
+%
+% O eixo "explicabilidade" tem só 65 ocorrências na triagem,
+% sendo o de menor cobertura. Identificar trabalhos centrais que
+% combinem detecção/fusão com explicação acionável.
+%
+% Candidato direto do core:
+%   - A novel dynamic machine learning-based explainable fusion
+%     monitoring (2025) — também citado em hibridos
+%   - Efficient Decision-Making with Real-Time Equipment Health
+%     Forecasting: Machine Learning-Based Condition Monitoring
+%     in IIoT (2025)
+
+
+\subsection{Síntese e lacunas}
+\label{subsec:sintese_lacunas}
+
+% TODO: tabela 3.5 no estilo Henings (2026), cruzando os
+% trabalhos correlatos com os eixos temáticos da proposta.
+%
+% Eixos sugeridos (colunas da tabela):
+%   E1 Anomalia em sensor multivariado
+%   E2 Histórico estatístico por lote/fornecedor
+%   E3 Fusão de evidências independentes
+%   E4 Explicabilidade da inferência de causa
+%   E5 Aplicação em manufatura contínua
+%   E6 Validação com dados reais industriais
+%   E7 Aplicação em fabricação de fios/cabos/condutores
+%
+% Discussão fechando o capítulo:
+%   - Pontos fortes e limites observados em cada eixo.
+%   - Identificação explícita da lacuna que esta dissertação
+%     preenche (combinar E1 + E2 + E3 + E4 num único sistema
+%     aplicado a fios esmaltados, com regra de cruzamento entre
+%     máquinas para diferenciar falha de equipamento de suspeita
+%     de matéria-prima).
+%   - Gancho para a Proposta no Capítulo~\ref{cap:proposta}.
