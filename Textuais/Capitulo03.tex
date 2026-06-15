@@ -13,8 +13,10 @@
 %   3.1  Protocolo da revisão (Kitchenham): pergunta de pesquisa
 %        orientadora, PICOC, string de busca, bases, critérios de
 %        inclusão e exclusão, fluxograma PRISMA.
-%   3.2  Sistemas híbridos e explicabilidade. RQ2 e RQ4.
-%   3.3  Síntese da revisão e identificação da lacuna que motiva
+%   3.2  Detecção de anomalias em dados industriais. RQ1.
+%   3.3  Análise estatística histórica de falhas em manufatura. RQ3.
+%   3.4  Sistemas híbridos e explicabilidade. RQ2 e RQ4.
+%   3.5  Síntese da revisão e identificação da lacuna que motiva
 %        a proposta do Capítulo 4.
 %
 % Sementes para bootstrap:
@@ -40,6 +42,58 @@ Este capítulo conduz a revisão sistemática da literatura de Computação apli
 %   - Avaliação de qualidade dos artigos selecionados.
 %   - Síntese e extração de dados dos artigos.
 % Protocolo detalhado em docs/dissertacao/protocolo_revisao.md
+
+
+\section{Detecção de anomalias em dados industriais}
+\label{sec:anomalias}
+
+% Função: RQ1.
+% Síntese da revisão sobre técnicas de detecção de anomalias em séries
+% temporais de variáveis operacionais em manufatura.
+% Conteúdo a desenvolver a partir dos artigos selecionados na revisão
+% sistemática (full_text_include_core.csv e full_text_include_support.csv
+% em revisao_literatura/screening/):
+%   - Conceito de anomalia em séries temporais multivariadas industriais.
+%   - Famílias de métodos: estatísticos clássicos, baseados em densidade
+%     (LOF), baseados em isolamento (Isolation Forest), modelos
+%     profundos (autoencoders, variational autoencoders, LSTM, GRU,
+%     Transformers).
+%   - Aplicações em manufatura: monitoramento de condição, manutenção
+%     preditiva, detecção de falhas, controle de qualidade.
+%   - Tratamento de não-estacionariedade e deriva conceitual.
+%   - Métricas de avaliação em ausência de rótulo.
+%   - Artigos centrais relevantes para detalhar:
+%     * Field Kalman Filter para anomalia em processos multimodo (2021)
+%     * Causal strength contrast-based abnormal path detection (2026)
+%     * Variational Autoencoder + wire manufacturing (2021) - dominio
+%     * Unsupervised Fault Event Detection in Historical Industrial
+%       Telemetry With Temporal Event Structuring (2026)
+%     * Convolutional kernel-based classification of industrial alarm
+%       floods (2024)
+% Conclui apontando o limite estrutural da detecção de anomalia
+% isolada (sinaliza desvio, não atribui causa) e o gancho para a
+% análise estatística histórica (Seção~\ref{sec:estatistica_historica_revisao}).
+
+
+\section{Análise estatística histórica de falhas em manufatura}
+\label{sec:estatistica_historica_revisao}
+
+% Função: RQ3.
+% Síntese da revisão sobre abordagens de análise estatística histórica
+% de lotes, fornecedores, variabilidade de batch, exposição operacional
+% e controle de qualidade em manufatura.
+% Conteúdo a desenvolver a partir dos artigos selecionados:
+%   - Taxa de falha relativa, normalização por exposição operacional,
+%     ranking por percentil, z-score por categoria.
+%   - Batch effects e variabilidade entre lotes/fornecedores.
+%   - Risco relativo, recorrência entre máquinas, cruzamento de padrões.
+%   - Indicadores de qualidade de matéria-prima em processo contínuo.
+% Conclui apontando o limite estrutural da estatística histórica
+% isolada (resolução temporal baixa, depende de agregação) e o gancho
+% para sistemas híbridos (Seção~\ref{sec:hibridos_xai}).
+% A versão enxuta de fundamentação está na Seção~\ref{sec:estatistica_historica}
+% do Capítulo~\ref{cap:fundamentacao}; esta seção apresenta a revisão
+% sistemática propriamente dita.
 
 
 \section{Sistemas híbridos e explicabilidade}
