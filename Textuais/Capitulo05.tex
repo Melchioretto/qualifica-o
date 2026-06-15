@@ -1,94 +1,54 @@
-\chapter{Resultados e Discussão}
-\label{cap:resultados}
+\chapter{Considerações Parciais}
+\label{cap:consideracoes_parciais}
 
 % -----------------------------------------------------------------
 % Objetivo do capítulo:
-% Apresentar os resultados obtidos com a ferramenta em dados
-% reais e discutir o que eles dizem sobre a proposição central.
-% O capítulo deve responder, de forma explícita:
-%   - O que cada módulo, isolado, entrega?
-%   - O que a abordagem híbrida agrega?
-%   - O resultado é coerente com o conhecimento de
-%     especialistas?
-%   - Onde a ferramenta acerta, onde erra e por quê?
-%
-% Este capítulo é o último a ser preenchido. Por ora ficam
-% apenas as seções com a função de cada uma anotada.
+% Fechar o documento de qualificação retomando o problema, descrevendo
+% o estado atual da pesquisa, indicando o cronograma de trabalhos até
+% a defesa e elencando direções de trabalho futuro. A versão de defesa
+% expande este capítulo em "Conclusão" com resultados, contribuições
+% efetivamente entregues e limitações observadas.
 % -----------------------------------------------------------------
 
 
-\section{Configuração experimental}
-\label{sec:config_experimental}
+\section{Síntese parcial da pesquisa}
+\label{sec:sintese_parcial}
 
 % Conteúdo a desenvolver:
-%   - Recorte da base usada nos experimentos.
-%   - Período analisado, máquinas, lotes e fornecedores
-%     considerados.
-%   - Hiperparâmetros relevantes e versões dos scripts.
+%   - Retomar a pergunta de pesquisa enunciada no Capítulo~\ref{cap:proposta}.
+%   - Resumir o que já foi construído até a qualificação:
+%     fundamentação teórica do domínio (Cap. 2), revisão sistemática
+%     em andamento (Cap. 3), arquitetura da ferramenta e implementação
+%     parcial dos dois pilares (Cap. 4).
+%   - Não trazer resultados experimentais (esses ficam para a defesa).
 
 
-\section{Comportamento do módulo de anomalia}
-\label{sec:resultados_eq}
-
-% Conteúdo a desenvolver:
-%   - Distribuição dos escores de anomalia.
-%   - Casos em que o módulo detectou desvio operacional.
-%   - Cobertura do conjunto de 14 sensores e impacto das
-%     combinações SEM_MODELO.
-
-
-\section{Comportamento do módulo estatístico}
-\label{sec:resultados_mp}
+\section{Cronograma para a defesa}
+\label{sec:cronograma}
 
 % Conteúdo a desenvolver:
-%   - Lotes, materiais, fornecedores e máquinas com maior
-%     risco relativo.
-%   - Padrões de cruzamento entre máquinas que reforçam
-%     suspeita de matéria-prima.
+%   - Tabela com etapas restantes do trabalho até a defesa,
+%     com responsáveis e datas previstas.
+%   - Etapas previstas:
+%     1. Concluir a revisão sistemática (string de busca,
+%        triagem, extração, síntese).
+%     2. Refinar a implementação dos dois pilares e das regras de
+%        integração.
+%     3. Conduzir os experimentos sobre dados históricos da fábrica.
+%     4. Validar com casos documentados, incluindo o caso IBRAME
+%        482530 e demais devoluções de 2025.
+%     5. Redigir Resultados e Discussão (novo capítulo na defesa).
+%     6. Redigir Conclusão expandida.
 
 
-\section{Diagnóstico híbrido em casos reais}
-\label{sec:resultados_hibrido}
-
-% Conteúdo a desenvolver:
-%   - Exemplos de diagnóstico em casos documentados.
-%   - Caso IBRAME 482530 (devolução por bolhas): o que o
-%     sistema reportou e o que indica sobre o falso negativo
-%     atual.
-%   - Casos em que o diagnóstico foi confirmado pelos
-%     especialistas.
-
-
-\section{Comparação entre abordagens}
-\label{sec:comparacao}
+\section{Trabalhos futuros}
+\label{sec:trabalhos_futuros}
 
 % Conteúdo a desenvolver:
-%   - Anomalia isolada x estatística histórica isolada x
-%     abordagem híbrida.
-%   - Métricas de comparação adotadas e justificadas.
-%   - Ganho marginal da integração e cenários em que ele se
-%     manifesta.
-
-
-\section{Validação externa contra o relatório de devoluções}
-\label{sec:validacao_devolucoes}
-
-% Conteúdo a desenvolver:
-%   - Uso do relatório de devoluções de 2025 como ground truth
-%     supervisionado.
-%   - Concordância e divergência entre diagnóstico do sistema
-%     e devolução registrada.
-%   - Discussão sobre o que cada divergência indica.
-
-
-\section{Discussão geral, ganhos e limitações}
-\label{sec:discussao}
-
-% Conteúdo a desenvolver:
-%   - Em que o sistema avança em relação a abordagens
-%     isoladas.
-%   - Limites observados (cobertura de sensor, dependência da
-%     qualidade dos dados, casos em que o diagnóstico é
-%     inconclusivo).
-%   - Implicações práticas para manutenção, qualidade e
-%     engenharia.
+%   - Ampliar cobertura de sensores e de tipos de defeito.
+%   - Incorporar realimentação de especialistas como fonte de
+%     rótulo fraco.
+%   - Generalizar a arquitetura para outros processos de
+%     manufatura contínua com falhas multifatoriais.
+%   - Inferência em tempo real e integração com sistemas de
+%     chão de fábrica, fora do escopo da qualificação.

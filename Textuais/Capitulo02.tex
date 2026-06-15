@@ -2,36 +2,28 @@
 \label{cap:fundamentacao}
 
 % -----------------------------------------------------------------
-% Fio argumentativo do capítulo (funil até a lacuna):
+% Função do capítulo: apresentar ao leitor (Dr. em Computação) o
+% domínio industrial que ele não conhece, mais o vocabulário das
+% duas tradições de diagnóstico que vêm do próprio domínio
+% (engenharia de qualidade/manutenção e estatística clássica de
+% confiabilidade). A revisão sistemática dos métodos orientados a
+% dados, dentro de Computação, fica no Capítulo 3.
 %
-%   2.1  Apresenta o contexto industrial: processo produtivo do
-%        fio esmaltado, das etapas de fundição/laminação do
-%        vergalhão até o esmaltamento final.
-%   2.2  Estabelece que o problema é real e multifatorial,
-%        ancorado em Karabay (2018) e Demiri (2014). Cobre os
-%        modos de falha do fio nu e do esmaltado. RQ5.
-%   2.3  Inventaria os dados produzidos pela operação que
-%        sustentam a análise da dissertação e destaca a
-%        ausência de rótulo de causa.
-%   2.4  Mostra a tradição de apoio à decisão técnica e suas
-%        limitações diante de dados sensoriais modernos.
-%   2.5  Apresenta a primeira família de técnicas (anomalias
-%        em séries operacionais) que sustenta o Pilar EQ. RQ1.
-%   2.6  Apresenta a segunda família (estatística histórica por
-%        lote, fornecedor, máquina) que sustenta o Pilar MP. RQ3.
-%   2.7  Discute a integração das duas famílias e a
-%        explicabilidade, apontando a lacuna que o WireSense
-%        ocupa. RQ2 e RQ4.
-%
-% Protocolo da revisão sistemática:
-%   docs/dissertacao/protocolo_revisao.md
-% Sementes para bootstrap:
-%   Chandola et al. (2009), Pang et al. (2021), Liu et al. (2008).
+%   2.1  Contexto industrial: processo produtivo do fio esmaltado.
+%   2.2  Problema de rompimentos: mecanismos de falha do fio nu
+%        e do esmaltado, ancorados em Karabay (2018) e Demiri (2014).
+%   2.3  Dados disponíveis e ausência de rótulo padronizado de causa.
+%   2.4  Diagnóstico clássico de falhas, manutenção e qualidade
+%        (FMEA, RCA, CEP). Tradição do domínio, com limites diante
+%        de dado sensorial moderno.
+%   2.5  Análise estatística histórica de falhas. Tradição
+%        quantitativa do domínio, com limites de resolução temporal
+%        e dependência de agregação.
 % -----------------------------------------------------------------
 
 Este capítulo apresenta o referencial teórico que sustenta a dissertação. A construção do referencial começa pela caracterização do domínio em que o problema se manifesta: o processo produtivo de fios esmaltados de cobre e alumínio, com suas etapas sucessivas de fundição, trefilação e esmaltamento. Nesse contexto, descrevem-se os mecanismos pelos quais um rompimento pode ser produzido, tanto os de origem metalúrgica, ligados à matéria-prima, quanto os de origem operacional, ligados à interação do fio com o equipamento, e inventariam-se os dados que a operação registra ao longo das linhas, incluindo a ausência de rótulo padronizado de causa.
 
-Estabelecido o domínio, o capítulo avança para a revisão das técnicas que apoiam a decisão técnica em manufatura. A discussão começa pela tradição de diagnóstico de falhas, que reúne instrumentos como FMEA, análise de causa raiz e controle estatístico de processo. Esses instrumentos são amplamente utilizados na indústria, mas apresentam limites diante de dados sensoriais em alta frequência. Em seguida, examinam-se duas famílias de técnicas orientadas a dados: a detecção de anomalias em séries operacionais multivariadas e a análise estatística histórica de falhas segmentada por lote, material, fornecedor e máquina. O capítulo encerra discutindo estratégias de integração entre essas famílias e o papel da explicabilidade em ambiente produtivo, apontando a lacuna que este trabalho busca abordar.
+Estabelecido o domínio, o capítulo apresenta as ferramentas tradicionais usadas no diagnóstico industrial de falhas, divididas em duas tradições. A primeira reúne instrumentos de qualidade e manutenção como FMEA, análise de causa raiz e controle estatístico de processo, que estruturam o vocabulário do diagnóstico em manufatura. A segunda reúne técnicas de análise estatística histórica de falhas, que consolidam indicadores agregados de confiabilidade ao longo do tempo. Ambas estabelecem a base que o leitor precisa para acompanhar a revisão sistemática de métodos orientados a dados, conduzida no Capítulo~\ref{cap:revisao_sistematica}.
 
 
 \section{Contexto Industrial}
@@ -181,7 +173,7 @@ Um aspecto central do problema é a ausência de rótulos sobre a causa de cada 
 \section{Diagnóstico de falhas, manutenção e qualidade}
 \label{sec:diagnostico}
 
-A tradição de apoio à decisão técnica em manufatura organiza-se em torno de três famílias de ferramentas, complementares em escopo: instrumentos de catalogação preventiva de modos de falha, métodos de análise retrospectiva de causa após um evento e técnicas de monitoramento estatístico contínuo do processo. Esta seção revisa brevemente a contribuição característica de cada família e expõe as limitações que, em conjunto, motivam a busca por abordagens orientadas a dados, discutidas nas Seções~\ref{sec:anomalias} e \ref{sec:estatistica_historica}.
+A tradição de apoio à decisão técnica em manufatura organiza-se em torno de três famílias de ferramentas, complementares em escopo: instrumentos de catalogação preventiva de modos de falha, métodos de análise retrospectiva de causa após um evento e técnicas de monitoramento estatístico contínuo do processo. Esta seção revisa brevemente a contribuição característica de cada família e expõe as limitações que, em conjunto, motivam a busca por abordagens orientadas a dados, conduzida na revisão sistemática do Capítulo~\ref{cap:revisao_sistematica}.
 
 A \emph{Failure Mode and Effects Analysis} (FMEA) é uma metodologia estruturada para enumerar previamente os modos de falha possíveis de um processo ou produto, atribuindo a cada modo uma estimativa de severidade, ocorrência e detectabilidade. Da multiplicação desses três valores resulta o \emph{Risk Priority Number} (RPN), que orienta a priorização de ações corretivas. A técnica surgiu em aplicações aeroespaciais e militares na década de 1960 e foi sistematizada para uso industrial, em particular no setor automotivo, sob padronizações reconhecidas internacionalmente \cite{aiagvda2019fmea,stamatis2003fmea}. Sua principal limitação é o caráter manual e estático: depende do que a equipe de especialistas consegue antecipar a partir do conhecimento prévio do processo, e a tabela resultante envelhece rapidamente quando a operação evolui ou novos modos de falha emergem.
 
@@ -189,61 +181,12 @@ A Análise de Causa Raiz (\emph{Root Cause Analysis}, RCA) reúne técnicas para
 
 O Controle Estatístico de Processo (\emph{Statistical Process Control}, SPC, ou CEP), por sua vez, oferece monitoramento contínuo de variáveis de processo ao longo do tempo. O instrumento central é a carta de controle, na qual os valores observados de uma variável são comparados a limites estatísticos derivados da variabilidade natural do processo. Cartas de Shewhart, cartas de soma acumulada (CUSUM) e cartas de média móvel exponencialmente ponderada (EWMA) representam as principais famílias, com sensibilidades distintas a desvios abruptos e a deslocamentos sustentados \cite{montgomery2019statistical}. Índices de capabilidade como $C_p$ e $C_{pk}$ vinculam a variação natural do processo à tolerância de projeto. Extensões multivariadas, como a estatística $T^2$ de Hotelling e suas versões temporais MEWMA e MCUSUM, foram propostas para situações em que múltiplas variáveis são monitoradas simultaneamente \cite{hotelling1947multivariate,lowry1992multivariate}. Na prática, contudo, o \sigla{CEP} é aplicado majoritariamente de forma univariada, com pressupostos de normalidade e independência temporal que se tornam frágeis quando o processo é caracterizado por dezenas de sensores correlacionados, amostrados em alta frequência e sob regimes operacionais não estacionários.
 
-Tomadas em conjunto, \sigla{FMEA}, \sigla{RCA} e \sigla{CEP} constituem a linguagem comum com que a indústria estrutura diagnóstico e qualidade há décadas. Suas limitações para o cenário desta dissertação são complementares. As duas primeiras ferramentas dependem de rotulagem manual de causa, conduzida por especialistas e difícil de escalar para o volume de eventos registrados continuamente. A terceira escala em frequência, mas estagna em dimensionalidade e em flexibilidade estatística. Na fábrica analisada, a aplicação do \sigla{FMEA} e do \sigla{RCA} depende da intervenção pontual de operadores experientes após cada incidente relevante, prática que não acompanha o ritmo de geração de dados pelas máquinas e motiva a busca por abordagens automatizadas, capazes de combinar evidências independentes, examinadas nas Seções~\ref{sec:anomalias} e \ref{sec:estatistica_historica}.
-
-
-\section{Detecção de anomalias em dados industriais}
-\label{sec:anomalias}
-
-A detecção de anomalias compreende o conjunto de técnicas dedicadas a identificar observações que se afastam do padrão esperado em um conjunto de dados. A literatura distingue três tipos canônicos. Anomalias pontuais correspondem a observações isoladas que diferem do restante do conjunto. Anomalias contextuais são observações que só se mostram anômalas quando avaliadas em relação ao seu contexto, como uma leitura de temperatura normal no inverno mas atípica no verão. Anomalias coletivas, por sua vez, são grupos de observações que formam um padrão atípico mesmo que cada elemento isolado pareça normal \cite{chandola2009anomaly}. A escolha do método depende também do regime de aprendizado disponível: técnicas supervisionadas exigem rótulos de normalidade e anomalia para cada amostra de treino, técnicas semi-supervisionadas exigem apenas exemplos da classe normal, e técnicas não supervisionadas operam sem rótulo algum, identificando padrões raros ou pouco frequentes a partir da estrutura intrínseca dos dados. No cenário desta dissertação, em que rompimentos são registrados sem atribuição de causa, o regime não supervisionado é o único viável e orienta toda a discussão da seção.
-
-Quando o objeto de detecção é uma linha de produção, a tarefa adquire complicadores específicos. Os sensores registram dezenas de variáveis simultaneamente, com correlações estruturais entre si que refletem o acoplamento físico do processo, como a relação direta entre a temperatura do forno e a velocidade da linha. O regime de operação não é estacionário: os valores de referência operacional mudam ao longo do dia, materiais distintos são processados em sequência e a linha passa por transientes legítimos como rampas de partida e trocas de produto, que precisam ser distinguidos de anomalias reais. Além disso, o conceito de comportamento normal evolui ao longo do tempo, fenômeno conhecido como deriva conceitual (\emph{concept drift}), o que exige que o modelo seja capaz de se adaptar sem comprometer a sensibilidade \textcolor{red}{[ref: revisão sobre concept drift, p. ex. Gama et al. 2014 ou Lu et al. 2018]}. Esses fatores tornam abordagens univariadas e estacionárias, como as cartas de controle clássicas discutidas na Seção~\ref{sec:diagnostico}, insuficientes para o tipo de dado disponível.
-
-As técnicas de detecção de anomalias se organizam em famílias distintas conforme o princípio de discriminação que adotam. Métodos estatísticos clássicos, como a estatística $T^2$ de Hotelling apresentada na Seção~\ref{sec:diagnostico}, modelam a distribuição esperada dos dados e sinalizam como anômalas as observações cuja verossimilhança fica abaixo de um limiar pré-estabelecido. Métodos baseados em densidade, como o \emph{Local Outlier Factor} (LOF), comparam a densidade local de cada ponto com a densidade de seus vizinhos no espaço de atributos, sinalizando como anômalas as observações que residem em regiões esparsas \textcolor{red}{[ref: Breunig et al. 2000 (\emph{LOF: Identifying Density-Based Local Outliers}) e Aggarwal 2017 (\emph{Outlier Analysis})]}. Métodos baseados em isolamento exploram a observação de que pontos anômalos tendem a ser isolados em poucos cortes aleatórios do espaço, dispensando estimativas explícitas de densidade ou distribuição. Modelos profundos, como autoencoders e redes recorrentes do tipo \emph{Long Short-Term Memory} (LSTM), oferecem alternativas para situações em que padrões complexos e relações temporais de longo prazo precisam ser capturados, ao custo de maior demanda computacional e de dados de treino \textcolor{red}{[ref: Pang et al. 2021 (\emph{Deep Learning for Anomaly Detection: A Review}), ACM Computing Surveys]}. A escolha entre famílias depende de fatores como dimensionalidade, volume de dados, requisitos de interpretabilidade e custo computacional.
-
-Dentre as famílias apresentadas, o método de isolamento conhecido como \emph{Isolation Forest} é o adotado nesta dissertação \textcolor{red}{[ref: Liu, Ting e Zhou 2008 (\emph{Isolation Forest}), ICDM, ou Liu et al. 2012 (\emph{Isolation-Based Anomaly Detection}), TKDD]}. O algoritmo opera construindo um \emph{ensemble} de árvores binárias em que cada divisão é feita selecionando aleatoriamente um atributo e um valor de corte dentro do intervalo observado desse atributo. Sob essa partição aleatória, pontos anômalos tendem a ser separados do conjunto principal em poucos níveis da árvore, enquanto pontos normais exigem partições sucessivas até serem isolados. O escore de anomalia atribuído a cada observação deriva da profundidade média de isolamento ao longo das árvores do ensemble, normalizado para o intervalo entre zero e um, com valores próximos de um indicando alta probabilidade de anomalia. O método se caracteriza pela escalabilidade em alta dimensionalidade, pela ausência de pressupostos paramétricos sobre a distribuição dos dados e pelo custo computacional linear no tamanho do conjunto. Os principais hiperparâmetros são o número de árvores do ensemble, o tamanho da sub-amostra usada para construir cada árvore e o parâmetro de contaminação esperada, que define o limiar de classificação entre escores normais e anômalos.
-
-A avaliação de detectores de anomalia treinados sem rótulo apresenta dificuldade própria. Métricas clássicas como precisão, \emph{recall} e área sob a curva ROC (\emph{Receiver Operating Characteristic}) dependem da existência de uma verdade de referência (\emph{ground truth}) que indique quais observações são efetivamente anômalas, condição não satisfeita no cenário aqui considerado. A literatura propõe estratégias alternativas para lidar com essa limitação. Uma é a avaliação por especialistas, que examinam manualmente um subconjunto das observações sinalizadas pelo modelo e julgam se o sinal é coerente com o comportamento esperado da operação. Outra é a comparação com eventos conhecidos, na qual os escores produzidos pelo modelo são confrontados com registros de incidentes documentados a posteriori. A análise de consistência interna verifica se observações próximas no tempo ou no espaço de atributos recebem escores compatíveis, sob a hipótese de que a transição entre estados operacionais é gradual. Estudos de robustez, por fim, treinam e testam o modelo com diferentes recortes e parametrizações para avaliar a estabilidade dos resultados frente a variações de calibragem \textcolor{red}{[ref: Goldstein e Uchida 2016 (\emph{A Comparative Evaluation of Unsupervised Anomaly Detection Algorithms}) e Pang et al. 2021]}. Essas estratégias não substituem rótulos, mas oferecem evidências indiretas sobre o comportamento do modelo.
-
-A literatura registra aplicações de detecção de anomalia em diversos domínios de manufatura, incluindo monitoramento preditivo de máquinas, controle de qualidade de produto e identificação de desvios de processo \textcolor{red}{[ref: surveys de manutenção preditiva e Indústria 4.0, p. ex. Carvalho et al. 2019 ou Zhao et al. 2019]}. No contexto da fabricação de fios esmaltados, contudo, técnicas isoladas de anomalia apresentam limite estrutural: o modelo é capaz de sinalizar que o comportamento operacional da máquina se afastou do esperado em determinado intervalo, mas é incapaz, por construção, de atribuir esse desvio a uma causa específica. Quando o rompimento decorre de defeito de matéria-prima formado antes do início da linha analisada, conforme discutido na Seção~\ref{sec:problema_rompimentos}, os sensores podem nem registrar comportamento atípico, pois a falha viaja embutida no fio e se manifesta apenas em um ponto físico distante de sua origem. Além disso, a detecção de anomalias por séries operacionais ignora um eixo de informação relevante: o histórico estatístico de rompimentos por lote, material, fornecedor e máquina, capaz de revelar padrões sistemáticos que escapam à análise no nível do evento individual. Essa lacuna motiva a discussão da Seção~\ref{sec:estatistica_historica}.
+Tomadas em conjunto, \sigla{FMEA}, \sigla{RCA} e \sigla{CEP} constituem a linguagem comum com que a indústria estrutura diagnóstico e qualidade há décadas. Suas limitações para o cenário desta dissertação são complementares. As duas primeiras ferramentas dependem de rotulagem manual de causa, conduzida por especialistas e difícil de escalar para o volume de eventos registrados continuamente. A terceira escala em frequência, mas estagna em dimensionalidade e em flexibilidade estatística. Na fábrica analisada, a aplicação do \sigla{FMEA} e do \sigla{RCA} depende da intervenção pontual de operadores experientes após cada incidente relevante, prática que não acompanha o ritmo de geração de dados pelas máquinas e motiva a busca por abordagens automatizadas, capazes de combinar evidências independentes, examinadas na revisão sistemática do Capítulo~\ref{cap:revisao_sistematica}. A segunda tradição do domínio, baseada em análise estatística histórica de falhas, é apresentada na Seção~\ref{sec:estatistica_historica}.
 
 
 \section{Análise estatística histórica de falhas}
 \label{sec:estatistica_historica}
 
-% Função retórica: apresentar a família de técnicas que
-% sustenta o Pilar MP.
-% RQ3.
-% Conteúdo a desenvolver:
-%   - Taxa de falha, exposição operacional e risco relativo.
-%   - Recorrência por lote, material, fornecedor e máquina.
-%   - Efeito de lote e variabilidade entre fornecedores.
-%   - Indicadores de qualidade de matéria-prima em
-%     processo contínuo.
-% Conclui apontando que estatística histórica isolada não
-% captura desvio operacional em janela curta e depende de
-% agregação que pode atrasar o diagnóstico.
+A análise estatística histórica de falhas constitui a tradição quantitativa de avaliar confiabilidade e qualidade industrial a partir de eventos registrados ao longo do tempo. Aplicada a rompimentos de fio, essa análise consolida indicadores como a taxa de falha por unidade de exposição operacional, a recorrência por lote ou por fornecedor de matéria-prima, o risco relativo entre máquinas e a variabilidade entre fornecedores. Cada indicador opera em uma janela de agregação que privilegia recorrência sobre evento isolado, e depende de séries históricas suficientemente longas para que padrões sistemáticos emerjam do ruído.
 
-
-\section{Sistemas híbridos e explicabilidade}
-\label{sec:hibridos_xai}
-
-% Função retórica: mostrar que combinar as duas famílias é a
-% direção promissora, mas pouco consolidada no domínio de fios
-% esmaltados, e apontar a lacuna.
-% RQ2 e RQ4.
-% Conteúdo a desenvolver:
-%   - Estratégias de combinação (regras, ensemble, fusão de
-%     evidências, sistemas em camadas).
-%   - Importância de resultados interpretáveis em chão de
-%     fábrica.
-%   - Interpretabilidade aplicada a manutenção, qualidade e
-%     engenharia.
-% Conclui com o parágrafo da lacuna:
-%   - Existe maturidade nas duas famílias isoladas.
-%   - Há trabalhos pontuais de integração em outros domínios.
-%   - Falta uma arquitetura híbrida e explicável aplicada ao
-%     domínio específico de fios esmaltados, com regra de
-%     cruzamento entre máquinas para diferenciar falha de
-%     equipamento de suspeita de matéria-prima.
-%   - Essa lacuna motiva o capítulo seguinte.
+Suas principais limitações para o cenário desta dissertação são duas. A primeira é a baixa resolução temporal: indicadores agregados não capturam desvio operacional em janela curta, e tendem a sinalizar problemas apenas quando o efeito acumulado já compromete a produtividade. A segunda é a dependência da definição prévia de categorias de agregação, como lote, material, fornecedor e centro de máquina, sob risco de diluir na média a variabilidade dentro de cada categoria. A combinação dessa tradição com técnicas modernas de detecção de anomalias em dados industriais, conduzida na revisão sistemática do Capítulo~\ref{cap:revisao_sistematica}, é uma das direções de pesquisa exploradas neste trabalho.
