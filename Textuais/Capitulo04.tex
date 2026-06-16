@@ -112,7 +112,9 @@ A Figura~\ref{fig:tabelasensores} apresenta a tabela. As operações necessária
 
 A ferramenta proposta nesta dissertação é denominada internamente WireSense. Seu projeto adota a estratégia anunciada na Seção~\ref{sec:caracterizacao_pesquisa}, que organiza a análise em dois pilares independentes de evidência, cada um operando sobre uma natureza distinta de dado e produzindo uma saída interpretável que descreve um aspecto do evento de rompimento. A inferência da provável origem decorre da combinação coordenada dessas duas saídas, formalizada nas regras de integração apresentadas na Seção~\ref{sec:regras_integracao}.
 
-% TODO: criar diagrama de arquitetura em Figuras/wiresense_arquitetura.pdf e descomentar o bloco abaixo.
+\textcolor{red}{[FIGURA pendente: diagrama da arquitetura do WireSense, com os dois pilares e a relação de entrada e saída de cada um.]}
+
+% TODO: criar diagrama em Figuras/wiresense_arquitetura.pdf e descomentar o bloco abaixo.
 % \begin{figure}[htbp]
 %     \centering
 %     \includegraphics[width=0.85\textwidth]{Figuras/wiresense_arquitetura.pdf}
@@ -133,7 +135,9 @@ A comunicação entre os dois pilares ocorre apenas no momento da inferência. C
 
 O pipeline de dados encadeia as transformações necessárias para converter as tabelas brutas descritas na Seção~\ref{sec:fontes_dados} nos formatos consumidos pelo Pilar de Sinais Operacionais (Seção~\ref{sec:impl_sinais}) e pelo Pilar de Histórico Estatístico (Seção~\ref{sec:impl_historico}). As etapas operam em sequência, e cada uma resolve uma propriedade específica da tabela bruta de origem que impede o consumo direto pelos métodos de análise.
 
-% TODO: criar diagrama de pipeline em Figuras/wiresense_pipeline.pdf e descomentar o bloco abaixo.
+\textcolor{red}{[FIGURA pendente: diagrama do pipeline de dados, das tabelas brutas aos formatos consumidos pelos dois pilares.]}
+
+% TODO: criar diagrama em Figuras/wiresense_pipeline.pdf e descomentar o bloco abaixo.
 % \begin{figure}[htbp]
 %     \centering
 %     \includegraphics[width=0.85\textwidth]{Figuras/wiresense_pipeline.pdf}
@@ -154,12 +158,17 @@ A implementação do pipeline ocorre em um conjunto de \emph{scripts} desenvolvi
 \section{Pilar de Sinais Operacionais}
 \label{sec:impl_sinais}
 
-% Conteúdo a desenvolver:
-%   - Conjunto de 14 sensores e justificativa técnica da
-%     escolha.
-%   - Treinamento e ajuste do Isolation Forest.
-%   - Critérios de SEM_MODELO e fallback ao Pilar de Histórico Estatístico.
-%   - Exemplos de saída do pilar.
+O Pilar de Sinais Operacionais analisa o comportamento das variáveis sensoriais no entorno temporal de cada rompimento, com o objetivo de identificar se a operação da máquina apresentou desvio em relação ao padrão recente de funcionamento. A escolha por uma abordagem de detecção de anomalias decorre da ausência de rótulo padronizado de causa discutida na Seção~\ref{sec:problema_pesquisa}, que impede o uso direto de classificadores supervisionados. O método selecionado para esta dissertação é o Isolation Forest, cujo enquadramento na literatura de detecção de anomalias em séries temporais industriais é apresentado no Capítulo~\ref{cap:revisao_sistematica}.
+
+\textcolor{red}{[TABELA pendente: 14 variáveis sensoriais selecionadas, agrupadas por natureza (térmicas, elétricas, mecânicas e de controle), com referência ao ponto da linha em que cada sensor é instalado.]}
+
+O conjunto de variáveis monitoradas pela tabela de sensores cobre grandezas térmicas, elétricas e mecânicas distribuídas ao longo da linha, conforme descrito na Subseção~\ref{subsec:tabela_sensores}. Desse conjunto, são selecionadas 14 variáveis com base em critérios de cobertura do processo, qualidade da aquisição e relevância para os modos de falha caracterizados no Capítulo~\ref{cap:fundamentacao}. A seleção privilegia variáveis cujo desvio em relação à operação nominal carrega significado físico interpretável pela equipe de engenharia da fábrica.
+
+O treinamento do modelo ocorre por máquina, sobre o histórico de intervalos com status \textsc{operando} sem incidente registrado, conforme construído pelo pipeline descrito na Seção~\ref{sec:pipeline}. Cada amostra de treino corresponde a uma janela temporal das 14 variáveis selecionadas, e o Isolation Forest aprende a estrutura do regime nominal específico daquela máquina. A inferência opera sobre a janela imediatamente anterior a cada rompimento, e o resultado é um indicador de anomalia escalar por evento.
+
+A confiabilidade do indicador depende de o modelo da máquina ter sido treinado sobre histórico suficiente e de estar atualizado em relação ao regime operacional vigente. Quando essas condições não são satisfeitas, isto é, máquinas com histórico insuficiente, períodos de mudança de regime ou janelas com dados ausentes em proporção excessiva, o pilar declara o evento como \textsc{sem\_modelo} e o diagnóstico final descrito na Seção~\ref{sec:regras_integracao} passa a depender apenas da saída do Pilar de Histórico Estatístico.
+
+A saída do pilar é apresentada como o valor do indicador de anomalia, acompanhado da identificação da máquina e da janela analisada. A forma final de apresentação ao usuário, integrada à saída do outro pilar, é detalhada na Seção~\ref{sec:regras_integracao}.
 
 
 \section{Pilar de Histórico Estatístico}
