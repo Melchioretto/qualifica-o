@@ -131,10 +131,24 @@ A comunicação entre os dois pilares ocorre apenas no momento da inferência. C
 \section{Pipeline de dados}
 \label{sec:pipeline}
 
-% Conteúdo a desenvolver:
-%   - Sequência de etapas, das tabelas brutas ao diagnóstico.
-%   - Mapa entre scripts implementados e etapas do pipeline.
-%   - Pontos de integração com as bases existentes.
+O pipeline de dados encadeia as transformações necessárias para converter as tabelas brutas descritas na Seção~\ref{sec:fontes_dados} nos formatos consumidos pelo Pilar de Sinais Operacionais (Seção~\ref{sec:impl_sinais}) e pelo Pilar de Histórico Estatístico (Seção~\ref{sec:impl_historico}). As etapas operam em sequência, e cada uma resolve uma propriedade específica da tabela bruta de origem que impede o consumo direto pelos métodos de análise.
+
+% TODO: criar diagrama de pipeline em Figuras/wiresense_pipeline.pdf e descomentar o bloco abaixo.
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.85\textwidth]{Figuras/wiresense_pipeline.pdf}
+%     \caption{Pipeline de dados do WireSense, das tabelas brutas aos formatos consumidos pelos dois pilares.}
+%     \label{fig:wiresense_pipeline}
+%     \fonte{Elaborado pelo autor (\the\year).}
+% \end{figure}
+
+A primeira etapa cruza a tabela de status com a tabela de ordens de produção por interseção temporal entre o intervalo da máquina e o intervalo de validade da ordem. O resultado é uma tabela de status enriquecida, em que cada linha carrega, além das colunas nativas, o lote, o material e o fornecedor processados naquele intervalo. Essa etapa resolve a ausência de atributos de produção apontada na Subseção~\ref{subsec:tabela_status} e habilita as agregações por combinação de categoria adotadas pelo Pilar de Histórico Estatístico.
+
+A segunda etapa converte a tabela de sensores do formato longo para o formato amplo. Cada variável de processo passa a constituir uma coluna própria, e cada instante de aquisição constitui uma linha indexada por máquina. A conversão usa o valor agregado médio do intervalo amostral e preserva, em colunas adicionais, os valores máximo e mínimo para uso posterior. Esse formato é o que o Pilar de Sinais Operacionais espera receber para treinamento e inferência.
+
+A terceira etapa segmenta as duas tabelas processadas em unidades de análise pertinentes a cada pilar. Para o Pilar de Sinais Operacionais, a unidade é a janela operacional de cada rompimento, isto é, um recorte temporal centrado no instante do evento que captura o comportamento sensorial imediatamente anterior à parada. Para o Pilar de Histórico Estatístico, a unidade é a agregação por combinação de lote, material, fornecedor e máquina, acompanhada da exposição produtiva correspondente medida em horas-máquina, conforme definido na Seção~\ref{sec:impl_historico}.
+
+A implementação do pipeline ocorre em um conjunto de \emph{scripts} desenvolvidos em paralelo a esta dissertação, organizados por etapa e versionados na base de código da ferramenta. % TODO: incluir tabela com o mapeamento entre scripts e etapas quando o repositorio for fechado para a defesa.
 
 
 \section{Pilar de Sinais Operacionais}
