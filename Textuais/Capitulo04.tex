@@ -110,12 +110,22 @@ A Figura~\ref{fig:tabelasensores} apresenta a tabela. As operações necessária
 \section{Visão geral da arquitetura}
 \label{sec:arquitetura}
 
-% Conteúdo a desenvolver:
-%   - Nome interno da ferramenta (WireSense) e organização em
-%     dois pilares (Pilar de Sinais Operacionais e Pilar de Histórico Estatístico).
-%   - Diagrama da arquitetura (referenciar imagem em
-%     docs/diagramas/).
-%   - Papel de cada pilar e como se comunicam.
+A ferramenta proposta nesta dissertação é denominada internamente WireSense. Seu projeto adota a estratégia anunciada na Seção~\ref{sec:caracterizacao_pesquisa}, que organiza a análise em dois pilares independentes de evidência, cada um operando sobre uma natureza distinta de dado e produzindo uma saída interpretável que descreve um aspecto do evento de rompimento. A inferência da provável origem decorre da combinação coordenada dessas duas saídas, formalizada nas regras de integração apresentadas na Seção~\ref{sec:regras_integracao}.
+
+% TODO: criar diagrama de arquitetura em Figuras/wiresense_arquitetura.pdf e descomentar o bloco abaixo.
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.85\textwidth]{Figuras/wiresense_arquitetura.pdf}
+%     \caption{Visão geral da arquitetura do WireSense.}
+%     \label{fig:wiresense_arquitetura}
+%     \fonte{Elaborado pelo autor (\the\year).}
+% \end{figure}
+
+O Pilar de Sinais Operacionais opera sobre a tabela de sensores descrita na Seção~\ref{subsec:tabela_sensores}. Sua função é caracterizar o estado operacional da linha no entorno temporal de cada rompimento, comparando-o ao padrão esperado da operação. A saída do pilar é um indicador de anomalia por janela, que sinaliza se o comportamento das variáveis sensoriais antes do evento se afastou do regime nominal observado no histórico recente da máquina. A natureza da evidência produzida é local ao evento, atrelada à máquina específica em que o rompimento ocorreu, e independe da identidade do lote ou do fornecedor processados naquele momento.
+
+O Pilar de Histórico Estatístico opera sobre a tabela de status descrita na Seção~\ref{subsec:tabela_status}, cruzada com as ordens de produção que vinculam cada janela operacional ao lote, material e fornecedor processados. Sua função é caracterizar o padrão histórico de rompimentos associado a cada combinação dessas dimensões, considerando a exposição produtiva acumulada por categoria. A saída do pilar é um indicador de risco relativo por lote, material, fornecedor e máquina, que sinaliza se a frequência de rompimentos observada em uma dada categoria se afasta da frequência esperada considerada a operação como um todo. A natureza da evidência produzida é agregada, refere-se a categorias de matéria-prima e configurações de máquina, e independe do comportamento sensorial imediato do evento sob análise.
+
+A comunicação entre os dois pilares ocorre apenas no momento da inferência. Cada pilar produz sua saída de forma autônoma, sem trocar parâmetros internos ou compartilhar representações intermediárias. A integração opera sobre as duas saídas, combinadas segundo regras determinísticas que preservam a interpretabilidade do diagnóstico final. Essa decisão de projeto permite auditar cada pilar separadamente e atualizar um deles sem efeito sobre o outro, e é detalhada na Seção~\ref{sec:regras_integracao}.
 
 
 \section{Pipeline de dados}
