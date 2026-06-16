@@ -31,12 +31,16 @@ A escolha metodológica recai sobre técnicas não supervisionadas de análise d
 \section{Problema de pesquisa}
 \label{sec:problema_pesquisa}
 
-% TODO: enunciar o problema de pesquisa de forma autocontida.
-% Cobertura prevista:
-% - Mecanismos sobrepostos (materia-prima, equipamento, combinacao) que produzem fenotipos semelhantes na fratura, referenciando a Secao~\ref{sec:problema_rompimentos}.
-% - Ausencia de rotulo de causa nos dados operacionais, referenciando a Secao~\ref{sec:dados_disponiveis}.
-% - Enunciar a pergunta central:
-%   "Como combinar sinais operacionais de maquina e evidencias estatisticas historicas de rompimentos para inferir a provavel origem de eventos de rompimento em uma fabrica de fios?"
+O problema de pesquisa parte do quadro descrito no Capítulo~\ref{cap:fundamentacao}. O rompimento de fio é o sintoma operacional central da fábrica analisada, com impacto direto sobre disponibilidade da linha, retrabalho e perdas materiais. A investigação técnica desse sintoma esbarra em duas dificuldades concretas que justificam o tratamento dado nesta dissertação.
+
+A primeira dificuldade é a sobreposição de mecanismos de causa. Conforme detalhado na Seção~\ref{sec:problema_rompimentos}, defeitos da matéria-prima, danos introduzidos na interação metal-máquina e combinações dos dois produzem fenótipos semelhantes na superfície de fratura, de modo que a inspeção direta após o evento raramente discrimina entre as hipóteses. O ponto observável do rompimento pode estar espacialmente desacoplado do ponto de origem do defeito, porque descontinuidades formadas na fundição e na laminação do vergalhão viajam embutidas no fio até serem expostas por solicitação mecânica posterior. Nesse cenário, atribuir a causa de cada evento exige cruzar informações que extrapolam o que está disponível no local da quebra.
+
+A segunda dificuldade é a ausência de rótulo padronizado sobre a causa de cada rompimento nos dados operacionais. Conforme apresentado na Seção~\ref{sec:dados_disponiveis}, os eventos são registrados pelo sistema da fábrica, mas não vêm acompanhados de uma atribuição validada de origem provável, isto é, matéria-prima, equipamento ou combinação. Essa ausência impede o uso direto de abordagens supervisionadas que tratem o evento como problema de classificação. As fontes que poderiam servir como rótulo retrospectivo, como o relatório de devoluções de cliente, chegam meses após o evento e não cobrem o universo dos rompimentos internos, o que reforça a necessidade de uma estratégia que opere sobre evidências indiretas.
+
+O problema de pesquisa desta dissertação é, portanto, o de combinar evidências de duas naturezas distintas, sinais operacionais coletados continuamente pelos sensores das máquinas e histórico estatístico de rompimentos segmentado por lote, material, fornecedor e máquina, para inferir a origem provável de cada evento em um cenário sem rótulo direto de causa. Dessa formulação decorre a pergunta orientadora desta pesquisa:
+\begin{quote}
+Como combinar sinais operacionais de máquina e evidências estatísticas históricas de rompimentos para inferir a provável origem de eventos de rompimento em uma fábrica de fios?
+\end{quote}
 
 
 \section{Objetivos}
