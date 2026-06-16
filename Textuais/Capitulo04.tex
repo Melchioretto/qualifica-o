@@ -106,7 +106,7 @@ A Figura~\ref{fig:tabelasensores} apresenta a tabela. As operações necessária
 
 % Conteúdo a desenvolver:
 %   - Nome interno da ferramenta (WireSense) e organização em
-%     dois pilares (Pilar MP e Pilar EQ).
+%     dois pilares (Pilar de Sinais Operacionais e Pilar de Histórico Estatístico).
 %   - Diagrama da arquitetura (referenciar imagem em
 %     docs/diagramas/).
 %   - Papel de cada pilar e como se comunicam.
@@ -121,37 +121,37 @@ A Figura~\ref{fig:tabelasensores} apresenta a tabela. As operações necessária
 %   - Pontos de integração com as bases existentes.
 
 
-\section{Implementação do módulo de anomalia (Pilar EQ)}
-\label{sec:impl_eq}
+\section{Pilar de Sinais Operacionais}
+\label{sec:impl_sinais}
 
 % Conteúdo a desenvolver:
 %   - Conjunto de 14 sensores e justificativa técnica da
 %     escolha.
 %   - Treinamento e ajuste do Isolation Forest.
-%   - Critérios de SEM_MODELO e fallback ao Pilar MP.
-%   - Exemplos de saída do módulo.
+%   - Critérios de SEM_MODELO e fallback ao Pilar de Histórico Estatístico.
+%   - Exemplos de saída do pilar.
 
 
-\section{Implementação do módulo estatístico (Pilar MP)}
-\label{sec:impl_mp}
+\section{Pilar de Histórico Estatístico}
+\label{sec:impl_historico}
 
 % Conteúdo a desenvolver:
 %   - Indicadores calculados (taxas, exposição, risco relativo,
 %     cruzamento entre máquinas).
-%   - Decisão metodológica registrada em 12/05: o Pilar MP
-%     conta apenas rompimentos, com bolha removida do
+%   - Decisão metodológica registrada em 12/05: o Pilar de Histórico
+%     Estatístico conta apenas rompimentos, com bolha removida do
 %     numerador.
-%   - Regra MODERADA: o Pilar MP é acionável, o ground truth
-%     do relatório de devoluções é reservado para validação
-%     externa.
-%   - Exemplos de saída do módulo.
+%   - Regra MODERADA: o Pilar de Histórico Estatístico é acionável, o
+%     ground truth do relatório de devoluções é reservado para
+%     validação externa.
+%   - Exemplos de saída do pilar.
 
 
 \section{Regras de integração e diagnóstico final}
 \label{sec:regras_integracao}
 
 % Conteúdo a desenvolver:
-%   - Lógica de combinação entre Pilar EQ e Pilar MP.
+%   - Lógica de combinação entre Pilar de Sinais Operacionais e Pilar de Histórico Estatístico.
 %   - Categorias de origem provável.
 %   - Forma de apresentação do diagnóstico (texto, indicadores,
 %     evidência de apoio).
