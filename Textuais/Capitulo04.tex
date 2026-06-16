@@ -174,16 +174,89 @@ A saída do pilar é apresentada como o valor do indicador de anomalia, acompanh
 \section{Pilar de Histórico Estatístico}
 \label{sec:impl_historico}
 
-% Conteúdo a desenvolver:
-%   - Indicadores calculados (taxas, exposição, risco relativo,
-%     cruzamento entre máquinas).
-%   - Decisão metodológica registrada em 12/05: o Pilar de Histórico
-%     Estatístico conta apenas rompimentos, com bolha removida do
-%     numerador.
-%   - Regra MODERADA: o Pilar de Histórico Estatístico é acionável, o
-%     ground truth do relatório de devoluções é reservado para
-%     validação externa.
-%   - Exemplos de saída do pilar.
+O Pilar de Histórico Estatístico analisa o padrão de rompimentos associado a cada combinação de lote, material, fornecedor e máquina, com o objetivo de identificar categorias de matéria-prima ou de configuração operacional que se afastam do comportamento esperado do conjunto. A escolha por uma abordagem estatística histórica decorre da estrutura categórica dos dados de ordens de produção e da necessidade, levantada na Seção~\ref{sec:problema_pesquisa}, de produzir evidência que opera independentemente do comportamento sensorial imediato do evento. O pilar produz duas saídas quantitativas para cada lote analisado, a taxa relativa ao lote e o \emph{score} de contaminação cruzada, que são combinadas pelas regras descritas na Seção~\ref{sec:regras_integracao}.
+
+
+\subsection{Modelo operacional}
+\label{subsec:modelo_operacional}
+
+\textcolor{red}{[FIGURA pendente: esquema da relação lote $\times$ material $\times$ máquina, mostrando que um mesmo lote pode percorrer múltiplas máquinas e que uma mesma máquina pode processar lotes e materiais distintos ao longo do tempo.]}
+
+A fábrica opera com múltiplas máquinas em paralelo, e cada máquina pode processar materiais de bitolas diferentes ao longo do tempo, alternando-se em função das ordens de produção. Cada material consumido em uma máquina pertence a um lote de matéria-prima identificado, e um mesmo lote pode ser distribuído entre várias máquinas conforme a programação. Essa estrutura configura uma relação muitos-para-muitos entre lotes, materiais e máquinas. Por consequência, cada rompimento observado precisa ser atribuído a uma combinação específica dessas dimensões para que a análise estatística possa isolar o efeito de cada uma.
+
+
+\subsection{Hora-máquina como métrica de exposição}
+\label{subsec:hora_maquina}
+
+A contagem direta de rompimentos por lote não é comparável entre lotes de tamanhos e usos distintos. Um lote consumido por seis máquinas durante uma semana acumula mais oportunidades de rompimento que um lote consumido por uma máquina durante um turno, mesmo que a qualidade da matéria-prima seja idêntica. A métrica adotada para padronizar essa exposição é a hora-máquina. Quando uma máquina opera por uma hora, contabiliza-se uma hora-máquina. Quando duas máquinas operam em paralelo por uma hora, contabilizam-se duas horas-máquina. Essa métrica é acumulada para cada combinação de lote, material e máquina sobre todos os intervalos com status \textsc{operando} registrados pela tabela de status, conforme construído pelo pipeline descrito na Seção~\ref{sec:pipeline}.
+
+A taxa bruta de rompimento de uma combinação de lote e material em uma máquina é definida como a razão entre o número de rompimentos observados e a hora-máquina acumulada na mesma combinação. Essa taxa é a unidade básica sobre a qual são construídos os indicadores comparativos descritos nas Subseções~\ref{subsec:taxa_relativa} e~\ref{subsec:contaminacao_cruzada}.
+
+
+\subsection{Taxa Relativa por Material e taxa relativa ao lote}
+\label{subsec:taxa_relativa}
+
+A interpretação de uma taxa bruta isolada exige uma referência. O Pilar de Histórico Estatístico define essa referência como a taxa histórica do material, calculada sobre o conjunto de todos os lotes que já foram processados naquele material. A Taxa Relativa por Material de um lote, denotada por $TRM_i$ para o material $i$, é dada por
+
+\begin{equation}
+TRM_i = \frac{\text{taxa do lote no material } i}{\text{taxa histórica de todos os lotes no material } i}.
+\label{eq:trm}
+\end{equation}
+
+Valores de $TRM_i$ próximos a um indicam que o lote apresenta comportamento semelhante ao histórico do material. Valores acima de um indicam frequência de rompimentos atípica para aquele lote, e valores abaixo de um indicam o oposto.
+
+Um mesmo lote pode ser consumido em mais de um material durante sua vida útil. Para agregar a informação em um único indicador por lote, define-se a taxa relativa ao lote como a média ponderada das Taxas Relativas por Material, com pesos iguais às horas-máquina acumuladas em cada material,
+
+\begin{equation}
+TR = \frac{\sum_i TRM_i \cdot HM_i}{\sum_i HM_i},
+\label{eq:taxa_relativa_lote}
+\end{equation}
+
+\noindent em que $HM_i$ denota a hora-máquina acumulada pelo lote no material $i$. A ponderação evita que materiais com pouca exposição produtiva distorçam o indicador do lote.
+
+
+\subsection{Classificação de risco por percentil}
+\label{subsec:percentil_risco}
+
+A taxa relativa ao lote é uma grandeza contínua, e sua leitura direta exige um critério de corte para diferenciar lotes ordinários de lotes em comportamento atípico. O critério adotado é o ranqueamento dos lotes válidos pela taxa relativa e a atribuição de faixas por percentil. A classificação a ser aplicada é a seguinte:
+
+\begin{itemize}
+    \item Percentil maior ou igual a 90, \textsc{alto risco}.
+    \item Percentil maior ou igual a 70, \textsc{risco elevado}.
+    \item Percentil maior ou igual a 30, \textsc{risco normal}.
+    \item Percentil menor que 30, \textsc{baixo risco}.
+\end{itemize}
+
+A escolha por percentil em lugar de cortes fixos sobre a taxa relativa absorve mudanças naturais no patamar do indicador entre períodos de operação e mantém a interpretação dos rótulos coerente ao longo do tempo.
+
+
+\subsection{Score de contaminação cruzada}
+\label{subsec:contaminacao_cruzada}
+
+Um lote responsável por rompimentos em uma única máquina pode estar associado a um problema localizado de equipamento, enquanto um lote responsável por rompimentos em várias máquinas simultaneamente aponta para um problema embarcado na matéria-prima. O segundo indicador do pilar quantifica esse aspecto por meio do \emph{score} de contaminação cruzada, definido como
+
+\begin{equation}
+SCC = \frac{MA}{TM} \cdot \left(1 - \frac{1}{TM}\right),
+\label{eq:contaminacao}
+\end{equation}
+
+\noindent em que $MA$ é o número de máquinas com pelo menos um rompimento atribuído ao lote e $TM$ é o número total de máquinas que processaram o lote. O termo $(1 - 1/TM)$ penaliza casos em que o lote passou por poucas máquinas, situação em que mesmo uma única máquina afetada produziria $MA/TM$ alto, sem que isso constitua evidência de cruzamento.
+
+A classificação por faixas a ser aplicada ao $SCC$ é a seguinte:
+
+\begin{itemize}
+    \item $SCC \geq 0{,}480$, \textsc{cruzamento forte}.
+    \item $0{,}320 \leq SCC < 0{,}480$, \textsc{cruzamento moderado}.
+    \item $0{,}250 \leq SCC < 0{,}320$, \textsc{cruzamento fraco}.
+    \item $0 < SCC < 0{,}250$, \textsc{cruzamento muito fraco}.
+    \item $SCC \leq 0$, \textsc{sem cruzamento}.
+\end{itemize}
+
+
+\subsection{Saídas do pilar}
+\label{subsec:saidas_pilar_historico}
+
+Para cada lote analisado, o pilar produz a classificação de risco por percentil descrita na Subseção~\ref{subsec:percentil_risco} e a classificação por faixa do \emph{score} de contaminação cruzada descrita na Subseção~\ref{subsec:contaminacao_cruzada}. Os dois rótulos são consumidos pelas regras de integração detalhadas na Seção~\ref{sec:regras_integracao}, que os combinam entre si e com a saída do Pilar de Sinais Operacionais para produzir o diagnóstico da provável origem do evento.
 
 
 \section{Regras de integração e diagnóstico final}
