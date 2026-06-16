@@ -71,7 +71,7 @@ Para alcançar o objetivo geral, são definidos os seguintes objetivos específi
 
 % Esta secao descreve as duas tabelas brutas (status e sensores) que materializam os tres conjuntos de dados apresentados na Secao~\ref{sec:dados_disponiveis} do Cap. 2. As ordens de producao entram por cruzamento temporal com a tabela de status, conforme detalhado em 4.4.1.
 
-Os três conjuntos de dados apresentados na Seção~\ref{sec:dados_disponiveis} se materializam na operação como duas tabelas brutas, cada uma com natureza e granularidade próprias. A tabela de status concentra o histórico cronológico de cada máquina, e nela os eventos de rompimento aparecem como categorias específicas de parada. A tabela de sensores reúne as leituras das variáveis monitoradas em formato longo. As ordens de produção, terceiro conjunto, não constituem tabela bruta autônoma e alimentam a tabela de status por cruzamento temporal, vinculando cada janela operacional ao lote, material e fornecedor processados. As Subseções~\ref{subsec:tabela_status} e~\ref{subsec:tabela_sensores} descrevem essas tabelas em detalhe, ilustradas nas Figuras~\ref{fig:tabelastatus} e~\ref{fig:tabelasensores}. A estrutura de cada tabela condiciona o tipo de técnica de análise aplicável a ela e justifica as transformações tratadas na Seção~\ref{sec:pipeline}.
+Os três conjuntos de dados apresentados na Seção~\ref{sec:dados_disponiveis} se materializam na operação como duas tabelas brutas, cada uma com natureza e granularidade próprias. A tabela de status concentra o histórico cronológico de cada máquina, e nessa tabela os eventos de rompimento aparecem como categorias específicas de parada. A tabela de sensores reúne as leituras das variáveis monitoradas em formato longo. As ordens de produção, terceiro conjunto, não constituem tabela bruta autônoma e alimentam a tabela de status por cruzamento temporal, vinculando cada janela operacional ao lote, material e fornecedor processados. As Subseções~\ref{subsec:tabela_status} e~\ref{subsec:tabela_sensores} descrevem essas tabelas em detalhe, ilustradas nas Figuras~\ref{fig:tabelastatus} e~\ref{fig:tabelasensores}. A estrutura de cada tabela condiciona o tipo de técnica de análise aplicável a cada uma e justifica as transformações tratadas na Seção~\ref{sec:pipeline}.
 
 \begin{figure}[htbp]
     \begin{minipage}[b]{0.48\linewidth}
@@ -102,7 +102,7 @@ Atributos de produção como lote, material e fornecedor não fazem parte da tab
 \subsection{Tabela de sensores}
 \label{subsec:tabela_sensores}
 
-A segunda tabela é gerada pelo sistema de aquisição instalado nas máquinas e contém as leituras das variáveis monitoradas. Ela chega em formato longo, no qual cada linha registra uma leitura individual de um sensor, com identificação da variável de processo, do centro de máquina, do instante de registro e dos valores agregados máximo, médio e mínimo no intervalo amostral. O conjunto de variáveis cobre grandezas físicas e elétricas que descrevem o estado térmico, mecânico e elétrico da linha, com sensores distribuídos no recozedor, no forno, na zona de cura, nos pontos críticos do percurso do fio e nos elementos de controle térmico.
+A segunda tabela é gerada pelo sistema de aquisição instalado nas máquinas e contém as leituras das variáveis monitoradas. Esta tabela chega em formato longo, no qual cada linha registra uma leitura individual de um sensor, com identificação da variável de processo, do centro de máquina, do instante de registro e dos valores agregados máximo, médio e mínimo no intervalo amostral. O conjunto de variáveis cobre grandezas físicas e elétricas que descrevem o estado térmico, mecânico e elétrico da linha, com sensores distribuídos no recozedor, no forno, na zona de cura, nos pontos críticos do percurso do fio e nos elementos de controle térmico.
 
 A Figura~\ref{fig:tabelasensores} apresenta a tabela. As operações necessárias para transformá-la no formato consumido pelos métodos de análise são descritas na Seção~\ref{sec:pipeline}.
 
@@ -152,7 +152,9 @@ A segunda etapa converte a tabela de sensores do formato longo para o formato am
 
 A terceira etapa segmenta as duas tabelas processadas em unidades de análise pertinentes a cada pilar. Para o Pilar de Sinais Operacionais, a unidade é a janela operacional de cada rompimento, isto é, um recorte temporal centrado no instante do evento que captura o comportamento sensorial imediatamente anterior à parada. Para o Pilar de Histórico Estatístico, a unidade é a agregação por combinação de lote, material, fornecedor e máquina, acompanhada da exposição produtiva correspondente medida em horas-máquina, conforme definido na Seção~\ref{sec:impl_historico}.
 
-A implementação do pipeline ocorre em um conjunto de \emph{scripts} desenvolvidos em paralelo a esta dissertação, organizados por etapa e versionados na base de código da ferramenta. % TODO: incluir tabela com o mapeamento entre scripts e etapas quando o repositorio for fechado para a defesa.
+A implementação do pipeline ocorre em um conjunto de \emph{scripts} desenvolvidos em paralelo a esta dissertação, organizados por etapa e versionados na base de código da ferramenta. Cada etapa corresponde a uma rotina dedicada, encadeada por interfaces de entrada e saída padronizadas que permitem reexecutar parcialmente o pipeline a partir de qualquer ponto intermediário. Essa organização modular faz com que ajustes pontuais em uma etapa, como a inclusão de novas variáveis na conversão para o formato amplo, não exijam reprocessamento integral das demais.
+
+\textcolor{red}{[TABELA pendente: correspondência entre etapas do pipeline e \emph{scripts} implementados, a ser consolidada quando o repositório for fechado para a defesa.]}
 
 
 \section{Pilar de Sinais Operacionais}
@@ -203,7 +205,7 @@ TRM_i = \frac{\text{taxa do lote no material } i}{\text{taxa histórica de todos
 \label{eq:trm}
 \end{equation}
 
-Valores de $TRM_i$ próximos a um indicam que o lote apresenta comportamento semelhante ao histórico do material. Valores acima de um indicam frequência de rompimentos atípica para aquele lote, e valores abaixo de um indicam o oposto.
+Valores de $TRM_i$ próximos a um indicam que o lote apresenta comportamento semelhante ao histórico do material. Valores superiores a um indicam frequência de rompimentos atípica para aquele lote, e valores inferiores a um indicam o oposto.
 
 Um mesmo lote pode ser consumido em mais de um material durante sua vida útil. Para agregar a informação em um único indicador por lote, define-se a taxa relativa ao lote como a média ponderada das Taxas Relativas por Material, com pesos iguais às horas-máquina acumuladas em cada material,
 
@@ -227,7 +229,7 @@ A taxa relativa ao lote é uma grandeza contínua, e sua leitura direta exige um
     \item Percentil menor que 30, \textsc{baixo risco}.
 \end{itemize}
 
-A escolha por percentil em lugar de cortes fixos sobre a taxa relativa absorve mudanças naturais no patamar do indicador entre períodos de operação e mantém a interpretação dos rótulos coerente ao longo do tempo.
+A escolha por percentil em lugar de cortes fixos sobre a taxa relativa absorve mudanças naturais no patamar do indicador entre períodos de operação e mantém a interpretação dos rótulos coerente ao longo do tempo. Cortes absolutos exigiriam recalibração sempre que o regime operacional médio da fábrica sofresse alteração, enquanto a abordagem por percentil ajusta-se automaticamente à distribuição vigente.
 
 
 \subsection{Score de contaminação cruzada}
