@@ -74,7 +74,7 @@ Para alcançar o objetivo geral, são definidos os seguintes objetivos específi
 Os três conjuntos de dados apresentados na Seção~\ref{sec:dados_disponiveis} se materializam na operação como duas tabelas brutas, cada uma com natureza e granularidade próprias. A tabela de status concentra o histórico cronológico de cada máquina, e nessa tabela os eventos de rompimento aparecem como categorias específicas de parada. A tabela de sensores reúne as leituras das variáveis monitoradas em formato longo. As ordens de produção, terceiro conjunto, não constituem tabela bruta autônoma e alimentam a tabela de status por cruzamento temporal, vinculando cada janela operacional ao lote, material e fornecedor processados. As Subseções~\ref{subsec:tabela_status} e~\ref{subsec:tabela_sensores} descrevem essas tabelas em detalhe, ilustradas nas Figuras~\ref{fig:tabelastatus} e~\ref{fig:tabelasensores}. A estrutura de cada tabela condiciona o tipo de técnica de análise aplicável a cada uma e justifica as transformações tratadas na Seção~\ref{sec:pipeline}.
 
 \begin{figure}[htbp]
-    \begin{minipage}[b]{0.48\linewidth}
+    \begin{minipage}[b]{0.50\linewidth}
         \centering
         \includegraphics[width=\linewidth]{Figuras/TabelaStatus.pdf}
         \caption{Representação visual da tabela de status.}
