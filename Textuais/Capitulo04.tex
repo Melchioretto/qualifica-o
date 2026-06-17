@@ -110,22 +110,19 @@ A Figura~\ref{fig:tabelasensores} apresenta a tabela. As operações necessária
 \section{Visão geral da arquitetura}
 \label{sec:arquitetura}
 
-A ferramenta proposta nesta dissertação é denominada internamente WireSense. Seu projeto adota a estratégia anunciada na Seção~\ref{sec:caracterizacao_pesquisa}, que organiza a análise em dois pilares independentes de evidência, cada um operando sobre uma natureza distinta de dado e produzindo uma saída interpretável que descreve um aspecto do evento de rompimento. A inferência da provável origem decorre da combinação coordenada dessas duas saídas, formalizada nas regras de integração apresentadas na Seção~\ref{sec:regras_integracao}.
+A ferramenta proposta nesta dissertação é denominada internamente WireSense. Seu projeto adota a estratégia anunciada na Seção~\ref{sec:caracterizacao_pesquisa}, que organiza a análise em dois pilares independentes de evidência, cada um operando sobre uma natureza distinta de dado e produzindo uma saída interpretável que descreve um aspecto do evento de rompimento. A inferência da provável origem decorre da combinação coordenada dessas duas saídas, formalizada nas regras de integração apresentadas na Seção~\ref{sec:regras_integracao}. A Figura~\ref{fig:wiresense_arquitetura} apresenta a visão geral dessa organização, com as fontes de dado diretas, os dois pilares, suas saídas e o componente de regras de integração.
 
-\textcolor{red}{[FIGURA pendente: diagrama da arquitetura do WireSense, com os dois pilares e a relação de entrada e saída de cada um.]}
-
-% TODO: criar diagrama em Figuras/wiresense_arquitetura.pdf e descomentar o bloco abaixo.
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics[width=0.85\textwidth]{Figuras/wiresense_arquitetura.pdf}
-%     \caption{Visão geral da arquitetura do WireSense.}
-%     \label{fig:wiresense_arquitetura}
-%     \fonte{Elaborado pelo autor (\the\year).}
-% \end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{Figuras/arquitetura_wiresense.pdf}
+    \caption{Visão geral da arquitetura do WireSense.}
+    \label{fig:wiresense_arquitetura}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{figure}
 
 O Pilar de Sinais Operacionais opera sobre a tabela de sensores descrita na Subseção~\ref{subsec:tabela_sensores} e ilustrada na Figura~\ref{fig:tabelasensores}. Sua função é caracterizar o estado operacional da linha no entorno temporal de cada rompimento, comparando-o ao padrão esperado da operação. A saída do pilar é um indicador de anomalia por janela, que sinaliza se o comportamento das variáveis sensoriais antes do evento se afastou do regime nominal observado no histórico recente da máquina. A natureza da evidência produzida é local ao evento, atrelada à máquina específica em que o rompimento ocorreu, e independe da identidade do lote ou do fornecedor processados naquele momento.
 
-O Pilar de Histórico Estatístico opera sobre a tabela de status descrita na Subseção~\ref{subsec:tabela_status} e ilustrada na Figura~\ref{fig:tabelastatus}, cruzada com as ordens de produção que vinculam cada janela operacional ao lote, material e fornecedor processados. Sua função é caracterizar o padrão histórico de rompimentos associado a cada combinação dessas dimensões, considerando a exposição produtiva acumulada por categoria. A saída do pilar é um indicador de risco relativo por lote, material, fornecedor e máquina, que sinaliza se a frequência de rompimentos observada em uma dada categoria se afasta da frequência esperada considerada a operação como um todo. A natureza da evidência produzida é agregada, refere-se a categorias de matéria-prima e configurações de máquina, e independe do comportamento sensorial imediato do evento sob análise.
+O Pilar de Histórico Estatístico opera sobre a tabela de status descrita na Subseção~\ref{subsec:tabela_status} e ilustrada na Figura~\ref{fig:tabelastatus}, cruzada com as ordens de produção que vinculam cada janela operacional ao lote, material e fornecedor processados. A Figura~\ref{fig:wiresense_arquitetura} representa apenas a fonte direta do pilar, e o cruzamento com as ordens de produção ocorre no pipeline da Seção~\ref{sec:pipeline} antes do consumo pelo pilar. Sua função é caracterizar o padrão histórico de rompimentos associado a cada combinação dessas dimensões, considerando a exposição produtiva acumulada por categoria. A saída do pilar é um indicador de risco relativo por lote, material, fornecedor e máquina, que sinaliza se a frequência de rompimentos observada em uma dada categoria se afasta da frequência esperada considerada a operação como um todo. A natureza da evidência produzida é agregada, refere-se a categorias de matéria-prima e configurações de máquina, e independe do comportamento sensorial imediato do evento sob análise.
 
 A comunicação entre os dois pilares ocorre apenas no momento da inferência. Cada pilar produz sua saída de forma autônoma, sem trocar parâmetros internos ou compartilhar representações intermediárias. A integração opera sobre as duas saídas, combinadas segundo regras determinísticas que preservam a interpretabilidade do diagnóstico final. Essa decisão de projeto permite auditar cada pilar separadamente e atualizar um deles sem efeito sobre o outro, e é detalhada na Seção~\ref{sec:regras_integracao}.
 
@@ -176,7 +173,7 @@ A saída do pilar é apresentada como o valor do indicador de anomalia, acompanh
 \section{Pilar de Histórico Estatístico}
 \label{sec:impl_historico}
 
-O Pilar de Histórico Estatístico analisa o padrão de rompimentos associado a cada combinação de lote, material, fornecedor e máquina, com o objetivo de identificar categorias de matéria-prima ou de configuração operacional que se afastam do comportamento esperado do conjunto. A escolha por uma abordagem estatística histórica decorre da estrutura categórica dos dados de ordens de produção e da necessidade, levantada na Seção~\ref{sec:problema_pesquisa}, de produzir evidência que opera independentemente do comportamento sensorial imediato do evento. O pilar produz duas saídas quantitativas para cada lote analisado, a taxa relativa ao lote e o \emph{score} de contaminação cruzada, que são combinadas pelas regras descritas na Seção~\ref{sec:regras_integracao}.
+O Pilar de Histórico Estatístico analisa o padrão de rompimentos associado a cada combinação de lote, material, fornecedor e máquina, com o objetivo de identificar categorias de matéria-prima ou de configuração operacional que se afastam do comportamento esperado do conjunto. A escolha por uma abordagem estatística histórica decorre da estrutura categórica dos dados de ordens de produção e da necessidade, levantada na Seção~\ref{sec:problema_pesquisa}, de produzir evidência que opera independentemente do comportamento sensorial imediato do evento. O pilar produz duas saídas quantitativas para cada lote analisado, a taxa relativa ao lote e o indicador de cruzamento de falhas por máquina, que são combinadas pelas regras descritas na Seção~\ref{sec:regras_integracao}.
 
 
 \subsection{Modelo operacional}
@@ -232,10 +229,10 @@ A taxa relativa ao lote é uma grandeza contínua, e sua leitura direta exige um
 A escolha por percentil em lugar de cortes fixos sobre a taxa relativa absorve mudanças naturais no patamar do indicador entre períodos de operação e mantém a interpretação dos rótulos coerente ao longo do tempo. Cortes absolutos exigiriam recalibração sempre que o regime operacional médio da fábrica sofresse alteração, enquanto a abordagem por percentil ajusta-se automaticamente à distribuição vigente.
 
 
-\subsection{Score de contaminação cruzada}
+\subsection{Cruzamento de falhas por máquina}
 \label{subsec:contaminacao_cruzada}
 
-Um lote responsável por rompimentos em uma única máquina pode estar associado a um problema localizado de equipamento, enquanto um lote responsável por rompimentos em várias máquinas simultaneamente aponta para um problema embarcado na matéria-prima. O segundo indicador do pilar quantifica esse aspecto por meio do \emph{score} de contaminação cruzada, definido como
+Um lote responsável por rompimentos em uma única máquina pode estar associado a um problema localizado de equipamento, enquanto um lote responsável por rompimentos em várias máquinas simultaneamente aponta para um problema embarcado na matéria-prima. O segundo indicador do pilar quantifica esse cruzamento de falhas por máquina por meio de um \emph{score} dedicado, denotado por $SCC$ e definido como
 
 \begin{equation}
 SCC = \frac{MA}{TM} \cdot \left(1 - \frac{1}{TM}\right),
@@ -258,7 +255,7 @@ A classificação por faixas a ser aplicada ao $SCC$ é a seguinte:
 \subsection{Saídas do pilar}
 \label{subsec:saidas_pilar_historico}
 
-Para cada lote analisado, o pilar produz a classificação de risco por percentil descrita na Subseção~\ref{subsec:percentil_risco} e a classificação por faixa do \emph{score} de contaminação cruzada descrita na Subseção~\ref{subsec:contaminacao_cruzada}. Os dois rótulos são consumidos pelas regras de integração detalhadas na Seção~\ref{sec:regras_integracao}, que os combinam entre si e com a saída do Pilar de Sinais Operacionais para produzir o diagnóstico da provável origem do evento.
+Para cada lote analisado, o pilar produz a classificação de risco por percentil descrita na Subseção~\ref{subsec:percentil_risco} e a classificação por faixa do cruzamento de falhas por máquina descrita na Subseção~\ref{subsec:contaminacao_cruzada}. Os dois rótulos são consumidos pelas regras de integração detalhadas na Seção~\ref{sec:regras_integracao}, que os combinam entre si e com a saída do Pilar de Sinais Operacionais para produzir o diagnóstico da provável origem do evento.
 
 
 \section{Regras de integração e diagnóstico final}
