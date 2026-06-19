@@ -129,18 +129,15 @@ A comunicação entre os dois pilares ocorre apenas no momento da inferência. C
 \section{Pipeline de dados}
 \label{sec:pipeline}
 
-O pipeline de dados encadeia as transformações necessárias para converter as tabelas brutas descritas na Seção~\ref{sec:fontes_dados} nos formatos consumidos pelo Pilar de Sinais Operacionais (Seção~\ref{sec:impl_sinais}) e pelo Pilar de Histórico Estatístico (Seção~\ref{sec:impl_historico}). As etapas operam em sequência, e cada uma resolve uma propriedade específica da tabela bruta de origem que impede o consumo direto pelos métodos de análise.
+O pipeline de dados encadeia as transformações necessárias para converter as tabelas brutas descritas na Seção~\ref{sec:fontes_dados} nos formatos consumidos pelo Pilar de Sinais Operacionais (Seção~\ref{sec:impl_sinais}) e pelo Pilar de Histórico Estatístico (Seção~\ref{sec:impl_historico}). As etapas operam em sequência, e cada uma resolve uma propriedade específica da tabela bruta de origem que impede o consumo direto pelos métodos de análise. A Figura~\ref{fig:wiresense_pipeline} apresenta a visão geral do pipeline, com as trilhas paralelas que conduzem cada fonte bruta ao formato final consumido pelo pilar correspondente.
 
-\textcolor{red}{[FIGURA pendente: diagrama do pipeline de dados, das tabelas brutas aos formatos consumidos pelos dois pilares.]}
-
-% TODO: criar diagrama em Figuras/wiresense_pipeline.pdf e descomentar o bloco abaixo.
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics[width=0.85\textwidth]{Figuras/wiresense_pipeline.pdf}
-%     \caption{Pipeline de dados do WireSense, das tabelas brutas aos formatos consumidos pelos dois pilares.}
-%     \label{fig:wiresense_pipeline}
-%     \fonte{Elaborado pelo autor (\the\year).}
-% \end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{Figuras/dados.pdf}
+    \caption{Pipeline de dados do WireSense, das tabelas brutas aos formatos consumidos pelos dois pilares.}
+    \label{fig:wiresense_pipeline}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{figure}
 
 A primeira etapa cruza a tabela de status com a tabela de ordens de produção por interseção temporal entre o intervalo da máquina e o intervalo de validade da ordem. O resultado é uma tabela de status enriquecida, em que cada linha carrega, além das colunas nativas, o lote, o material e o fornecedor processados naquele intervalo. Essa etapa resolve a ausência de atributos de produção apontada na Subseção~\ref{subsec:tabela_status}, ilustrada na Figura~\ref{fig:tabelastatus}, e habilita as agregações por combinação de categoria adotadas pelo Pilar de Histórico Estatístico.
 
