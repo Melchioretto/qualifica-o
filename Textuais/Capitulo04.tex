@@ -76,8 +76,8 @@ Os três conjuntos de dados apresentados na Seção~\ref{sec:dados_disponiveis} 
 \begin{figure}[htbp]
     \begin{minipage}[c]{0.48\linewidth}
         \centering
-        \includegraphics[height=8cm]{Figuras/TabelaStatus.pdf}
-        \caption{Representação visual da tabela de status.}
+        \includegraphics[height=8cm]{Figuras/TabelaStatusBruta.pdf}
+        \caption{Representação visual da tabela de status bruta.}
         \label{fig:tabelastatus}
         \fonte{Elaborado pelo autor (\the\year).}
     \end{minipage}\hfill
@@ -96,7 +96,7 @@ Os três conjuntos de dados apresentados na Seção~\ref{sec:dados_disponiveis} 
 
 A primeira tabela registra o histórico de status de cada máquina ao longo do tempo. Cada linha corresponde a um intervalo de operação contínua ou a um evento discreto que interrompeu essa operação. As colunas nativas trazem o identificador do programa associado à execução, o centro de máquina, o código e a descrição do evento, o instante inicial, o instante final e a duração do intervalo. A descrição do evento assume o valor \textsc{operando} nos intervalos de produção sem incidente, e valores específicos nos eventos de parada, incluindo categorias associadas a rompimentos por bolha, asperidade ou instabilidade de forno.
 
-Atributos de produção como lote, material e fornecedor não fazem parte da tabela bruta. Eles são incorporados por cruzamento temporal com a tabela de ordens de produção, conforme detalhado na Seção~\ref{sec:pipeline}. A Figura~\ref{fig:tabelastatus} apresenta a tabela após esse cruzamento, com a granularidade visual preservada da tabela bruta. Cada linha representa um intervalo da máquina, e os eventos de rompimento aparecem como linhas pontuais dentro de um fluxo majoritariamente composto por intervalos de operação contínua.
+Atributos de produção como lote, material e fornecedor não fazem parte da tabela bruta. Eles são incorporados por cruzamento temporal com a tabela de ordens de produção, conforme detalhado na Seção~\ref{sec:pipeline}. A Figura~\ref{fig:tabelastatus} apresenta a tabela bruta, sem os atributos de produção. Cada linha representa um instante registrado para a máquina, com o respectivo status, e os eventos de rompimento aparecem como linhas pontuais dentro de blocos majoritariamente compostos por instantes de operação contínua.
 
 
 \subsection{Tabela de sensores}
@@ -149,6 +149,27 @@ A terceira etapa segmenta as duas tabelas processadas em unidades de análise pe
 A implementação do pipeline ocorre em um conjunto de \emph{scripts} desenvolvidos em paralelo a esta dissertação, organizados por etapa e versionados na base de código da ferramenta. Cada etapa corresponde a uma rotina dedicada, encadeada por interfaces de entrada e saída padronizadas que permitem reexecutar parcialmente o pipeline a partir de qualquer ponto intermediário. Essa organização modular faz com que ajustes pontuais em uma etapa, como a inclusão de novas variáveis na conversão para o formato amplo, não exijam reprocessamento integral das demais.
 
 \textcolor{red}{[TABELA pendente: correspondência entre etapas do pipeline e \emph{scripts} implementados, a ser consolidada quando o repositório for fechado para a defesa.]}
+
+Após a aplicação das etapas descritas, as tabelas brutas apresentadas na Seção~\ref{sec:fontes_dados} assumem o formato ilustrado na Figura~\ref{fig:tabelas_pos_pipeline}. A tabela de status passa a incorporar as colunas de lote, material e fornecedor, e a tabela de sensores reorganiza-se em formato amplo, com uma coluna por variável de processo.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[c]{0.48\linewidth}
+        \centering
+        \includegraphics[height=8cm]{Figuras/TabelaStatus.pdf}
+        \caption{Tabela de status enriquecida após o cruzamento com as ordens de produção.}
+        \label{fig:tabelastatus_enriquecida}
+    \end{subfigure}\hfill
+    \begin{subfigure}[c]{0.48\linewidth}
+        \centering
+        \includegraphics[height=8cm]{Figuras/Sensores.pdf}
+        \caption{Tabela de sensores em formato amplo após o pivot.}
+        \label{fig:tabelasensores_amplo}
+    \end{subfigure}
+    \caption{Tabelas resultantes após a aplicação do pipeline.}
+    \label{fig:tabelas_pos_pipeline}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{figure}
 
 
 \section{Pilar de Sinais Operacionais}
