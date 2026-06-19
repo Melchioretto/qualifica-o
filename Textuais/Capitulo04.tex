@@ -74,19 +74,20 @@ Para alcançar o objetivo geral, são definidos os seguintes objetivos específi
 Os três conjuntos de dados apresentados na Seção~\ref{sec:dados_disponiveis} se materializam na operação como duas tabelas brutas, cada uma com natureza e granularidade próprias. A tabela de status concentra o histórico cronológico de cada máquina, e nessa tabela os eventos de rompimento aparecem como categorias específicas de parada. A tabela de sensores reúne as leituras das variáveis monitoradas em formato longo. As ordens de produção, terceiro conjunto, não constituem tabela bruta autônoma e alimentam a tabela de status por cruzamento temporal, vinculando cada janela operacional ao lote, material e fornecedor processados. As Subseções~\ref{subsec:tabela_status} e~\ref{subsec:tabela_sensores} descrevem essas tabelas em detalhe, ilustradas nas Figuras~\ref{fig:tabelastatus} e~\ref{fig:tabelasensores}. A estrutura de cada tabela condiciona o tipo de técnica de análise aplicável a cada uma e justifica as transformações tratadas na Seção~\ref{sec:pipeline}.
 
 \begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.6\linewidth]{Figuras/TabelaStatus.pdf}
-    \caption{Representação visual da tabela de status.}
-    \label{fig:tabelastatus}
-    \fonte{Elaborado pelo autor (\the\year).}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.45\linewidth]{Figuras/TabelaBruta.pdf}
-    \caption{Representação visual da tabela de sensores em formato longo bruto.}
-    \label{fig:tabelasensores}
-    \fonte{Elaborado pelo autor (\the\year).}
+    \begin{minipage}[c]{0.48\linewidth}
+        \centering
+        \includegraphics[height=8cm]{Figuras/TabelaStatus.pdf}
+        \caption{Representação visual da tabela de status.}
+        \label{fig:tabelastatus}
+        \fonte{Elaborado pelo autor (\the\year).}
+    \end{minipage}\hfill
+    \begin{minipage}[c]{0.48\linewidth}
+        \centering
+        \includegraphics[height=8cm]{Figuras/TabelaBruta.pdf}
+        \caption{Representação visual da tabela de sensores em formato longo bruto.}
+        \label{fig:tabelasensores}
+        \fonte{Elaborado pelo autor (\the\year).}
+    \end{minipage}
 \end{figure}
 
 
@@ -155,15 +156,15 @@ A implementação do pipeline ocorre em um conjunto de \emph{scripts} desenvolvi
 
 O Pilar de Sinais Operacionais analisa o comportamento das variáveis sensoriais no entorno temporal de cada rompimento, com o objetivo de identificar se a operação da máquina apresentou desvio em relação ao padrão recente de funcionamento. A escolha por uma abordagem de detecção de anomalias decorre da ausência de rótulo padronizado de causa discutida na Seção~\ref{sec:problema_pesquisa}, que impede o uso direto de classificadores supervisionados. O método selecionado para esta dissertação é o Isolation Forest, cujo enquadramento na literatura de detecção de anomalias em séries temporais industriais é apresentado no Capítulo~\ref{cap:revisao_sistematica}.
 
-\textcolor{red}{[TABELA pendente: 14 variáveis sensoriais selecionadas, agrupadas por natureza (térmicas, elétricas, mecânicas e de controle), com referência ao ponto da linha em que cada sensor é instalado.]}
+\textcolor{red}{[TABELA pendente: variáveis sensoriais a serem selecionadas para o pilar, agrupadas por natureza (térmicas, elétricas, mecânicas e de controle), com referência ao ponto da linha em que cada sensor é instalado. A definição final da lista será apresentada após a etapa de seleção de variáveis.]}
 
-O conjunto de variáveis monitoradas pela tabela de sensores cobre grandezas térmicas, elétricas e mecânicas distribuídas ao longo da linha, conforme descrito na Subseção~\ref{subsec:tabela_sensores} e ilustrado na Figura~\ref{fig:tabelasensores}. Desse conjunto, são selecionadas 14 variáveis com base em critérios de cobertura do processo, qualidade da aquisição e relevância para os modos de falha caracterizados no Capítulo~\ref{cap:fundamentacao}. A seleção privilegia variáveis cujo desvio em relação à operação nominal carrega significado físico interpretável pela equipe de engenharia da fábrica.
+O conjunto de variáveis monitoradas pela tabela de sensores cobre grandezas térmicas, elétricas e mecânicas distribuídas ao longo da linha, conforme descrito na Subseção~\ref{subsec:tabela_sensores} e ilustrado na Figura~\ref{fig:tabelasensores}. Desse conjunto, será selecionado um subconjunto de variáveis com base em critérios de cobertura do processo, qualidade da aquisição e relevância para os modos de falha caracterizados no Capítulo~\ref{cap:fundamentacao}. A seleção privilegiará variáveis cujo desvio em relação à operação nominal carregue significado físico interpretável pela equipe de engenharia da fábrica.
 
-O treinamento do modelo ocorre por máquina, sobre o histórico de intervalos com status \textsc{operando} sem incidente registrado, conforme construído pelo pipeline descrito na Seção~\ref{sec:pipeline}. Cada amostra de treino corresponde a uma janela temporal das 14 variáveis selecionadas, e o Isolation Forest aprende a estrutura do regime nominal específico daquela máquina. A inferência opera sobre a janela imediatamente anterior a cada rompimento, e o resultado é um indicador de anomalia escalar por evento.
+O treinamento do modelo é previsto por máquina, sobre o histórico de intervalos com status \textsc{operando} sem incidente registrado, conforme construído pelo pipeline descrito na Seção~\ref{sec:pipeline}. Cada amostra de treino corresponderá a uma janela temporal das variáveis selecionadas, e o Isolation Forest aprenderá a estrutura do regime nominal específico daquela máquina. A inferência operará sobre a janela imediatamente anterior a cada rompimento, e o resultado será um indicador de anomalia escalar por evento.
 
-A confiabilidade do indicador depende de o modelo da máquina ter sido treinado sobre histórico suficiente e de estar atualizado em relação ao regime operacional vigente. Quando essas condições não são satisfeitas, isto é, máquinas com histórico insuficiente, períodos de mudança de regime ou janelas com dados ausentes em proporção excessiva, o pilar declara o evento como \textsc{sem\_modelo} e o diagnóstico final descrito na Seção~\ref{sec:regras_integracao} passa a depender apenas da saída do Pilar de Histórico Estatístico.
+A confiabilidade do indicador dependerá de o modelo da máquina ter sido treinado sobre histórico suficiente e de estar atualizado em relação ao regime operacional vigente. Quando essas condições não forem satisfeitas, isto é, máquinas com histórico insuficiente, períodos de mudança de regime ou janelas com dados ausentes em proporção excessiva, o pilar declarará o evento como \textsc{sem\_modelo} e o diagnóstico final descrito na Seção~\ref{sec:regras_integracao} passará a depender apenas da saída do Pilar de Histórico Estatístico.
 
-A saída do pilar é apresentada como o valor do indicador de anomalia, acompanhado da identificação da máquina e da janela analisada. A forma final de apresentação ao usuário, integrada à saída do outro pilar, é detalhada na Seção~\ref{sec:regras_integracao}.
+A saída do pilar será apresentada como o valor do indicador de anomalia, acompanhado da identificação da máquina e da janela analisada. A forma final de apresentação ao usuário, integrada à saída do outro pilar, é detalhada na Seção~\ref{sec:regras_integracao}.
 
 
 \section{Pilar de Histórico Estatístico}
@@ -228,24 +229,9 @@ A escolha por percentil em lugar de cortes fixos sobre a taxa relativa absorve m
 \subsection{Cruzamento de falhas por máquina}
 \label{subsec:contaminacao_cruzada}
 
-Um lote responsável por rompimentos em uma única máquina pode estar associado a um problema localizado de equipamento, enquanto um lote responsável por rompimentos em várias máquinas simultaneamente aponta para um problema embarcado na matéria-prima. O segundo indicador do pilar quantifica esse cruzamento de falhas por máquina por meio de um \emph{score} dedicado, denotado por $SCC$ e definido como
+\textcolor{red}{[SUBSEÇÃO A REESCREVER: a formulação do indicador de cruzamento de falhas por máquina, incluindo a fórmula proposta e os limiares de classificação, ainda será revista. O conteúdo abaixo é um esboço provisório que deve ser reavaliado antes da qualificação.]}
 
-\begin{equation}
-SCC = \frac{MA}{TM} \cdot \left(1 - \frac{1}{TM}\right),
-\label{eq:contaminacao}
-\end{equation}
-
-\noindent em que $MA$ é o número de máquinas com pelo menos um rompimento atribuído ao lote e $TM$ é o número total de máquinas que processaram o lote. O termo $(1 - 1/TM)$ penaliza casos em que o lote passou por poucas máquinas, situação em que mesmo uma única máquina afetada produziria $MA/TM$ alto, sem que isso constitua evidência de cruzamento.
-
-A classificação por faixas a ser aplicada ao $SCC$ é a seguinte:
-
-\begin{itemize}
-    \item $SCC \geq 0{,}480$, \textsc{cruzamento forte}.
-    \item $0{,}320 \leq SCC < 0{,}480$, \textsc{cruzamento moderado}.
-    \item $0{,}250 \leq SCC < 0{,}320$, \textsc{cruzamento fraco}.
-    \item $0 < SCC < 0{,}250$, \textsc{cruzamento muito fraco}.
-    \item $SCC \leq 0$, \textsc{sem cruzamento}.
-\end{itemize}
+Um lote responsável por rompimentos em uma única máquina pode estar associado a um problema localizado de equipamento, enquanto um lote responsável por rompimentos em várias máquinas simultaneamente aponta para um problema embarcado na matéria-prima. O segundo indicador do pilar quantifica esse cruzamento de falhas por máquina por meio de um \emph{score} dedicado, denotado por $SCC$, cuja formulação será detalhada após a revisão prevista para esta subseção.
 
 
 \subsection{Saídas do pilar}
