@@ -196,23 +196,49 @@ Esta seção detalha o protocolo de Pesquisa Bibliográfica Sistemática (PBS) a
 \subsection{Síntese e lacunas}
 \label{subsec:sintese_lacunas}
 
-% TODO: tabela 3.5 no estilo Henings (2026), cruzando os
-% trabalhos correlatos com os eixos temáticos da proposta.
-%
-% Eixos sugeridos (colunas da tabela):
-%   E1 Anomalia em sensor multivariado
-%   E2 Histórico estatístico por lote/fornecedor
-%   E3 Fusão de evidências independentes
-%   E4 Explicabilidade da inferência de causa
-%   E5 Aplicação em manufatura contínua
-%   E6 Validação com dados reais industriais
-%   E7 Aplicação em fabricação de fios/cabos/condutores
-%
-% Discussão fechando o capítulo:
+% TODO: paragrafo introdutorio da tabela, dizendo que a sintese dos
+% trabalhos correlatos foi organizada em torno de sete eixos tematicos
+% derivados da proposta desta dissertacao, e que a Tabela X cruza cada
+% trabalho com sua cobertura por eixo.
+
+\begin{table}[htbp]
+    \centering
+    \footnotesize
+    \caption{Síntese dos trabalhos correlatos por eixo temático.}
+    \label{tab:sintese_correlatos}
+    \begin{tabularx}{\textwidth}{X*{7}{C{0.9cm}}}
+        \toprule
+        \textbf{Trabalho} & \textbf{E1} & \textbf{E2} & \textbf{E3} & \textbf{E4} & \textbf{E5} & \textbf{E6} & \textbf{E7} \\
+        \midrule
+        % TODO: preencher cada linha com o trabalho selecionado e marcar com
+        % \checkmark as colunas cujo eixo o trabalho cobre. Linhas em branco
+        % onde o eixo nao e abordado. Manter 8 a 15 linhas. Selecionar pelos
+        % de priority=high no ieee_triage.csv.
+        Autor1 (ano) & \checkmark & & \checkmark & & \checkmark & \checkmark & \\
+        Autor2 (ano) & \checkmark & & & \checkmark & \checkmark & \checkmark & \\
+        Autor3 (ano) & & \checkmark & \checkmark & & & \checkmark & \\
+        Autor4 (ano) & \checkmark & & \checkmark & \checkmark & \checkmark & & \\
+        % ... adicionar mais linhas
+        \midrule
+        \textbf{Esta dissertação} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+        \bottomrule
+    \end{tabularx}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{table}
+
+\noindent\textbf{Legenda:}
+\textbf{E1}: Anomalia em sensor multivariado.
+\textbf{E2}: Histórico estatístico por lote ou fornecedor.
+\textbf{E3}: Fusão de evidências independentes.
+\textbf{E4}: Explicabilidade da inferência de causa.
+\textbf{E5}: Aplicação em manufatura contínua.
+\textbf{E6}: Validação com dados reais industriais.
+\textbf{E7}: Aplicação em fabricação de fios, cabos ou condutores.
+
+% TODO: discussao fechando o capitulo, apos a tabela:
 %   - Pontos fortes e limites observados em cada eixo.
-%   - Identificação explícita da lacuna que esta dissertação
-%     preenche (combinar E1 + E2 + E3 + E4 num único sistema
-%     aplicado a fios esmaltados, com regra de cruzamento entre
-%     máquinas para diferenciar falha de equipamento de suspeita
-%     de matéria-prima).
-%   - Gancho para a Proposta no Capítulo~\ref{cap:proposta}.
+%   - Identificacao explicita da lacuna que esta dissertacao preenche
+%     (combinar E1 + E2 + E3 + E4 num unico sistema aplicado a fios
+%     esmaltados, com regra de cruzamento entre maquinas para
+%     diferenciar falha de equipamento de suspeita de materia-prima).
+%   - Gancho para a Proposta no Capitulo~\ref{cap:proposta}.
