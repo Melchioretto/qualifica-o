@@ -34,82 +34,126 @@ Esta seção detalha o protocolo de Pesquisa Bibliográfica Sistemática (PBS) a
 \subsection{Pergunta de pesquisa}
 \label{subsec:pergunta_pesquisa}
 
-% TODO: enunciar a pergunta de pesquisa orientadora da revisão e
-% as sub-perguntas RQ1-RQ4 derivadas dela.
-%
-% Versão atual em revisao_literatura/review_context.md:
-%   Pergunta orientadora: "Como combinar sinais operacionais de
-%   máquina e evidências estatísticas históricas de rompimentos
-%   para apoiar a inferência da provável origem de eventos de
-%   rompimento em uma fábrica de fios?"
-%
-%   RQ1 (anomalia em série temporal industrial)
-%   RQ2 (sistemas híbridos / fusão de evidências)
-%   RQ3 (análise estatística histórica de lotes/fornecedores)
-%   RQ4 (explicabilidade / XAI industrial)
+A revisão sistemática é orientada pela seguinte pergunta de pesquisa, formulada a partir do problema enunciado na Seção~\ref{sec:problema_pesquisa}:
+
+\begin{quote}
+Como a literatura de Computação aplicada a sistemas industriais aborda a combinação de sinais operacionais de máquina e de evidências estatísticas históricas de falhas para apoiar a inferência da provável origem de eventos de rompimento em manufatura?
+\end{quote}
+
+A pergunta orientadora desdobra-se em quatro perguntas específicas, cada uma associada a uma das vertentes metodológicas que sustentam a proposta apresentada no Capítulo~\ref{cap:proposta}:
+
+\begin{itemize}
+    \item \textbf{RQ1}: Quais abordagens computacionais têm sido aplicadas à detecção de anomalias em séries temporais de variáveis operacionais em processos industriais contínuos?
+    \item \textbf{RQ2}: Como sistemas híbridos combinam múltiplas fontes de evidência, como sensores, histórico de falhas, regras de processo e conhecimento especialista, para diagnóstico de falhas industriais?
+    \item \textbf{RQ3}: Que métodos estatísticos têm sido propostos para analisar histórico de falhas segmentado por lote, material ou fornecedor em manufatura?
+    \item \textbf{RQ4}: Que técnicas de explicabilidade são empregadas em sistemas de diagnóstico de falhas industriais para apoiar a decisão de equipes técnicas?
+\end{itemize}
+
+As respostas a essas quatro perguntas, sintetizadas na Seção~\ref{sec:trabalhos_correlatos}, delimitam o espaço de soluções existentes e expõem a lacuna que esta dissertação pretende preencher.
 
 
 \subsection{Processo de busca}
 \label{subsec:processo_busca}
 
-% TODO (REINICIAR ESTA PARTE): definir do zero a estratégia de busca.
-% A estratégia anterior (sintese/strings_de_busca.md) precisa ser
-% revisitada à luz do escopo definitivo da dissertação.
-%
-% Pontos a desenvolver:
-%   - Bases de dados a consultar (Scopus, IEEE Xplore, ACM
-%     Digital Library, possivelmente Web of Science).
-%   - Blocos canônicos de busca por eixo da revisão:
-%       Bloco ANOMALIA: ?
-%       Bloco MANUTENCAO_QUALIDADE: ?
-%       Bloco INDUSTRIA: ?
-%       Bloco HIBRIDO_FUSAO: ?
-%       Bloco EXPLICABILIDADE: ?
-%   - Estratégia de combinação (funil com vertentes ou strings
-%     independentes por RQ).
-%   - String final por base.
-%   - Janela temporal (sugerido: 2020-2026).
-%   - Idioma (sugerido: inglês e português).
-%   - Apresentar resultado em tabela com contagem bruta por base.
-%
-% Os 35 incluídos da rodada anterior (core 12 + support 23)
-% servem como seeds para validar se a nova string captura os
-% trabalhos canônicos do domínio.
+A construção da estratégia de busca seguiu o protocolo PICOC, em que as palavras-chave são organizadas a partir de cinco facetas: \emph{Population} (processos industriais de manufatura), \emph{Intervention} (detecção de anomalias, análise estatística histórica, sistemas híbridos e explicabilidade), \emph{Comparison} (não aplicável neste protocolo), \emph{Outcome} (inferência de causa raiz e apoio à decisão) e \emph{Context} (manufatura contínua baseada em sensores). A formulação PICOC permite derivar blocos de termos canônicos para cada faceta, posteriormente combinados em uma única expressão booleana por base de dados.
+
+A estratégia adotada combina os blocos por meio dos operadores \texttt{AND} e \texttt{OR}, na forma geral
+\[
+\text{Population} \;\texttt{AND}\; \text{Intervention} \;\texttt{AND}\; \text{Outcome} \;\texttt{AND}\; \text{Context},
+\]
+em que cada bloco é uma disjunção de sinônimos pertinentes à faceta correspondente. A versão final da expressão por base é apresentada no Apêndice \textcolor{red}{[CITAR: referência ao apêndice quando incluído]}.
+
+A janela temporal adotada compreende os anos de 2020 a 2026, com o objetivo de privilegiar trabalhos representativos do estado atual da área, sem excluir trabalhos seminais que tenham aparecido por backward snowballing a partir das referências dos selecionados. O idioma de busca foi restrito a inglês, com complemento em português quando aplicável a bases nacionais.
+
+As bases consultadas são apresentadas na Tabela~\ref{tab:bases_busca}, acompanhadas da quantidade bruta de trabalhos retornados por base.
+
+\begin{table}[htbp]
+    \centering
+    \footnotesize
+    \caption{Bases de dados consultadas e quantidade bruta de trabalhos retornados.}
+    \label{tab:bases_busca}
+    \begin{tabular}{lr}
+        \toprule
+        \textbf{Base de dados} & \textbf{Trabalhos retornados} \\
+        \midrule
+        IEEE Xplore           & \textcolor{red}{[N]} \\
+        ACM Digital Library   & \textcolor{red}{[N]} \\
+        Scopus                & \textcolor{red}{[N]} \\
+        \midrule
+        \textbf{Total bruto}  & \textcolor{red}{[N]} \\
+        \bottomrule
+    \end{tabular}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{table}
 
 
 \subsection{Processo de seleção}
 \label{subsec:processo_selecao}
 
-% TODO: apresentar critérios de inclusão (CI) e exclusão (CE)
-% conforme review_context.md, e o funil PRISMA conforme
-% screening/prisma_counts.md (atualizado para a nova rodada
-% de busca).
-%
-% Estrutura esperada:
-%   - Critérios de inclusão (CI1-CIn) — listar
-%   - Critérios de exclusão (CE1-CEn) — listar
-%   - Tabela de funil PRISMA, etapa a etapa, da identificação
-%     ao conjunto final de trabalhos correlatos
-%   - Caracterização quantitativa do corpus bruto (distribuição
-%     anual, principais veículos)
+A seleção dos trabalhos foi conduzida em duas etapas sucessivas, conforme o padrão PRISMA. Na primeira etapa, foram aplicados critérios objetivos sobre os metadados de cada trabalho retornado pelas bases, isto é, título, resumo, palavras-chave e ano de publicação. Na segunda etapa, os trabalhos pré-selecionados passaram por leitura integral do texto e classificação final.
+
+Os critérios de inclusão definidos para esta revisão são:
+
+\begin{itemize}
+    \item \textbf{CI1}: trabalho publicado entre 2020 e 2026.
+    \item \textbf{CI2}: redigido em inglês ou em português.
+    \item \textbf{CI3}: aborda detecção de anomalias, análise estatística histórica de falhas, fusão de evidências ou explicabilidade em contexto de processo industrial.
+    \item \textbf{CI4}: texto completo disponível para leitura.
+    \item \textbf{CI5}: apresenta contribuição metodológica clara, com descrição suficiente do método aplicado.
+    \item \textbf{CI6}: validação ou aplicação em domínio industrial real ou em domínio cujo método seja transferível para manufatura.
+\end{itemize}
+
+Os critérios de exclusão complementam os de inclusão e foram aplicados quando ao menos um dos seguintes elementos foi identificado:
+
+\begin{itemize}
+    \item \textbf{CE1}: trabalho duplicado entre bases.
+    \item \textbf{CE2}: literatura cinza, isto é, relatórios técnicos, posters ou material sem revisão por pares.
+    \item \textbf{CE3}: domínio de aplicação fora do contexto industrial e sem transferência metodológica clara para manufatura.
+    \item \textbf{CE4}: apenas resumo ou prefácio disponível, sem o texto completo do trabalho.
+    \item \textbf{CE5}: trabalho puramente teórico, sem indicação de aplicação prática ou avaliação experimental.
+    \item \textbf{CE6}: trabalho centrado em problemas cuja natureza seja incompatível com o objeto desta revisão, como ciberataques, fraude financeira ou diagnóstico médico.
+\end{itemize}
+
+A aplicação sucessiva desses critérios produz o funil PRISMA apresentado na Tabela~\ref{tab:funil_prisma}, que descreve a redução do corpus ao longo das etapas de identificação, triagem, elegibilidade e inclusão final.
+
+\begin{table}[htbp]
+    \centering
+    \footnotesize
+    \caption{Funil PRISMA do processo de seleção.}
+    \label{tab:funil_prisma}
+    \begin{tabular}{lr}
+        \toprule
+        \textbf{Etapa}                                                   & \textbf{Quantidade} \\
+        \midrule
+        Identificação (registros brutos das bases)                       & \textcolor{red}{[N]} \\
+        Após remoção de duplicatas                                       & \textcolor{red}{[N]} \\
+        Triagem por título e resumo                                      & \textcolor{red}{[N]} \\
+        Elegibilidade (leitura do texto completo)                        & \textcolor{red}{[N]} \\
+        \textbf{Incluídos no conjunto final de trabalhos correlatos}     & \textcolor{red}{[N]} \\
+        \bottomrule
+    \end{tabular}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{table}
+
+A caracterização quantitativa do corpus final, incluindo distribuição anual de publicação e principais veículos de divulgação, é apresentada na Seção~\ref{sec:trabalhos_correlatos}.
 
 
 \subsection{Processo de análise e síntese}
 \label{subsec:processo_analise_sintese}
 
-% TODO: descrever a leitura integral dos trabalhos pré-selecionados,
-% o esquema de fichamento por eixo temático e a decisão final sobre
-% pertinência. Indicar que cada artigo foi classificado em um ou
-% mais dos quatro eixos (RQ1-RQ4) usados como base da Seção~\ref{sec:trabalhos_correlatos}.
+Os trabalhos aprovados na etapa de elegibilidade foram submetidos a leitura integral e fichamento estruturado. Para cada trabalho foram registrados o objetivo declarado pelos autores, o método empregado, a natureza dos dados usados na avaliação, as métricas reportadas, as limitações reconhecidas pelos autores e a contribuição central. Esse fichamento serviu de base tanto para a discussão narrativa apresentada na Seção~\ref{sec:trabalhos_correlatos} quanto para a tabela de síntese da Subseção~\ref{subsec:sintese_lacunas}.
+
+A análise organizou cada trabalho em um ou mais dos sete eixos temáticos derivados da proposta desta dissertação. Os eixos cobrem detecção de anomalias em sensor multivariado, análise estatística histórica por lote ou fornecedor, fusão de evidências independentes, explicabilidade da inferência de causa, aplicação em manufatura contínua, validação com dados reais industriais e aplicação em fabricação de fios, cabos ou condutores. A definição operacional de cada eixo é apresentada na Subseção~\ref{subsec:sintese_lacunas}, junto com a tabela que cruza trabalhos correlatos e eixos.
+
+Cada trabalho recebeu também uma avaliação qualitativa de confiabilidade, com base em uma lista de verificação que considera a clareza do objetivo, a profundidade da descrição metodológica, a aderência entre resultados e questão de pesquisa, a discussão de limitações e a presença de validação empírica. Trabalhos com avaliação muito baixa em mais de um item da lista foram retirados do conjunto de trabalhos correlatos centrais e mantidos apenas como referências de suporte para citação seletiva.
+
+A síntese final está organizada por tema na Seção~\ref{sec:trabalhos_correlatos}, com uma subseção por eixo principal de método e uma subseção final de síntese cruzando trabalhos e eixos, que explicita a lacuna que esta dissertação se propõe a preencher.
 
 
 \section{Trabalhos correlatos}
 \label{sec:trabalhos_correlatos}
 
-% TODO: parágrafo introdutório dizendo quantos correlatos resultaram
-% e em torno de quais temas se agruparam, apresentando a Tabela 3.4
-% (trabalhos por tema) no estilo de Henings (2026). Cada um dos
-% temas é examinado em uma subseção própria.
+Após a aplicação do protocolo descrito na Seção~\ref{sec:pbs}, o conjunto final de trabalhos correlatos compreende \textcolor{red}{[N]} trabalhos, agrupados em quatro temas alinhados às perguntas específicas formuladas na Subseção~\ref{subsec:pergunta_pesquisa}. As Subseções~\ref{subsec:correlatos_anomalias},~\ref{subsec:correlatos_estatistica},~\ref{subsec:correlatos_hibridos} e~\ref{subsec:correlatos_xai} discutem os trabalhos de cada tema de forma narrativa, comparando abordagens, dados e limitações. A Subseção~\ref{subsec:sintese_lacunas} apresenta a síntese cruzada com os eixos temáticos da proposta e a identificação da lacuna que esta dissertação preenche.
 
 
 \subsection{Detecção de anomalias em séries temporais industriais}
