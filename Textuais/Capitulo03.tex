@@ -22,13 +22,13 @@
 %   - sintese/strings_de_busca.md (a refazer)
 % -----------------------------------------------------------------
 
-Este capítulo apresenta a revisão sistemática da literatura que fundamenta a parte computacional desta dissertação, conduzida segundo as diretrizes de Pesquisa Bibliográfica Sistemática (PBS). A revisão investiga, de forma transparente e replicável, como a literatura de Computação aplicada a sistemas industriais aborda as quatro vertentes de método relevantes para a proposta: detecção de anomalias em séries temporais de variáveis operacionais, análise estatística histórica de falhas por lote e fornecedor, sistemas híbridos de fusão de evidências e explicabilidade em diagnóstico industrial. As tradições de diagnóstico oriundas do próprio domínio industrial, baseadas em ferramentas clássicas de qualidade e em análise estatística de confiabilidade, foram apresentadas no Capítulo~\ref{cap:fundamentacao} e não constituem objeto desta revisão.
+Este capítulo apresenta a revisão sistemática da literatura que fundamenta a parte computacional desta dissertação, conduzida segundo as diretrizes consolidadas para revisões sistemáticas em Engenharia de Software \cite{kitchenham2007guidelines}. A revisão investiga, de forma transparente e replicável, como a literatura de Computação aplicada a sistemas industriais aborda as quatro vertentes de método relevantes para a proposta: detecção de anomalias em séries temporais de variáveis operacionais, análise estatística histórica de falhas por lote e fornecedor, sistemas híbridos de fusão de evidências e explicabilidade em diagnóstico industrial. As tradições de diagnóstico oriundas do próprio domínio industrial, baseadas em ferramentas clássicas de qualidade e em análise estatística de confiabilidade, foram apresentadas no Capítulo~\ref{cap:fundamentacao} e não constituem objeto desta revisão.
 
 
 \section{Pesquisa Bibliográfica Sistemática}
 \label{sec:pbs}
 
-Esta seção detalha o protocolo de Pesquisa Bibliográfica Sistemática (PBS) aplicado, da formulação da pergunta orientadora à análise e síntese dos trabalhos selecionados, passando pelo processo de busca e pelos critérios objetivos de seleção. O objetivo é tornar o protocolo explícito e reprodutível, em conformidade com o padrão de relato \emph{Preferred Reporting Items for Systematic Reviews and Meta-Analyses} (PRISMA).
+Esta seção detalha o protocolo de Pesquisa Bibliográfica Sistemática (PBS) aplicado, da formulação da pergunta orientadora à análise e síntese dos trabalhos selecionados, passando pelo processo de busca e pelos critérios objetivos de seleção. O objetivo é tornar o protocolo explícito e reprodutível, em conformidade com o padrão de relato \emph{Preferred Reporting Items for Systematic Reviews and Meta-Analyses} (PRISMA) \cite{page2021prisma}.
 
 
 \subsection{Pergunta de pesquisa}
@@ -55,7 +55,7 @@ As respostas a essas quatro perguntas, sintetizadas na Seção~\ref{sec:trabalho
 \subsection{Processo de busca}
 \label{subsec:processo_busca}
 
-A construção da estratégia de busca seguiu o protocolo PICOC, em que as palavras-chave são organizadas a partir de cinco facetas: \emph{Population} (processos industriais de manufatura), \emph{Intervention} (detecção de anomalias, análise estatística histórica, sistemas híbridos e explicabilidade), \emph{Comparison} (não aplicável neste protocolo), \emph{Outcome} (inferência de causa raiz e apoio à decisão) e \emph{Context} (manufatura contínua baseada em sensores). A formulação PICOC permite derivar blocos de termos canônicos para cada faceta, posteriormente combinados em uma única expressão booleana por base de dados.
+A construção da estratégia de busca seguiu o protocolo PICOC \cite{petticrew2006systematic}, em que as palavras-chave são organizadas a partir de cinco facetas: \emph{Population} (processos industriais de manufatura), \emph{Intervention} (detecção de anomalias, análise estatística histórica, sistemas híbridos e explicabilidade), \emph{Comparison} (não aplicável neste protocolo), \emph{Outcome} (inferência de causa raiz e apoio à decisão) e \emph{Context} (manufatura contínua baseada em sensores). A formulação PICOC permite derivar blocos de termos canônicos para cada faceta, posteriormente combinados em uma única expressão booleana por base de dados.
 
 A estratégia adotada combina os blocos por meio dos operadores \texttt{AND} e \texttt{OR}, na forma geral
 \[
