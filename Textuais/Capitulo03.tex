@@ -153,7 +153,7 @@ A síntese final está organizada por tema na Seção~\ref{sec:trabalhos_correla
 \section{Trabalhos correlatos}
 \label{sec:trabalhos_correlatos}
 
-Após a aplicação do protocolo descrito na Seção~\ref{sec:pbs}, o conjunto final de trabalhos correlatos compreende \textcolor{red}{[N]} trabalhos, agrupados em quatro temas alinhados às perguntas específicas formuladas na Subseção~\ref{subsec:pergunta_pesquisa}. As Subseções~\ref{subsec:correlatos_anomalias},~\ref{subsec:correlatos_estatistica},~\ref{subsec:correlatos_hibridos} e~\ref{subsec:correlatos_xai} discutem os trabalhos de cada tema de forma narrativa, comparando abordagens, dados e limitações. A Subseção~\ref{subsec:sintese_lacunas} apresenta a síntese cruzada com os eixos temáticos da proposta e a identificação da lacuna que esta dissertação preenche.
+Após a aplicação do protocolo descrito na Seção~\ref{sec:pbs}, o conjunto final de trabalhos correlatos compreende 11 trabalhos, agrupados em quatro temas alinhados às perguntas específicas formuladas na Subseção~\ref{subsec:pergunta_pesquisa}. As Subseções~\ref{subsec:correlatos_anomalias},~\ref{subsec:correlatos_estatistica},~\ref{subsec:correlatos_hibridos} e~\ref{subsec:correlatos_xai} discutem os trabalhos de cada tema de forma narrativa, comparando abordagens, dados e limitações. A Subseção~\ref{subsec:sintese_lacunas} apresenta a síntese cruzada com os eixos temáticos da proposta e a identificação da lacuna que esta dissertação preenche.
 
 
 \subsection{Detecção de anomalias em séries temporais industriais}
@@ -240,10 +240,7 @@ Após a aplicação do protocolo descrito na Seção~\ref{sec:pbs}, o conjunto f
 \subsection{Síntese e lacunas}
 \label{subsec:sintese_lacunas}
 
-% TODO: paragrafo introdutorio da tabela, dizendo que a sintese dos
-% trabalhos correlatos foi organizada em torno de sete eixos tematicos
-% derivados da proposta desta dissertacao, e que a Tabela X cruza cada
-% trabalho com sua cobertura por eixo.
+A síntese dos trabalhos correlatos é organizada em torno de sete eixos temáticos derivados da proposta apresentada no Capítulo~\ref{cap:proposta}. A Tabela~\ref{tab:sintese_correlatos} cruza cada trabalho com sua cobertura por eixo e inclui, ao final, a linha referente a esta dissertação para evidenciar a combinação de eixos pretendida pelo WireSense.
 
 \begin{table}[htbp]
     \centering
@@ -254,15 +251,21 @@ Após a aplicação do protocolo descrito na Seção~\ref{sec:pbs}, o conjunto f
         \toprule
         \textbf{Trabalho} & \textbf{E1} & \textbf{E2} & \textbf{E3} & \textbf{E4} & \textbf{E5} & \textbf{E6} & \textbf{E7} \\
         \midrule
-        % TODO: preencher cada linha com o trabalho selecionado e marcar com
-        % \checkmark as colunas cujo eixo o trabalho cobre. Linhas em branco
-        % onde o eixo nao e abordado. Manter 8 a 15 linhas. Selecionar pelos
-        % de priority=high no ieee_triage.csv.
-        Autor1 (ano) & \checkmark & & \checkmark & & \checkmark & \checkmark & \\
-        Autor2 (ano) & \checkmark & & & \checkmark & \checkmark & \checkmark & \\
-        Autor3 (ano) & & \checkmark & \checkmark & & & \checkmark & \\
-        Autor4 (ano) & \checkmark & & \checkmark & \checkmark & \checkmark & & \\
-        % ... adicionar mais linhas
+        % TODO: substituir os marcadores [CITAR] pelas chaves de citacao
+        % bibtex correspondentes quando as entradas forem incluidas no
+        % arquivo abntex2-ref_UDESC_2024.bib. Os trabalhos estao em
+        % revisao_literatura/ARTIGOS NA INTEGRA ACM e IEEE/.
+        Explainable Multi-Stage Self-Supervised (slurry pump) \textcolor{red}{[CITAR]}                       & \checkmark &           & \checkmark & \checkmark & \checkmark & \checkmark &           \\
+        Anomaly Detection via Causal Graph (multi-stage) \textcolor{red}{[CITAR]}                            & \checkmark &           & \checkmark & \checkmark & \checkmark & \checkmark &           \\
+        Root-KGD (Knowledge Graph) \textcolor{red}{[CITAR]}                                                  & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &           \\
+        CADiS (Causality-Driven Transformer, IIoT) \textcolor{red}{[CITAR]}                                  & \checkmark &           & \checkmark & \checkmark & \checkmark & \checkmark &           \\
+        Random Forest (Semiconductor WET) \textcolor{red}{[CITAR]}                                           & \checkmark & \checkmark &           & \checkmark & \checkmark & \checkmark &           \\
+        Genetic Programming (Injection Molding) \textcolor{red}{[CITAR]}                                     & \checkmark & \checkmark &           & \checkmark & \checkmark & \checkmark &           \\
+        Dominant Feature Selection (Injection Molding) \textcolor{red}{[CITAR]}                              & \checkmark & \checkmark &           & \checkmark & \checkmark & \checkmark &           \\
+        CUAD-Mo (Isolation Forest em CNC) \textcolor{red}{[CITAR]}                                           & \checkmark &           &           & \checkmark & \checkmark & \checkmark &           \\
+        Spatio-Temporal Reconstruction (Heavy Industry) \textcolor{red}{[CITAR]}                             & \checkmark &           & \checkmark & \checkmark & \checkmark & \checkmark &           \\
+        Error RCA Algorithms (Semiconductor) \textcolor{red}{[CITAR]}                                        & \checkmark & \checkmark &           & \checkmark & \checkmark & \checkmark &           \\
+        Variational Autoencoder + Joint Recurrence (\emph{wire manufacturing}) \textcolor{red}{[CITAR]}      & \checkmark &           &           &           & \checkmark & \checkmark & \checkmark \\
         \midrule
         \textbf{Esta dissertação} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
         \bottomrule
@@ -279,10 +282,8 @@ Após a aplicação do protocolo descrito na Seção~\ref{sec:pbs}, o conjunto f
 \textbf{E6}: Validação com dados reais industriais.
 \textbf{E7}: Aplicação em fabricação de fios, cabos ou condutores.
 
-% TODO: discussao fechando o capitulo, apos a tabela:
-%   - Pontos fortes e limites observados em cada eixo.
-%   - Identificacao explicita da lacuna que esta dissertacao preenche
-%     (combinar E1 + E2 + E3 + E4 num unico sistema aplicado a fios
-%     esmaltados, com regra de cruzamento entre maquinas para
-%     diferenciar falha de equipamento de suspeita de materia-prima).
-%   - Gancho para a Proposta no Capitulo~\ref{cap:proposta}.
+A leitura cruzada da Tabela~\ref{tab:sintese_correlatos} expõe três achados centrais. O primeiro é a forte concentração da literatura recente nos eixos E1, E4, E5 e E6, presentes em dez dos onze trabalhos selecionados. A combinação detecção de anomalias, explicabilidade da inferência, contexto de manufatura contínua e validação com dados reais constitui o núcleo metodológico já bem estabelecido na área. O segundo achado é a presença moderada do eixo E3, com sete trabalhos abordando fusão de evidências, e do eixo E2, com cinco trabalhos abordando histórico estatístico por lote ou fornecedor. Esses dois eixos ainda são tratados de forma independente nos trabalhos correlatos, sem combinação sistemática que ofereça inferência conjunta.
+
+O terceiro achado é a quase ausência do eixo E7. Apenas um dos onze trabalhos opera diretamente sobre fabricação de fios, e mesmo esse limita-se ao monitoramento de condição da máquina sem abordar análise estatística histórica de lotes ou fornecedores. Esse resultado confirma que o domínio específico de fabricação de fios esmaltados é pouco explorado pela literatura de Computação aplicada a sistemas industriais e reforça a oportunidade de contribuição desta dissertação.
+
+A lacuna identificada e que motiva a proposta apresentada no Capítulo~\ref{cap:proposta} é a combinação simultânea, em um único sistema aplicado ao domínio de fabricação de fios, dos quatro eixos centrais E1, E2, E3 e E4. Os trabalhos correlatos demonstram que cada um desses eixos é tratável isoladamente com as técnicas computacionais atuais, mas nenhum oferece uma arquitetura que integre detecção de anomalias em sinal sensorial, análise estatística histórica segmentada por lote e fornecedor, fusão dessas duas vertentes de evidência e diagnóstico interpretável da provável origem do evento. O WireSense, proposto no Capítulo~\ref{cap:proposta}, preenche essa lacuna por meio de dois pilares independentes e uma regra de integração determinística que diferencia falha de equipamento de suspeita de matéria-prima a partir do padrão de cruzamento de eventos entre máquinas.
