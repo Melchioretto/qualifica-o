@@ -14,41 +14,52 @@
 \section{Síntese parcial da pesquisa}
 \label{sec:sintese_parcial}
 
-% Conteúdo a desenvolver:
-%   - Retomar a pergunta de pesquisa enunciada no Capítulo~\ref{cap:proposta}.
-%   - Resumir o que já foi construído até a qualificação:
-%     fundamentação teórica do domínio (Cap. 2), revisão sistemática
-%     em andamento (Cap. 3), arquitetura da ferramenta e implementação
-%     parcial dos dois pilares (Cap. 4).
-%   - Não trazer resultados experimentais (esses ficam para a defesa).
+Esta dissertação investiga, no nível da qualificação, como combinar sinais operacionais de máquina e evidências estatísticas históricas de rompimentos para inferir a provável origem de eventos de rompimento em uma fábrica de fios esmaltados de cobre e alumínio. A pergunta foi enunciada na Seção~\ref{sec:problema_pesquisa} e desdobrada nos objetivos específicos da Subseção~\ref{subsec:objetivos_especificos}.
+
+Até este ponto, foram construídos os elementos fundacionais da proposta. A fundamentação do domínio industrial, apresentada no Capítulo~\ref{cap:fundamentacao}, situa o problema do rompimento de fio nas tradições de qualidade e confiabilidade da manufatura contínua e descreve os dados disponíveis para análise. A revisão sistemática da literatura, conduzida segundo o protocolo \sigla{PBS} detalhado no Capítulo~\ref{cap:revisao_sistematica}, selecionou 11 trabalhos correlatos e identificou a lacuna que a proposta preenche, a saber, a integração de detecção de anomalias, análise estatística histórica segmentada por lote e fornecedor, fusão de evidências e explicabilidade em um único sistema aplicado a fabricação de fios esmaltados.
+
+A arquitetura do WireSense foi formalizada no Capítulo~\ref{cap:proposta}, com a definição dos dois pilares independentes, das transformações que constituem o pipeline de dados e da estrutura de saída de cada pilar. O Pilar de Sinais Operacionais foi desenhado para operar por máquina, com \emph{Isolation Forest} treinado sobre o histórico de intervalos sem incidente. O Pilar de Histórico Estatístico recebeu sua formalização estatística, com a hora-máquina como métrica de exposição, a Taxa Relativa por Material como indicador padronizado por categoria e o cruzamento de falhas por máquina como sinal complementar.
+
+Os elementos ainda em construção até a defesa, descritos na Seção~\ref{sec:cronograma}, completam a proposta com a regra de integração dos dois pilares, a avaliação sobre dados históricos da fábrica e a discussão das contribuições efetivamente entregues. Esta qualificação não traz resultados experimentais, que constituem objeto do trabalho previsto entre esta etapa e a defesa.
 
 
 \section{Cronograma para a defesa}
 \label{sec:cronograma}
 
-% Conteúdo a desenvolver:
-%   - Tabela com etapas restantes do trabalho até a defesa,
-%     com responsáveis e datas previstas.
-%   - Etapas previstas:
-%     1. Concluir a revisão sistemática (string de busca,
-%        triagem, extração, síntese).
-%     2. Refinar a implementação dos dois pilares e das regras de
-%        integração.
-%     3. Conduzir os experimentos sobre dados históricos da fábrica.
-%     4. Validar com casos documentados, incluindo o caso IBRAME
-%        482530 e demais devoluções de 2025.
-%     5. Redigir Resultados e Discussão (novo capítulo na defesa).
-%     6. Redigir Conclusão expandida.
+O cronograma de trabalhos previstos entre a qualificação e a defesa está organizado em seis etapas sequenciais, apresentadas na Tabela~\ref{tab:cronograma}. As etapas combinam atividades de pesquisa, implementação, experimentação e redação, e cobrem o período subsequente à qualificação.
+
+\begin{table}[htbp]
+    \centering
+    \footnotesize
+    \caption{Cronograma de trabalhos previstos até a defesa.}
+    \label{tab:cronograma}
+    \begin{tabularx}{\textwidth}{Xl}
+        \toprule
+        \textbf{Etapa}                                                                 & \textbf{Prazo previsto} \\
+        \midrule
+        Conclusão da revisão sistemática (extração e síntese dos trabalhos correlatos) & Ago--Set 2026 \\
+        Refinamento da implementação dos dois pilares e da regra de integração          & Out--Nov 2026 \\
+        Condução dos experimentos sobre dados históricos da fábrica                     & Dez 2026 -- Fev 2027 \\
+        Validação com casos documentados de devoluções e de paradas internas            & Mar--Abr 2027 \\
+        Redação do capítulo de Resultados e Discussão                                   & Mai--Jun 2027 \\
+        Revisão geral do texto e preparação da defesa                                   & Jul 2027 \\
+        \bottomrule
+    \end{tabularx}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{table}
+
+A primeira etapa concentra-se em encerrar a revisão sistemática com o aprofundamento das discussões narrativas e da síntese das lacunas identificadas. A segunda etapa avança a implementação dos pilares para além do estado descrito no Capítulo~\ref{cap:proposta}, incorporando ajustes de engenharia e a finalização da regra de integração. A terceira e a quarta etapa correspondem ao trabalho empírico sobre os dados históricos da fábrica, com avaliação sistemática do desempenho dos pilares e da regra de integração contra eventos documentados. As duas últimas etapas tratam da redação final, incluindo a expansão deste capítulo em uma versão de defesa que substitui a presente síntese parcial por um capítulo de Resultados e Discussão e por uma conclusão consolidada.
 
 
 \section{Trabalhos futuros}
 \label{sec:trabalhos_futuros}
 
-% Conteúdo a desenvolver:
-%   - Ampliar cobertura de sensores e de tipos de defeito.
-%   - Incorporar realimentação de especialistas como fonte de
-%     rótulo fraco.
-%   - Generalizar a arquitetura para outros processos de
-%     manufatura contínua com falhas multifatoriais.
-%   - Inferência em tempo real e integração com sistemas de
-%     chão de fábrica, fora do escopo da qualificação.
+Para além da defesa desta dissertação, identificam-se direções de extensão da pesquisa que ampliam o alcance do método proposto e o aproximam da operação cotidiana da fábrica.
+
+A direção principal projeta a construção de uma ferramenta visual de apoio ao operador e à equipe técnica, que tomará o método proposto como núcleo de inferência e adicionará camadas de operação em tempo real, alertas acionáveis e integração com os sistemas de chão de fábrica. A passagem do regime retrospectivo, adotado nesta dissertação conforme indicado na Seção~\ref{sec:caracterizacao_pesquisa}, para um regime de inferência continuada exigirá decisões de arquitetura e de integração que extrapolam o escopo do mestrado. O detalhamento dessa ferramenta, incluindo escolhas de interface, tecnologia e fluxo operacional, constitui agenda de trabalho posterior à conclusão do mestrado.
+
+A ampliação da cobertura de sensores e de tipos de defeito é uma segunda direção de extensão. O Pilar de Sinais Operacionais foi desenhado sobre um subconjunto de variáveis priorizadas, e o Pilar de Histórico Estatístico opera sobre os rompimentos. A incorporação de defeitos de bolha, asperidade e instabilidade de forno como categorias adicionais de evento e a inclusão de variáveis sensoriais hoje fora do conjunto selecionado permitiriam estender a inferência da provável origem para outros sintomas operacionais relevantes.
+
+A incorporação de realimentação de especialistas como fonte de rótulo fraco é uma terceira direção. Quando a equipe técnica de qualidade revisa um evento e atribui causa provável, esse julgamento pode ser registrado e usado como rótulo de baixa frequência mas alta confiança, refinando ao longo do tempo a calibração dos pilares e da regra de integração.
+
+A generalização da arquitetura para outros processos de manufatura contínua com falhas multifatoriais é a quarta direção. A separação em pilares independentes, com fusão por regra determinística, é em princípio agnóstica ao domínio. Aplicações em fundição, laminação, extrusão e em outros processos com características semelhantes ao da fábrica analisada poderiam validar a transferibilidade do método proposto, com adaptação dos critérios de seleção de variáveis sensoriais e da estrutura categórica de matérias-primas.
