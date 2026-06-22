@@ -170,26 +170,15 @@ Após a aplicação do protocolo descrito na Seção~\ref{sec:pbs}, o conjunto f
 \subsection{Detecção de anomalias em séries temporais industriais}
 \label{subsec:correlatos_anomalias}
 
-% RQ1.
-% TODO: discussão narrativa dos trabalhos centrais do tema,
-% comparando abordagens, dados e limitações.
-%
-% Sementes do core (full_text_include_core.csv) relevantes ao tema:
-%   - Anomaly Detection and Mode Identification in Multimode
-%     Processes Using the Field Kalman Filter (2021)
-%   - Variational Autoencoder and Joint Recurrence plot based
-%     automated condition monitoring in the context of wire
-%     manufacturing in the Philippines (2021) — DOMÍNIO DIRETO
-%   - Unsupervised Fault Event Detection in Historical Industrial
-%     Telemetry With Temporal Event Structuring (2026)
-%   - Convolutional kernel-based classification of industrial
-%     alarm floods (2024)
-%   - Causal strength contrast-based abnormal path detection and
-%     root cause diagnosis for nonstationary industrial processes (2026)
-%
-% Trabalhos de suporte para citação seletiva listados em
-% full_text_include_support.csv (autoencoders, LSTM, transformers,
-% DTW, GRU, etc.)
+A detecção de anomalias em séries temporais industriais é a vertente metodológica de maior maturidade entre as quatro perguntas específicas que orientam esta revisão. Os trabalhos selecionados nesta categoria distribuem-se em três famílias principais: métodos baseados em reconstrução, métodos baseados em isolamento e métodos que incorporam modelagem causal ou espaço-temporal explícita. Cada família traz pressupostos próprios sobre o que constitui um comportamento anômalo e sobre como caracterizá-lo a partir do registro multivariado dos sensores.
+
+A família baseada em reconstrução assume que um modelo treinado sobre dados de operação normal aprende a estrutura latente do regime nominal e que a magnitude do erro de reconstrução em uma janela serve como indicador de anormalidade. Em aplicação a bombas de polpa em mineração, autoencoders combinados com \emph{Isolation Forest} e modelos de mistura gaussiana foram usados para gerar rótulos de confiança em arranjo de aprendizado autossupervisionado multifase \cite{islam2026explainable}. Em equipamentos de indústria pesada, uma proposta denominada MRGSTR integra a rede Mamba e a \emph{Residual Graph Convolutional Network} para reconstruir séries multivariadas, capturando correlações temporais e espaciais entre sensores sem exigir rótulos de anomalia \cite{wang2025spatiotemporal}. No domínio de fabricação de fios, único trabalho do conjunto a operar diretamente sobre esse contexto, o \emph{Variational Autoencoder} foi combinado com o \emph{Joint Recurrence Plot} para monitoramento automatizado de condição em linha de produção, demonstrando viabilidade da abordagem reconstrucionista no domínio mais próximo desta dissertação \cite{gatmaitan2021variational}.
+
+A família baseada em isolamento explora a hipótese de que pontos anômalos exigem menos partições aleatórias para serem isolados em estruturas de árvore que pontos pertencentes ao regime nominal. Um arranjo não supervisionado baseado em \emph{Isolation Forest} aplicado a operações de usinagem em centros de controle numérico computadorizado, denominado CUAD-Mo, incorpora mecanismo de explicabilidade fundamentado no método \emph{Depth-based Isolation Forest Feature Importance} \cite{lorenti2022cuadmo}. A escolha do \emph{Isolation Forest} como núcleo da detecção alinha-se diretamente com a estratégia adotada pelo Pilar de Sinais Operacionais do WireSense, apresentado na Seção~\ref{sec:impl_sinais}.
+
+A família que incorpora modelagem causal ou espaço-temporal explícita procura ir além da caracterização do regime nominal e capturar relações de dependência entre variáveis ou entre etapas do processo. Em processos industriais de múltiplos estágios, um arranjo de aprendizado espaço-temporal baseado em grafo causal foi proposto para detecção de anomalias e identificação de causa raiz, explorando explicitamente a propagação de eventos ao longo da cadeia produtiva \cite{xu2026anomaly}. Em ambientes de Internet das Coisas Industrial, a arquitetura CADiS combina um \emph{Transformer} dirigido por causalidade com consistência interventional e aprendizado contrastivo para detecção e diagnóstico simultâneos \cite{zeng2026cadis}.
+
+A análise conjunta dos trabalhos desta categoria expõe duas características recorrentes. A primeira é a forte concentração sobre dados sensoriais como única fonte de evidência, com pouca exploração da combinação com informação categórica de produção, lote ou fornecedor. A segunda é o foco predominante em detecção, com diagnóstico de causa raiz aparecendo como objetivo secundário em parte dos trabalhos e ausente em outros. Essas características pavimentam a discussão da próxima vertente, a análise estatística histórica segmentada por lote e fornecedor, apresentada na Subseção~\ref{subsec:correlatos_estatistica}.
 
 
 \subsection{Análise estatística histórica de lotes e fornecedores}
