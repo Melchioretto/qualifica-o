@@ -162,7 +162,7 @@ A síntese final está organizada por tema na Seção~\ref{sec:trabalhos_correla
 \section{Trabalhos correlatos}
 \label{sec:trabalhos_correlatos}
 
-Após a aplicação do protocolo descrito na Seção~\ref{sec:pbs}, o conjunto final de trabalhos correlatos compreende 11 trabalhos, agrupados em quatro temas alinhados às perguntas específicas formuladas na Subseção~\ref{subsec:pergunta_pesquisa}. As Subseções~\ref{subsec:correlatos_anomalias},~\ref{subsec:correlatos_estatistica},~\ref{subsec:correlatos_hibridos} e~\ref{subsec:correlatos_xai} discutem os trabalhos de cada tema de forma narrativa, comparando abordagens, dados e limitações. A Subseção~\ref{subsec:sintese_lacunas} apresenta a síntese cruzada com os eixos temáticos da proposta e a identificação da lacuna que esta dissertação preenche.
+Após a aplicação do protocolo descrito na Seção~\ref{sec:pbs}, o conjunto final de trabalhos correlatos compreende 11 trabalhos, agrupados em quatro temas alinhados às perguntas específicas formuladas na Subseção~\ref{subsec:pergunta_pesquisa}. As Subseções~\ref{subsec:correlatos_anomalias},~\ref{subsec:correlatos_estatistica},~\ref{subsec:correlatos_hibridos} e~\ref{subsec:correlatos_xai} discutem os trabalhos de cada tema de forma narrativa, comparando abordagens, dados e limitações. Cada trabalho é discutido na subseção correspondente à sua contribuição central, ainda que possa cobrir mais de um eixo na síntese da Subseção~\ref{subsec:sintese_lacunas}, em que se apresenta a tabela cruzada com os eixos temáticos da proposta e a identificação da lacuna que esta dissertação preenche.
 
 \textcolor{red}{[FIGURA pendente: caracterização quantitativa do corpus final em duas subfiguras lado a lado. Subfigura (a) distribuição anual de publicações entre 2020 e 2026, barras verticais com altura igual ao número de trabalhos correlatos selecionados em cada ano. Subfigura (b) distribuição por base de dados, barras verticais comparando IEEE Xplore e ACM Digital Library. Construir com pgfplots para integração nativa no LaTeX. Salvar como Figuras/corpus\_distribuicao.pdf e referenciar com fig:corpus\_distribuicao.]}
 
@@ -184,15 +184,15 @@ A análise conjunta dos trabalhos desta categoria expõe duas características r
 \subsection{Análise estatística histórica de lotes e fornecedores}
 \label{subsec:correlatos_estatistica}
 
-% RQ3.
-% TODO: discussão narrativa dos trabalhos do tema, com foco em
-% taxa de falha relativa, normalização por exposição, batch
-% effects, variabilidade entre lotes/fornecedores e indicadores
-% de qualidade de matéria-prima em processo contínuo.
-%
-% Identificar nos arquivos de screening quais artigos cobrem
-% explicitamente esta vertente (eixo "historico_qualidade_lote"
-% com 209 ocorrências na triagem).
+A análise estatística histórica de falhas segmentada por lote ou fornecedor é a vertente mais escassamente representada entre os trabalhos correlatos. Nenhum dos trabalhos do conjunto adota o lote de matéria-prima ou o fornecedor como dimensão central de agregação, e os esforços mais próximos vêm de domínios em que a noção de etapa anterior ou origem do material aparece naturalmente, como fabricação de semicondutores e moldagem por injeção. Esta subseção discute os trabalhos que oferecem aproximação metodológica relevante para a vertente, ainda que sua contribuição central esteja em outro eixo.
+
+O cenário mais próximo da lógica de segmentação por origem aparece em processos de semicondutor, em que cada wafer carrega um histórico de etapas anteriores que pode ser tratado como categoria de procedência. Uma proposta baseada em \emph{Random Forest} identifica quais etapas anteriores de processo apresentam maior associação com defeitos observados na etapa de limpeza úmida, atribuindo importância a cada categoria a partir do peso da variável correspondente no modelo treinado \cite{yu2026randomforest}. A estratégia compartilha com o Pilar de Histórico Estatístico do WireSense, apresentado na Seção~\ref{sec:impl_historico}, a ideia de buscar o efeito de uma categoria de origem sobre o evento observado em uma etapa posterior, embora opere por importância de variável em um classificador supervisionado, em lugar de uma comparação direta com a taxa histórica de referência da categoria.
+
+Em moldagem por injeção, métodos de seleção dominante de variáveis baseados em correlação de Pearson e em \emph{Random Forest} foram aplicados à identificação de causas raiz, isolando os parâmetros de processo mais associados à ocorrência de defeitos \cite{nam2024dominant}. O raciocínio é correlato ao do Pilar de Histórico Estatístico no que tange à atribuição de responsabilidade a categorias, mas dirige-se a parâmetros de máquina em vez de categorias de matéria-prima.
+
+Na vertente de mineração de padrões em registros de manufatura, uma análise comparativa de algoritmos de identificação de causa raiz em fabricação de wafers discute técnicas de mineração de sequência e identificação de padrões recorrentes ao longo de séries de eventos de defeito \cite{gaurav2025errorrca}. A detecção de padrões recorrentes em sequências de eventos é metodologicamente análoga à identificação de lotes com taxa de rompimento atipicamente elevada quando vistos ao longo do histórico produtivo.
+
+A análise conjunta desses trabalhos confirma o diagnóstico inicial. A literatura recente em Computação aplicada a sistemas industriais explora a noção de segmentação por categoria de processo, mas não converge para uma formalização explícita de taxa relativa por lote ou por fornecedor, com normalização por exposição produtiva. Essa lacuna metodológica delimita o espaço de contribuição do Pilar de Histórico Estatístico desta dissertação, que adota a hora-máquina como métrica de exposição e a Taxa Relativa por Material como indicador padronizado por categoria, conforme descrito no Capítulo~\ref{cap:proposta}.
 
 
 \subsection{Sistemas híbridos e fusão de evidências}
