@@ -198,23 +198,13 @@ A análise conjunta desses trabalhos confirma o diagnóstico inicial. A literatu
 \subsection{Sistemas híbridos e fusão de evidências}
 \label{subsec:correlatos_hibridos}
 
-% RQ2.
-% TODO: discussão narrativa de arquiteturas que combinam
-% múltiplas fontes de evidência (sensores, histórico, regras,
-% conhecimento especialista) para diagnóstico industrial.
-%
-% Sementes do core relevantes:
-%   - Network-based Root Cause Identification to Improve OEE
-%     in High-Precision Manufacturing (2025)
-%   - A novel dynamic machine learning-based explainable fusion
-%     monitoring: application to industrial and chemical processes (2025)
-%   - An Integrated Distributed Fault Diagnosis Framework for
-%     Large-Scale Industrial Processes Based on Spatio-Temporal
-%     Causal Analysis (2025)
-%   - Dynamic Causal Entropy-Spatiotemporal Convolutional Network
-%     for Quality-Related Fault Diagnosis (2026)
-%   - Digital Twin-Based Real-Time Fault Prediction for Smart
-%     Manufacturing (2026)
+A noção de sistema híbrido aparece em duas acepções distintas nos trabalhos correlatos. A primeira combina múltiplas técnicas computacionais aplicadas sobre uma mesma fonte de dados, em geral para reforçar a robustez da detecção ou para enriquecer a representação aprendida. A segunda integra fontes heterogêneas de evidência, com naturezas distintas, em um único processo de inferência. A proposta desta dissertação enquadra-se na segunda acepção, com o WireSense combinando evidência sensorial e evidência estatística histórica em pilares independentes que se encontram apenas no momento do diagnóstico.
+
+A primeira acepção é a mais frequente entre os trabalhos selecionados. O arranjo autossupervisionado discutido na Subseção~\ref{subsec:correlatos_anomalias} combina autoencoder, \emph{Isolation Forest} e modelo de mistura gaussiana para geração de rótulos de confiança, com cada técnica contribuindo com uma visão complementar do mesmo conjunto de séries sensoriais \cite{islam2026explainable}. A arquitetura MRGSTR funde modelagem temporal por meio da rede Mamba com modelagem espacial por meio de rede convolucional sobre grafo, integrando duas perspectivas computacionais aplicadas ao mesmo registro multivariado \cite{wang2025spatiotemporal}. A arquitetura CADiS combina raciocínio causal interventional com aprendizado contrastivo, novamente operando sobre a mesma fonte de dados sensoriais \cite{zeng2026cadis}. Em todos esses casos, a fusão ocorre dentro da própria etapa de modelagem da série sensorial, sem incorporar informação categórica externa.
+
+A segunda acepção, a fusão de fontes heterogêneas, aparece com clareza no Root-KGD \cite{chen2026rootkgd}. O arranjo combina um grafo de conhecimento que codifica relações conhecidas entre componentes e modos de falha do processo industrial com dados sensoriais numéricos processados por algoritmos de raciocínio sobre causa de falha. A fusão dessas duas fontes, simbólica e numérica, permite ao sistema inferir a causa raiz considerando tanto o padrão observado nos sensores quanto o conhecimento estrutural prévio do processo. Esse tipo de integração entre evidência baseada em dado e evidência baseada em conhecimento aproxima-se da arquitetura adotada pelo WireSense no que diz respeito à natureza heterogênea das fontes combinadas, ainda que a fonte secundária do WireSense seja estatística histórica segmentada por categoria, e não conhecimento simbólico estruturado por especialistas.
+
+A análise conjunta dos trabalhos desta categoria expõe um padrão consistente. As fusões realizadas concentram-se ou em técnicas computacionais sobre uma mesma fonte de dados ou em combinações entre dados numéricos e conhecimento simbólico estruturado. Nenhum dos trabalhos do conjunto integra evidência sensorial em série temporal com evidência estatística histórica segmentada por lote ou fornecedor como pilares de igual peso em um único sistema de inferência. Essa configuração específica de fusão é o que o WireSense materializa por meio da regra de integração apresentada na Seção~\ref{sec:regras_integracao}, que combina a saída do Pilar de Sinais Operacionais com a saída do Pilar de Histórico Estatístico para produzir o diagnóstico da provável origem do evento de rompimento.
 
 
 \subsection{Explicabilidade em diagnóstico industrial}
