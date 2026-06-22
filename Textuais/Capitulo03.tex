@@ -76,10 +76,10 @@ A estratégia foi aplicada nas bases IEEE Xplore e ACM Digital Library. Essas du
         \toprule
         \textbf{Base de dados} & \textbf{Trabalhos retornados} \\
         \midrule
-        IEEE Xplore           & \textcolor{red}{[N]} \\
-        ACM Digital Library   & \textcolor{red}{[N]} \\
+        IEEE Xplore           & 291 \\
+        ACM Digital Library   & 1398 \\
         \midrule
-        \textbf{Total bruto}  & \textcolor{red}{[N]} \\
+        \textbf{Total bruto}  & \textbf{1689} \\
         \bottomrule
     \end{tabular}
     \fonte{Elaborado pelo autor (\the\year).}
@@ -124,11 +124,11 @@ A aplicação sucessiva desses critérios produz o funil \sigla{PRISMA} apresent
         \toprule
         \textbf{Etapa}                                                   & \textbf{Quantidade} \\
         \midrule
-        Identificação (registros brutos das bases)                       & \textcolor{red}{[N]} \\
-        Após remoção de duplicatas                                       & \textcolor{red}{[N]} \\
-        Triagem por título e resumo                                      & \textcolor{red}{[N]} \\
-        Elegibilidade (leitura do texto completo)                        & \textcolor{red}{[N]} \\
-        \textbf{Incluídos no conjunto final de trabalhos correlatos}     & \textcolor{red}{[N]} \\
+        Identificação (registros brutos das bases)                       & 1689 \\
+        Após remoção por datas (janela 2020--2026)                       & 609 \\
+        Triagem por título e resumo (pré-selecionados)                   & 56 \\
+        Elegibilidade (leitura do texto completo)                        & 11 \\
+        \textbf{Incluídos no conjunto final de trabalhos correlatos}     & \textbf{11} \\
         \bottomrule
     \end{tabular}
     \fonte{Elaborado pelo autor (\the\year).}
@@ -136,7 +136,15 @@ A aplicação sucessiva desses critérios produz o funil \sigla{PRISMA} apresent
 
 A caracterização quantitativa do corpus final, incluindo distribuição anual de publicação e principais veículos de divulgação, é apresentada na Seção~\ref{sec:trabalhos_correlatos}.
 
-\textcolor{red}{[FIGURA pendente: fluxograma \sigla{PRISMA} no estilo das figuras de arquitetura e pipeline (mesma família visual), mostrando as quatro etapas (identificação, deduplicação, triagem, elegibilidade) com as contagens efetivas em cada caixa, e os números excluídos em cada transição. Substitui ou complementa a Tabela~\ref{tab:funil_prisma}. Salvar como Figuras/prisma_flow.pdf e incorporar com referência fig:prisma_flow.]}
+A Figura~\ref{fig:prisma_flow} apresenta visualmente a redução do corpus ao longo das etapas do funil, com os números efetivos de registros retidos em cada caixa e os volumes excluídos em cada transição.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\textwidth]{Figuras/Prisma.pdf}
+    \caption{Fluxograma \sigla{PRISMA} do processo de seleção.}
+    \label{fig:prisma_flow}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{figure}
 
 
 \subsection{Processo de análise e síntese}
