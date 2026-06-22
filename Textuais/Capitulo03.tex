@@ -136,6 +136,8 @@ A aplicação sucessiva desses critérios produz o funil \sigla{PRISMA} apresent
 
 A caracterização quantitativa do corpus final, incluindo distribuição anual de publicação e principais veículos de divulgação, é apresentada na Seção~\ref{sec:trabalhos_correlatos}.
 
+\textcolor{red}{[FIGURA pendente: fluxograma \sigla{PRISMA} no estilo das figuras de arquitetura e pipeline (mesma família visual), mostrando as quatro etapas (identificação, deduplicação, triagem, elegibilidade) com as contagens efetivas em cada caixa, e os números excluídos em cada transição. Substitui ou complementa a Tabela~\ref{tab:funil_prisma}. Salvar como Figuras/prisma_flow.pdf e incorporar com referência fig:prisma_flow.]}
+
 
 \subsection{Processo de análise e síntese}
 \label{subsec:processo_analise_sintese}
@@ -153,6 +155,8 @@ A síntese final está organizada por tema na Seção~\ref{sec:trabalhos_correla
 \label{sec:trabalhos_correlatos}
 
 Após a aplicação do protocolo descrito na Seção~\ref{sec:pbs}, o conjunto final de trabalhos correlatos compreende 11 trabalhos, agrupados em quatro temas alinhados às perguntas específicas formuladas na Subseção~\ref{subsec:pergunta_pesquisa}. As Subseções~\ref{subsec:correlatos_anomalias},~\ref{subsec:correlatos_estatistica},~\ref{subsec:correlatos_hibridos} e~\ref{subsec:correlatos_xai} discutem os trabalhos de cada tema de forma narrativa, comparando abordagens, dados e limitações. A Subseção~\ref{subsec:sintese_lacunas} apresenta a síntese cruzada com os eixos temáticos da proposta e a identificação da lacuna que esta dissertação preenche.
+
+\textcolor{red}{[FIGURA pendente: caracterização quantitativa do corpus final em duas subfiguras lado a lado. Subfigura (a) distribuição anual de publicações entre 2020 e 2026, barras verticais com altura igual ao número de trabalhos correlatos selecionados em cada ano. Subfigura (b) distribuição por base de dados, barras verticais comparando IEEE Xplore e ACM Digital Library. Construir com pgfplots para integração nativa no LaTeX. Salvar como Figuras/corpus_distribuicao.pdf e referenciar com fig:corpus_distribuicao.]}
 
 
 \subsection{Detecção de anomalias em séries temporais industriais}
@@ -280,6 +284,8 @@ A síntese dos trabalhos correlatos é organizada em torno de sete eixos temáti
 \textbf{E5}: Aplicação em manufatura contínua.
 \textbf{E6}: Validação com dados reais industriais.
 \textbf{E7}: Aplicação em fabricação de fios, cabos ou condutores.
+
+\textcolor{red}{[FIGURA opcional pendente: heatmap trabalhos $\times$ eixos como alternativa visual à Tabela~\ref{tab:sintese_correlatos}. Mesma matriz, com células coloridas em tom de cinza/azul indicando cobertura em vez de \checkmark. Pode substituir a tabela ou ficar como figura complementar. Gerar com pgfplots ou matplotlib e salvar como Figuras/sintese_heatmap.pdf. Decisão final fica para depois da avaliação visual da tabela atual.]}
 
 A leitura cruzada da Tabela~\ref{tab:sintese_correlatos} expõe três achados centrais. O primeiro é a forte concentração da literatura recente nos eixos E1, E4, E5 e E6, presentes em dez dos onze trabalhos selecionados. A combinação detecção de anomalias, explicabilidade da inferência, contexto de manufatura contínua e validação com dados reais constitui o núcleo metodológico já bem estabelecido na área. O segundo achado é a presença moderada do eixo E3, com sete trabalhos abordando fusão de evidências, e do eixo E2, com cinco trabalhos abordando histórico estatístico por lote ou fornecedor. Esses dois eixos ainda são tratados de forma independente nos trabalhos correlatos, sem combinação sistemática que ofereça inferência conjunta.
 
