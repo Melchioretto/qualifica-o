@@ -63,7 +63,7 @@ A estratégia adotada combina os blocos por meio dos operadores \texttt{AND} e \
 \]
 em que cada bloco é uma disjunção de sinônimos pertinentes à faceta correspondente. A versão final da expressão por base é apresentada no Apêndice \textcolor{red}{[CITAR: referência ao apêndice quando incluído]}.
 
-A janela temporal adotada compreende os anos de 2020 a 2026, com o objetivo de privilegiar trabalhos representativos do estado atual da área, sem excluir trabalhos seminais que tenham aparecido por backward snowballing a partir das referências dos selecionados. O idioma de busca foi restrito a inglês, com complemento em português quando aplicável a bases nacionais.
+A janela temporal adotada compreende os anos de 2020 a 2026, com o objetivo de privilegiar trabalhos representativos do estado atual da área, sem excluir trabalhos seminais que tenham aparecido por backward snowballing a partir das referências dos selecionados. Além do recorte temporal, a busca aplicou também restrição por tipo de documento, considerando apenas artigos publicados em conferências e periódicos com revisão por pares e descartando livros, teses, capítulos de livro e materiais avulsos. O idioma de busca foi restrito a inglês, com complemento em português quando aplicável a bases nacionais.
 
 A estratégia foi aplicada nas bases IEEE Xplore e ACM Digital Library. Essas duas bases foram selecionadas por concentrarem a maior parte da produção científica em Computação aplicada a sistemas industriais e por reunirem os principais veículos de publicação em conferências e periódicos do campo. Bases multidisciplinares como Scopus e Web of Science apresentam abrangência maior, porém redundam parcialmente com IEEE e ACM no recorte temático adotado, e foram deixadas para uma eventual rodada futura de extensão da revisão. As contagens brutas de trabalhos retornados por base são apresentadas na Tabela~\ref{tab:bases_busca}.
 
@@ -118,14 +118,14 @@ A aplicação sucessiva desses critérios produz o funil \sigla{PRISMA} apresent
 \begin{table}[htbp]
     \centering
     \footnotesize
-    \caption{Funil \sigla{PRISMA} do processo de seleção.}
+    \caption{Funil PRISMA do processo de seleção.}
     \label{tab:funil_prisma}
     \begin{tabular}{lr}
         \toprule
         \textbf{Etapa}                                                   & \textbf{Quantidade} \\
         \midrule
         Identificação (registros brutos das bases)                       & 1689 \\
-        Após remoção por datas (janela 2020--2026)                       & 609 \\
+        Após filtros de janela temporal e tipo de documento              & 609 \\
         Triagem por título e resumo (pré-selecionados)                   & 56 \\
         Elegibilidade (leitura do texto completo)                        & 11 \\
         \textbf{Incluídos no conjunto final de trabalhos correlatos}     & \textbf{11} \\
@@ -141,7 +141,7 @@ A Figura~\ref{fig:prisma_flow} apresenta visualmente a redução do corpus ao lo
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.75\textwidth]{Figuras/Prisma.pdf}
-    \caption{Fluxograma \sigla{PRISMA} do processo de seleção.}
+    \caption{Fluxograma PRISMA do processo de seleção.}
     \label{fig:prisma_flow}
     \fonte{Elaborado pelo autor (\the\year).}
 \end{figure}
