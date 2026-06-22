@@ -24,21 +24,52 @@
 \cleardoublepage
 % ---
 
-% ---
-% inserir lista de abreviaturas e siglas
-% Cada sigla é definida com \acro{KEY}{Forma Completa}. Com a opção
-% printonlyused do pacote acronym, somente as siglas efetivamente
-% usadas no texto via \sigla{KEY} (ou \ac{KEY}) aparecem na Lista.
-% Manter as entradas em ordem alfabética.
-% ---
+% -----------------------------------------------------------------
+% Lista de Abreviaturas e Siglas
+% -----------------------------------------------------------------
+% CONVENCAO DE USO:
+%
+% Cada sigla e definida abaixo com:
+%     \acro{KEY}{Forma Completa}
+%
+% No texto, sempre escreva:
+%     \sigla{KEY}
+%
+% O pacote acronym (carregado em PacotesBasicos.tex com opcao
+% [printonlyused]) garante que:
+%   - A PRIMEIRA ocorrencia de \sigla{KEY} em todo o documento
+%     expande automaticamente para "Forma Completa (KEY)".
+%   - As demais ocorrencias mostram apenas "KEY".
+%   - Todas as ocorrencias sao hyperlinks para a entrada desta lista.
+%   - Somente siglas efetivamente usadas via \sigla{KEY} aparecem
+%     impressas nesta lista.
+%
+% RESTRICAO IMPORTANTE: \sigla{KEY} (que e alias de \ac{KEY}) e
+% comando fragil. NAO usar dentro de \caption{}, \section{}, \chapter{},
+% etc., pois esses argumentos sao moveis e podem causar vazamento de
+% formatacao na Lista de Figuras e Tabelas. Nesses casos, escrever a
+% sigla em texto plano.
+%
+% PARA ADICIONAR uma nova sigla:
+%   1. Adicione uma linha \acro{KEY}{Forma Completa} abaixo, em
+%      ordem alfabetica.
+%   2. Use \sigla{KEY} no texto.
+%
+% Para formas longas em ingles, envolver em \emph{} para italico
+% (convencao ABNT para termos estrangeiros). Formas longas em
+% portugues ficam em texto reto.
+%
+% Entradas em ordem alfabetica.
+% -----------------------------------------------------------------
 \pretextualchapter{\listadesiglasname}
 \begin{acronym}[MCUSUM]
 	\acro{CCR}{\emph{Continuous Casting and Rolling}}
 	\acro{CEP}{Controle Estatístico de Processo}
 	\acro{CUSUM}{\emph{Cumulative Sum}}
+	\acro{DIFFI}{\emph{Depth-based Isolation Forest Feature Importance}}
 	\acro{EWMA}{\emph{Exponentially Weighted Moving Average}}
 	\acro{FMEA}{\emph{Failure Mode and Effects Analysis}}
-	\acro{FTA}{\emph{Fault Tree Analysis}}
+	\acro{FTA}{Análise por Árvore de Falhas, do inglês \emph{Fault Tree Analysis}}
 	\acro{LOF}{\emph{Local Outlier Factor}}
 	\acro{LSTM}{\emph{Long Short-Term Memory}}
 	\acro{MCUSUM}{\emph{Multivariate Cumulative Sum}}
@@ -46,10 +77,11 @@
 	\acro{PBS}{Pesquisa Bibliográfica Sistemática}
 	\acro{PICOC}{\emph{Population, Intervention, Comparison, Outcome and Context}}
 	\acro{PRISMA}{\emph{Preferred Reporting Items for Systematic Reviews and Meta-Analyses}}
-	\acro{RCA}{\emph{Root Cause Analysis}}
+	\acro{RCA}{Análise de Causa Raiz, do inglês \emph{Root Cause Analysis}}
 	\acro{ROC}{\emph{Receiver Operating Characteristic}}
 	\acro{RPN}{\emph{Risk Priority Number}}
 	\acro{SCC}{Score de Cruzamento entre máquinas}
+	\acro{SHAP}{\emph{SHapley Additive exPlanations}}
 	\acro{SPC}{\emph{Statistical Process Control}}
 	\acro{TRM}{Taxa Relativa por Material}
 \end{acronym}
