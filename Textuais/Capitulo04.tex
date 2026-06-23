@@ -195,9 +195,35 @@ O Pilar de Histórico Estatístico analisa o padrão de rompimentos associado a 
 \subsection{Modelo operacional}
 \label{subsec:modelo_operacional}
 
-\textcolor{red}{[FIGURA pendente: esquema da relação lote $\times$ material $\times$ máquina, mostrando que um mesmo lote pode percorrer múltiplas máquinas e que uma mesma máquina pode processar lotes e materiais distintos ao longo do tempo.]}
+A fábrica opera com múltiplas máquinas em paralelo, e cada máquina pode processar materiais de bitolas diferentes ao longo do tempo, alternando-se em função das ordens de produção. A Figura~\ref{fig:modelo_lotes} ilustra o ponto de partida: a operação recebe ao longo do tempo um conjunto de N lotes de matéria-prima e cada lote pode ser consumido em M materiais distintos, correspondentes às bitolas produzidas.
 
-A fábrica opera com múltiplas máquinas em paralelo, e cada máquina pode processar materiais de bitolas diferentes ao longo do tempo, alternando-se em função das ordens de produção. Cada material consumido em uma máquina pertence a um lote de matéria-prima identificado, e um mesmo lote pode ser distribuído entre várias máquinas conforme a programação. Essa estrutura configura uma relação muitos-para-muitos entre lotes, materiais e máquinas. Por consequência, cada rompimento observado precisa ser atribuído a uma combinação específica dessas dimensões para que a análise estatística possa isolar o efeito de cada uma.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figuras/lotes.drawio.pdf}
+    \caption{Universo de lotes de matéria-prima e materiais derivados de cada lote.}
+    \label{fig:modelo_lotes}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{figure}
+
+Cada material consumido em uma máquina pertence a um lote de matéria-prima identificado, e um mesmo lote pode ser distribuído entre várias máquinas conforme a programação. A Figura~\ref{fig:modelo_material_maquina} representa esse caso com um lote único percorrendo quatro máquinas e produzindo materiais potencialmente distintos em cada uma.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figuras/materialXmaquina.drawio.pdf}
+    \caption{Um mesmo lote distribuído entre quatro máquinas, com cada máquina produzindo um material correspondente à ordem de produção em curso.}
+    \label{fig:modelo_material_maquina}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{figure}
+
+A combinação dessas duas dimensões configura uma relação muitos-para-muitos entre lotes, materiais e máquinas. A Figura~\ref{fig:modelo_consolidado} consolida a visão: em uma máquina específica, um lote produz X materiais ao longo do tempo, enquanto o mesmo lote considerado em todas as máquinas por onde passou produz M materiais. Por consequência, cada rompimento observado precisa ser atribuído a uma combinação específica dessas dimensões para que a análise estatística possa isolar o efeito de cada uma.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figuras/loteemaquinafabricammateriais.drawio.pdf}
+    \caption{Visão consolidada do modelo operacional: o lote em uma máquina específica produz X materiais, enquanto o mesmo lote considerado em todas as máquinas produz M materiais.}
+    \label{fig:modelo_consolidado}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{figure}
 
 
 \subsection{Hora-máquina como métrica de exposição}
