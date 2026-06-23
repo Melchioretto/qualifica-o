@@ -146,8 +146,6 @@ A terceira etapa segmenta as duas tabelas processadas em unidades de análise pe
 
 A implementação do pipeline ocorre em um conjunto de \emph{scripts} desenvolvidos em paralelo a esta dissertação, organizados por etapa e versionados na base de código da ferramenta. Cada etapa corresponde a uma rotina dedicada, encadeada por interfaces de entrada e saída padronizadas que permitem reexecutar parcialmente o pipeline a partir de qualquer ponto intermediário. Essa organização modular faz com que ajustes pontuais em uma etapa, como a inclusão de novas variáveis na conversão para o formato amplo, não exijam reprocessamento integral das demais.
 
-\textcolor{red}{[TABELA pendente: correspondência entre etapas do pipeline e \emph{scripts} implementados, a ser consolidada quando o repositório for fechado para a defesa.]}
-
 Após a aplicação das etapas descritas, as tabelas brutas apresentadas na Seção~\ref{sec:fontes_dados} assumem o formato ilustrado na Figura~\ref{fig:tabelas_pos_pipeline}. A tabela de status passa a incorporar as colunas de lote, material e fornecedor, e a tabela de sensores reorganiza-se em formato amplo, com uma coluna por variável de processo.
 
 \begin{figure}[htbp]
