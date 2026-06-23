@@ -173,9 +173,42 @@ Após a aplicação das etapas descritas, as tabelas brutas apresentadas na Seç
 
 O Pilar de Sinais Operacionais analisa o comportamento das variáveis sensoriais no entorno temporal de cada rompimento, com o objetivo de identificar se a operação da máquina apresentou desvio em relação ao padrão recente de funcionamento. A escolha por uma abordagem de detecção de anomalias decorre da ausência de rótulo padronizado de causa discutida na Seção~\ref{sec:problema_pesquisa}, que impede o uso direto de classificadores supervisionados. O método selecionado para esta dissertação é o Isolation Forest, cujo enquadramento na literatura de detecção de anomalias em séries temporais industriais é apresentado no Capítulo~\ref{cap:revisao_sistematica}.
 
-\textcolor{red}{[TABELA pendente: variáveis sensoriais a serem selecionadas para o pilar, agrupadas por natureza (térmicas, elétricas, mecânicas e de controle), com referência ao ponto da linha em que cada sensor é instalado. A definição final da lista será apresentada após a etapa de seleção de variáveis.]}
+O conjunto de variáveis monitoradas pela tabela de sensores cobre grandezas térmicas, elétricas e mecânicas distribuídas ao longo da linha, conforme descrito na Subseção~\ref{subsec:tabela_sensores} e ilustrado na Figura~\ref{fig:tabelasensores}. Desse conjunto, foi selecionado um subconjunto de 14 variáveis com base em critérios de cobertura do processo, qualidade da aquisição e relevância para os modos de falha caracterizados no Capítulo~\ref{cap:fundamentacao}. A seleção privilegia variáveis cujo desvio em relação à operação nominal carrega significado físico interpretável pela equipe de engenharia da fábrica. A Tabela~\ref{tab:sensores_pilar_sinais} apresenta as variáveis selecionadas, agrupadas por categoria.
 
-O conjunto de variáveis monitoradas pela tabela de sensores cobre grandezas térmicas, elétricas e mecânicas distribuídas ao longo da linha, conforme descrito na Subseção~\ref{subsec:tabela_sensores} e ilustrado na Figura~\ref{fig:tabelasensores}. Desse conjunto, será selecionado um subconjunto de variáveis com base em critérios de cobertura do processo, qualidade da aquisição e relevância para os modos de falha caracterizados no Capítulo~\ref{cap:fundamentacao}. A seleção privilegiará variáveis cujo desvio em relação à operação nominal carregue significado físico interpretável pela equipe de engenharia da fábrica.
+\begin{table}[htbp]
+    \centering
+    \footnotesize
+    \caption{Variáveis sensoriais selecionadas para o Pilar de Sinais Operacionais.}
+    \label{tab:sensores_pilar_sinais}
+    \begin{tabularx}{\textwidth}{lX}
+        \toprule
+        \textbf{Categoria} & \textbf{Variável} \\
+        \midrule
+        \multirow{9}{*}{Temperatura}
+            & Exaustor do forno \\
+            & Antes do catalisador \\
+            & Após o catalisador \\
+            & Ar de exaustão \\
+            & Zona de secagem \\
+            & Recozedor, zona 1 \\
+            & Recozedor, zona 2 \\
+            & Trocador de calor \\
+            & Zona de cura \\
+        \midrule
+        \multirow{2}{*}{Tensão do fio}
+            & Trefila \\
+            & Bobinador \\
+        \midrule
+        Velocidade
+            & Supervisório \\
+        \midrule
+        \multirow{2}{*}{Ventiladores}
+            & Exaustão \\
+            & Recirculação \\
+        \bottomrule
+    \end{tabularx}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{table}
 
 O treinamento do modelo é previsto por máquina, sobre o histórico de intervalos com status \textsc{operando} sem incidente registrado. Cada amostra de treino corresponderá a uma janela temporal das variáveis selecionadas, e o Isolation Forest aprenderá a estrutura do regime nominal específico daquela máquina. A inferência operará sobre a janela imediatamente anterior a cada rompimento, e o resultado será um indicador de anomalia escalar por evento.
 
