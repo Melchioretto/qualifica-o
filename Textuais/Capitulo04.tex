@@ -268,7 +268,7 @@ A taxa bruta de rompimento de uma combinação de lote e material em uma máquin
 \subsection{Taxa Relativa por Material e taxa relativa ao lote}
 \label{subsec:taxa_relativa}
 
-A interpretação de uma taxa bruta isolada exige uma referência. O Pilar de Histórico Estatístico define essa referência como a taxa histórica do material, calculada sobre o conjunto de todos os lotes que já foram processados naquele material. A Taxa Relativa por Material de um lote, denotada por $TRM_i$ para o material $i$, é dada por
+A interpretação de uma taxa bruta isolada exige uma referência. O Pilar de Histórico Estatístico define essa referência como a taxa histórica do material, calculada sobre o conjunto de todos os lotes que já foram processados naquele material. A Taxa Relativa por Material de um lote, denotada por $TRM_i$ para o material $i$, é definida como a razão entre a taxa do lote no material e a taxa histórica de todos os lotes no mesmo material, conforme a Equação~\ref{eq:trm}.
 
 \begin{equation}
 TRM_i = \frac{\text{taxa do lote no material } i}{\text{taxa histórica de todos os lotes no material } i}.
@@ -277,7 +277,7 @@ TRM_i = \frac{\text{taxa do lote no material } i}{\text{taxa histórica de todos
 
 Valores de $TRM_i$ próximos a um indicam que o lote apresenta comportamento semelhante ao histórico do material. Valores superiores a um indicam frequência de rompimentos atípica para aquele lote, e valores inferiores a um indicam o oposto.
 
-Um mesmo lote pode ser consumido em mais de um material durante sua vida útil. Para agregar a informação em um único indicador por lote, define-se a taxa relativa ao lote como a média ponderada das Taxas Relativas por Material, com pesos iguais às horas-máquina acumuladas em cada material,
+Um mesmo lote pode ser consumido em mais de um material durante sua vida útil. Para agregar a informação em um único indicador por lote, define-se a taxa relativa ao lote como a média ponderada das Taxas Relativas por Material, com pesos iguais às horas-máquina acumuladas em cada material, conforme a Equação~\ref{eq:taxa_relativa_lote}.
 
 \begin{equation}
 TR = \frac{\sum_i TRM_i \cdot HM_i}{\sum_i HM_i},
