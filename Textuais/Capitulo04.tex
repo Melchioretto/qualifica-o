@@ -277,14 +277,14 @@ TRM_i = \frac{\text{taxa do lote no material } i}{\text{taxa histórica de todos
 
 Valores de $TRM_i$ próximos a um indicam que o lote apresenta comportamento semelhante ao histórico do material. Valores superiores a um indicam frequência de rompimentos atípica para aquele lote, e valores inferiores a um indicam o oposto.
 
-Um mesmo lote pode ser consumido em mais de um material durante sua vida útil. Para agregar a informação em um único indicador por lote, define-se a taxa relativa ao lote como a média ponderada das Taxas Relativas por Material, com pesos iguais às horas-máquina acumuladas em cada material, conforme a Equação~\ref{eq:taxa_relativa_lote}.
+Um mesmo lote pode ser consumido em mais de um material durante sua vida útil. Para agregar a informação em um único indicador por lote, define-se a taxa relativa ao lote como a média ponderada das Taxas Relativas por Material, com pesos iguais às horas-máquina acumuladas em cada material. Sendo $HM_i$ a hora-máquina acumulada pelo lote no material $i$, a taxa relativa ao lote é calculada conforme a Equação~\ref{eq:taxa_relativa_lote}.
 
 \begin{equation}
-TR = \frac{\sum_i TRM_i \cdot HM_i}{\sum_i HM_i},
+TR = \frac{\sum_i TRM_i \cdot HM_i}{\sum_i HM_i}.
 \label{eq:taxa_relativa_lote}
 \end{equation}
 
-\noindent em que $HM_i$ denota a hora-máquina acumulada pelo lote no material $i$. A ponderação evita que materiais com pouca exposição produtiva distorçam o indicador do lote.
+A ponderação evita que materiais com pouca exposição produtiva distorçam o indicador do lote.
 
 
 \subsection{Classificação de risco por percentil}
