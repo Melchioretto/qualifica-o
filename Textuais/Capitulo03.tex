@@ -65,7 +65,7 @@ em que cada bloco é uma disjunção de sinônimos pertinentes à faceta corresp
 
 A janela temporal adotada compreende os anos de 2020 a 2026, com o objetivo de privilegiar a produção da área publicada nesse intervalo, sem excluir trabalhos seminais que tenham aparecido por backward snowballing a partir das referências dos selecionados. Além do recorte temporal, a busca aplicou também restrição por tipo de documento, considerando apenas artigos publicados em conferências e periódicos com revisão por pares e descartando livros, teses, capítulos de livro e materiais avulsos. O idioma de busca foi restrito a inglês, com complemento em português quando aplicável a bases nacionais.
 
-A estratégia foi aplicada nas bases IEEE Xplore e ACM Digital Library. Essas duas bases foram selecionadas por concentrarem a maior parte da produção científica em Computação aplicada a sistemas industriais e por reunirem os principais veículos de publicação em conferências e periódicos do campo. Bases multidisciplinares como Scopus e Web of Science apresentam abrangência maior, porém redundam parcialmente com IEEE e ACM no recorte temático adotado, e foram deixadas para uma eventual rodada futura de extensão da revisão. As contagens brutas de trabalhos retornados por base são apresentadas na Tabela~\ref{tab:bases_busca}.
+A estratégia foi aplicada nas bases IEEE Xplore, ACM Digital Library e Scopus. IEEE e ACM foram selecionadas por concentrarem a maior parte da produção em Computação aplicada a sistemas industriais e por reunirem os principais veículos de publicação em conferências e periódicos do campo. Scopus foi incorporada para ampliar a cobertura interdisciplinar, complementando o recorte das duas bases anteriores com periódicos de Engenharia Industrial, Manufatura e Engenharia Química nos quais aparecem trabalhos metodologicamente relevantes para a proposta. As contagens brutas de trabalhos retornados por base são apresentadas na Tabela~\ref{tab:bases_busca}.
 
 \begin{table}[htbp]
     \centering
@@ -78,8 +78,9 @@ A estratégia foi aplicada nas bases IEEE Xplore e ACM Digital Library. Essas du
         \midrule
         IEEE Xplore           & 291 \\
         ACM Digital Library   & 1398 \\
+        Scopus                & 182 \\
         \midrule
-        \textbf{Total bruto}  & \textbf{1689} \\
+        \textbf{Total bruto}  & \textbf{1871} \\
         \bottomrule
     \end{tabular}
     \fonte{Elaborado pelo autor (\the\year).}
@@ -124,11 +125,11 @@ A aplicação sucessiva desses critérios produz o funil \sigla{PRISMA} apresent
         \toprule
         \textbf{Etapa}                                                   & \textbf{Quantidade} \\
         \midrule
-        Identificação (registros brutos das bases)                       & 1689 \\
-        Após filtros de janela temporal e tipo de documento              & 598 \\
-        Triagem por título e resumo (pré-selecionados)                   & 56 \\
-        Elegibilidade (leitura do texto completo)                        & 11 \\
-        \textbf{Incluídos no conjunto final de trabalhos correlatos}     & \textbf{11} \\
+        Identificação (registros brutos das bases)                       & 1871 \\
+        Após filtros de janela temporal e tipo de documento              & 780 \\
+        Triagem por título e resumo (pré-selecionados)                   & 83 \\
+        Elegibilidade (leitura do texto completo)                        & 16 \\
+        \textbf{Incluídos no conjunto final de trabalhos correlatos}     & \textbf{16} \\
         \bottomrule
     \end{tabular}
     \fonte{Elaborado pelo autor (\the\year).}
@@ -162,9 +163,9 @@ A síntese final está organizada por tema na Seção~\ref{sec:trabalhos_correla
 \section{Trabalhos correlatos}
 \label{sec:trabalhos_correlatos}
 
-Após a aplicação do protocolo descrito na Seção~\ref{sec:pbs}, o conjunto final de trabalhos correlatos compreende 11 trabalhos, agrupados em quatro temas alinhados às perguntas específicas formuladas na Subseção~\ref{subsec:pergunta_pesquisa}. As Subseções~\ref{subsec:correlatos_anomalias},~\ref{subsec:correlatos_estatistica},~\ref{subsec:correlatos_hibridos} e~\ref{subsec:correlatos_xai} discutem os trabalhos de cada tema de forma narrativa, comparando abordagens, dados e limitações. Cada trabalho é discutido na subseção correspondente à sua contribuição central, ainda que possa cobrir mais de um eixo na síntese da Subseção~\ref{subsec:sintese_lacunas}, em que se apresenta a tabela cruzada com os eixos temáticos da proposta e a identificação da lacuna que esta dissertação preenche.
+Após a aplicação do protocolo descrito na Seção~\ref{sec:pbs}, o conjunto final de trabalhos correlatos compreende 16 trabalhos, agrupados em quatro temas alinhados às perguntas específicas formuladas na Subseção~\ref{subsec:pergunta_pesquisa}. As Subseções~\ref{subsec:correlatos_anomalias},~\ref{subsec:correlatos_estatistica},~\ref{subsec:correlatos_hibridos} e~\ref{subsec:correlatos_xai} discutem os trabalhos de cada tema de forma narrativa, comparando abordagens, dados e limitações. Cada trabalho é discutido na subseção correspondente à sua contribuição central, ainda que possa cobrir mais de um eixo na síntese da Subseção~\ref{subsec:sintese_lacunas}, em que se apresenta a tabela cruzada com os eixos temáticos da proposta e a identificação da lacuna que esta dissertação preenche.
 
-A Figura~\ref{fig:corpus_distribuicao} apresenta a caracterização quantitativa do corpus que passou pelos filtros de janela temporal e tipo de documento, totalizando 598 trabalhos. A distribuição anual mostra volumes anuais estáveis entre 2020 e 2023, em torno de trinta trabalhos por ano, seguidos de crescimento expressivo a partir de 2024 e pico em 2025, com o ano de 2026 ainda em curso no momento da coleta. A distribuição por base evidencia maior volume retornado pela ACM Digital Library, em parte explicado pela amplitude do escopo coberto pela base em comparação ao recorte mais especializado do IEEE Xplore.
+A Figura~\ref{fig:corpus_distribuicao} apresenta a caracterização quantitativa do corpus que passou pelos filtros de janela temporal e tipo de documento, totalizando 780 trabalhos distribuídos entre as três bases consultadas. A distribuição anual mostra volumes estáveis entre 2020 e 2023, em torno de quarenta trabalhos por ano, seguidos de crescimento expressivo a partir de 2024 e pico em 2025, com o ano de 2026 ainda em curso no momento da coleta. A distribuição por base evidencia maior volume retornado pela ACM Digital Library, em parte explicado pela amplitude do escopo coberto pela base, e equivalência aproximada entre IEEE Xplore e Scopus, cada uma com pouco mais de 180 trabalhos.
 
 \begin{figure}[htbp]
     \centering
@@ -256,6 +257,11 @@ A síntese dos trabalhos correlatos é organizada em torno de sete eixos temáti
         Spatio-Temporal Reconstruction (Heavy Industry) \cite{wang2025spatiotemporal}                        & \checkmark &           & \checkmark & \checkmark & \checkmark & \checkmark &           \\
         Error RCA Algorithms (Semiconductor) \cite{gaurav2025errorrca}                                       & \checkmark & \checkmark &           & \checkmark & \checkmark & \checkmark &           \\
         Variational Autoencoder + Joint Recurrence (\emph{wire manufacturing}) \cite{gatmaitan2021variational} & \checkmark &           &           &           & \checkmark & \checkmark & \checkmark \\
+        AE + CAE em \emph{Wire Arc Additive Manufacturing} \cite{mattera2026waam}                              & \checkmark &           &           & \checkmark & \checkmark & \checkmark & \checkmark \\
+        AE em \emph{Co-axial Wire Laser-Directed Energy Deposition} \cite{xie2026coaxial}                     & \checkmark &           &           & \checkmark & \checkmark & \checkmark & \checkmark \\
+        Group-aware temporal em \emph{Hot Strip Mill} \cite{kontogiannis2026groupaware}                       & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &           \\
+        Fuzzy C-Means + XGBoost + SHAP em processos químicos \cite{marindiaz2025fuzzy}                        & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &           \\
+        KG + LLM para diagnóstico em CNC \cite{nie2026knowledge}                                              & \checkmark &           & \checkmark & \checkmark & \checkmark & \checkmark &           \\
         \midrule
         \textbf{Esta dissertação} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
         \bottomrule
@@ -274,8 +280,8 @@ A síntese dos trabalhos correlatos é organizada em torno de sete eixos temáti
 
 \textcolor{red}{[FIGURA opcional pendente: heatmap trabalhos $\times$ eixos como alternativa visual à Tabela~\ref{tab:sintese_correlatos}. Mesma matriz, com células coloridas em tom de cinza/azul indicando cobertura em vez de \checkmark. Pode substituir a tabela ou ficar como figura complementar. Gerar com pgfplots ou matplotlib e salvar como Figuras/sintese\_heatmap.pdf. Decisão final fica para depois da avaliação visual da tabela atual.]}
 
-A leitura cruzada da Tabela~\ref{tab:sintese_correlatos} expõe três achados centrais. O primeiro é a forte concentração da literatura recente nos eixos E1, E4, E5 e E6, presentes em dez dos onze trabalhos selecionados. A combinação detecção de anomalias, explicabilidade da inferência, contexto de manufatura contínua e validação com dados reais constitui o núcleo metodológico já bem estabelecido na área. O segundo achado é a presença moderada do eixo E3, com sete trabalhos abordando fusão de evidências, e do eixo E2, com cinco trabalhos abordando histórico estatístico por lote ou fornecedor. Esses dois eixos ainda são tratados de forma independente nos trabalhos correlatos, sem combinação sistemática que ofereça inferência conjunta.
+A leitura cruzada da Tabela~\ref{tab:sintese_correlatos} expõe três achados centrais. O primeiro é a forte concentração da literatura recente nos eixos E1, E4, E5 e E6, presentes em quinze dos dezesseis trabalhos selecionados. A combinação detecção de anomalias, explicabilidade da inferência, contexto de manufatura contínua e validação com dados reais constitui o núcleo metodológico já bem estabelecido na área. O segundo achado é a presença moderada do eixo E3, com nove trabalhos abordando fusão de evidências, e do eixo E2, com sete trabalhos abordando histórico estatístico por lote ou fornecedor. Esses dois eixos ainda são tratados de forma independente nos trabalhos correlatos, sem combinação sistemática que ofereça inferência conjunta.
 
-O terceiro achado é a quase ausência do eixo E7. Apenas um dos onze trabalhos opera diretamente sobre fabricação de fios, e mesmo esse limita-se ao monitoramento de condição da máquina sem abordar análise estatística histórica de lotes ou fornecedores. Esse resultado confirma que o domínio específico de fabricação de fios esmaltados é pouco explorado pela literatura de Computação aplicada a sistemas industriais e reforça a oportunidade de contribuição desta dissertação.
+O terceiro achado é a presença ainda restrita do eixo E7. Apenas três dos dezesseis trabalhos operam diretamente sobre fabricação de fios, todos restritos a vertentes específicas, monitoramento de condição em linha de esmaltamento, deposição por arco em manufatura aditiva por fio e deposição coaxial por laser, e nenhum aborda análise estatística histórica segmentada por lote ou fornecedor no domínio de fios. Esse resultado confirma que o domínio específico de fabricação de fios esmaltados é pouco explorado pela literatura de Computação aplicada a sistemas industriais e reforça a oportunidade de contribuição desta dissertação.
 
 A lacuna identificada e que motiva a proposta apresentada no Capítulo~\ref{cap:proposta} é a combinação simultânea, em um único sistema aplicado ao domínio de fabricação de fios, dos quatro eixos centrais E1, E2, E3 e E4. Os trabalhos correlatos evidenciam que cada um desses eixos é tratável isoladamente com as técnicas computacionais disponíveis, mas nenhum oferece uma arquitetura que integre detecção de anomalias em sinal sensorial, análise estatística histórica segmentada por lote e fornecedor, fusão dessas duas vertentes de evidência e diagnóstico interpretável da provável origem do evento. O WireSense, proposto no Capítulo~\ref{cap:proposta}, preenche essa lacuna por meio de dois pilares independentes e uma regra de integração determinística que diferencia falha de equipamento de suspeita de matéria-prima a partir do padrão de cruzamento de eventos entre máquinas.
