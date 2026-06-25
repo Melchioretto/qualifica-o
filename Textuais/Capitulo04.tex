@@ -23,7 +23,7 @@
 
 A pesquisa apresentada nesta dissertação tem natureza aplicada e caráter exploratório, orientada por problema concreto observado em ambiente industrial real. O trabalho não parte de uma hipótese formal a ser confirmada, mas sim de uma proposição central a ser construída e avaliada ao longo do desenvolvimento da ferramenta, conforme o problema enunciado na Seção~\ref{sec:problema_pesquisa}.
 
-A análise opera exclusivamente sobre dados históricos coletados retrospectivamente da operação da fábrica. Aspectos de inferência em tempo real, geração de alertas operacionais e integração com sistemas de chão de fábrica para resposta imediata estão fora do escopo desta dissertação, embora constituam direção natural de trabalho futuro a ser indicada no capítulo final.
+O desenvolvimento da ferramenta abrange duas fases articuladas. A primeira fase opera sobre dados históricos coletados retrospectivamente da operação da fábrica, com calibração dos pilares, definição da regra de integração e validação contra eventos com causa documentada. A segunda fase implanta o método em regime de inferência continuada, integrado ao sistema de chão de fábrica. O gatilho de execução é o próprio registro operacional do evento. Assim que o operador anota no sistema da máquina que a parada foi causada por rompimento, o WireSense é acionado e devolve a classificação à interface operacional antes da retomada da produção. Camadas de painel de acompanhamento e de alertas direcionados à equipe técnica completam a entrega.
 
 A escolha metodológica recai sobre técnicas não supervisionadas de análise de dados, justificada pela ausência de rótulo padronizado sobre a causa provável dos rompimentos, conforme discutido na Seção~\ref{sec:dados_disponiveis}. Em vez de tratar o evento de rompimento como um problema de classificação direta, a abordagem adotada combina dois eixos independentes de evidência. O primeiro analisa o comportamento operacional das máquinas a partir de séries temporais de variáveis sensoriais, enquanto o segundo analisa o histórico estatístico de rompimentos por lote, material, fornecedor e máquina. A integração entre os dois eixos produz o diagnóstico final da provável origem do evento.
 
@@ -65,6 +65,8 @@ Para alcançar o objetivo geral, são definidos os seguintes objetivos específi
     \item Desenvolver o Pilar de Sinais Operacionais, responsável pela detecção de anomalias a partir de séries temporais de variáveis sensoriais.
     \item Desenvolver o Pilar de Histórico Estatístico, responsável pela análise de rompimentos segmentada por lote, material, fornecedor e máquina.
     \item Integrar os dois pilares em uma ferramenta de inferência e avaliar o resultado a partir de casos históricos da fábrica.
+    \item Implantar o método em regime de inferência continuada, com gatilho acionado pelo registro operacional do evento no sistema da máquina e devolução do diagnóstico à interface operacional antes da retomada da produção.
+    \item Desenvolver o painel de acompanhamento e a camada de alertas direcionados à equipe técnica, integrados ao sistema de chão de fábrica.
 \end{enumerate}
 
 

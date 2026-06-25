@@ -16,17 +16,17 @@
 
 Esta dissertação investiga, no nível da qualificação, como combinar sinais operacionais de máquina e evidências estatísticas históricas de rompimentos para inferir a provável origem de eventos de rompimento em uma fábrica de fios esmaltados de cobre e alumínio. A pergunta foi enunciada na Seção~\ref{sec:problema_pesquisa} e desdobrada nos objetivos específicos da Subseção~\ref{subsec:objetivos_especificos}.
 
-Até este ponto, foram construídos os elementos fundacionais da proposta. A fundamentação do domínio industrial, apresentada no Capítulo~\ref{cap:fundamentacao}, situa o problema do rompimento de fio nas tradições de qualidade e confiabilidade da manufatura contínua e descreve os dados disponíveis para análise. A revisão sistemática da literatura, conduzida segundo o protocolo \sigla{PBS} detalhado no Capítulo~\ref{cap:revisao_sistematica}, selecionou 11 trabalhos correlatos e identificou a lacuna que a proposta preenche, a saber, a integração de detecção de anomalias, análise estatística histórica segmentada por lote e fornecedor, fusão de evidências e explicabilidade em um único sistema aplicado a fabricação de fios esmaltados.
+Até este ponto, foram construídos os elementos fundacionais da proposta. A fundamentação do domínio industrial, apresentada no Capítulo~\ref{cap:fundamentacao}, situa o problema do rompimento de fio nas tradições de qualidade e confiabilidade da manufatura contínua e descreve os dados disponíveis para análise. A revisão sistemática da literatura, conduzida segundo o protocolo \sigla{PBS} detalhado no Capítulo~\ref{cap:revisao_sistematica}, encontra-se concluída, com seleção final de 16 trabalhos correlatos e identificação da lacuna que a proposta preenche, a saber, a integração de detecção de anomalias, análise estatística histórica segmentada por lote e fornecedor, fusão de evidências e explicabilidade em um único sistema aplicado a fabricação de fios esmaltados.
 
 A arquitetura do WireSense foi formalizada no Capítulo~\ref{cap:proposta}, com a definição dos dois pilares independentes, das transformações que constituem o pipeline de dados e da estrutura de saída de cada pilar. O Pilar de Sinais Operacionais foi desenhado para operar por máquina, com \emph{Isolation Forest} treinado sobre o histórico de intervalos sem incidente. O Pilar de Histórico Estatístico recebeu sua formalização estatística, com a hora-máquina como métrica de exposição, a Taxa Relativa por Material como indicador padronizado por categoria e o cruzamento de falhas por máquina como sinal complementar.
 
-Os elementos ainda em construção até a defesa, descritos na Seção~\ref{sec:cronograma}, completam a proposta com a regra de integração dos dois pilares, a avaliação sobre dados históricos da fábrica e a discussão das contribuições efetivamente entregues. Esta qualificação não traz resultados experimentais, que constituem objeto do trabalho previsto entre esta etapa e a defesa.
+Os elementos ainda em construção até a defesa, descritos na Seção~\ref{sec:cronograma}, completam a proposta com a regra de integração dos dois pilares, a validação sobre dados históricos da fábrica, a implantação em regime de inferência continuada com integração ao sistema de chão de fábrica, a entrega do painel de acompanhamento e da camada de alertas, e a discussão das contribuições efetivamente entregues. Esta qualificação não traz resultados experimentais, que constituem objeto do trabalho previsto entre esta etapa e a defesa.
 
 
 \section{Cronograma para a defesa}
 \label{sec:cronograma}
 
-O cronograma de trabalhos previstos entre a qualificação e a defesa está organizado em seis etapas sequenciais, apresentadas na Tabela~\ref{tab:cronograma}. As etapas combinam atividades de pesquisa, implementação, experimentação e redação, e cobrem o período subsequente à qualificação.
+O cronograma de trabalhos previstos entre a qualificação e a defesa está organizado em seis etapas sequenciais, apresentadas na Tabela~\ref{tab:cronograma}. As etapas combinam atividades de implementação, experimentação, implantação e redação, e cobrem o período subsequente à qualificação até a defesa prevista para fevereiro de 2027.
 
 \begin{table}[htbp]
     \centering
@@ -35,22 +35,22 @@ O cronograma de trabalhos previstos entre a qualificação e a defesa está orga
     \label{tab:cronograma}
     \begin{tabularx}{\textwidth}{Xl}
         \toprule
-        \textbf{Etapa}                                                                 & \textbf{Prazo previsto} \\
+        \textbf{Etapa}                                                                                 & \textbf{Prazo previsto} \\
         \midrule
-        Conclusão da revisão sistemática (extração e síntese dos trabalhos correlatos) & Ago--Set 2026 \\
-        Refinamento da implementação dos dois pilares e da regra de integração          & Out--Nov 2026 \\
-        Condução dos experimentos sobre dados históricos da fábrica                     & Dez 2026 -- Fev 2027 \\
-        Validação com casos documentados de devoluções e de paradas internas            & Mar--Abr 2027 \\
-        Redação do capítulo de Resultados e Discussão                                   & Mai--Jun 2027 \\
-        Revisão geral do texto e preparação da defesa                                   & Jul 2027 \\
+        Refinamento da implementação dos dois pilares e da regra de integração                          & Jul--Ago 2026 \\
+        Validação retrospectiva sobre o lote-caso confirmatório e demais eventos documentados           & Set--Out 2026 \\
+        Implantação do gatilho de inferência continuada integrado ao sistema de chão de fábrica         & Nov 2026 \\
+        Desenvolvimento do painel de acompanhamento e da camada de alertas                              & Dez 2026 \\
+        Redação do capítulo de Resultados e Discussão                                                   & Jan 2027 \\
+        Revisão geral do texto e preparação da defesa                                                   & Fev 2027 \\
         \bottomrule
     \end{tabularx}
     \fonte{Elaborado pelo autor (\the\year).}
 \end{table}
 
-A primeira etapa concentra-se em encerrar a revisão sistemática com o aprofundamento das discussões narrativas e da síntese das lacunas identificadas. A segunda etapa avança a implementação dos pilares para além do estado descrito no Capítulo~\ref{cap:proposta}, incorporando ajustes de engenharia e a finalização da regra de integração. A terceira e a quarta etapa correspondem ao trabalho empírico sobre os dados históricos da fábrica, com avaliação sistemática do desempenho dos pilares e da regra de integração contra eventos documentados. As duas últimas etapas tratam da redação final, incluindo a expansão deste capítulo em uma versão de defesa que substitui a presente síntese parcial por um capítulo de Resultados e Discussão e por uma conclusão consolidada.
+A primeira etapa avança a implementação dos pilares para além do estado descrito no Capítulo~\ref{cap:proposta}, incorporando ajustes de engenharia e a finalização da regra de integração. A segunda etapa conduz a validação retrospectiva da ferramenta sobre os dados históricos da fábrica. A fábrica dispõe de pelo menos um lote com causa documentada por inspeção pericial: um lote de cobre identificado pela equipe de qualidade como responsável por rompimentos sistemáticos durante o consumo, atribuídos à presença de inclusões metálicas no vergalhão e expostas durante a trefilação. Esse caso constitui o ponto de partida confirmatório da validação, com a expectativa de que o WireSense classifique esse lote como evidência forte de matéria-prima, com taxa relativa ao lote acima do esperado e cruzamento de falhas distribuído entre as máquinas que o processaram. A partir desse caso, a validação se estende aos demais eventos documentados de devoluções de cliente e de paradas internas, com a expectativa de cobrir as classes de resposta previstas pela regra de integração apresentada na Seção~\ref{sec:regras_integracao}.
 
-Para a quarta etapa, a fábrica dispõe de pelo menos um lote com causa documentada por inspeção pericial. Trata-se de um lote de cobre identificado pela equipe de qualidade como responsável por rompimentos sistemáticos durante o consumo, atribuídos à presença de inclusões metálicas no vergalhão e expostas durante a trefilação. Esse caso constitui o ponto de partida confirmatório da validação: a expectativa é que o WireSense classifique esse lote como evidência forte de matéria-prima, com taxa relativa ao lote acima do esperado e cruzamento de falhas distribuído entre as máquinas que o processaram. A partir desse caso, a validação se estende para os demais eventos documentados de devoluções de cliente e de paradas internas, com a expectativa de cobrir as classes de resposta previstas pela regra de integração apresentada na Seção~\ref{sec:regras_integracao}.
+A terceira e a quarta etapas tratam da implantação do método em regime de inferência continuada. A terceira etapa entrega o gatilho de execução acoplado ao sistema da máquina, de modo que o registro operacional do rompimento pelo operador aciona o WireSense e devolve a classificação à interface operacional antes da retomada da produção. A quarta etapa entrega o painel de acompanhamento e a camada de alertas direcionados à equipe técnica, completando a integração com o chão de fábrica. As duas últimas etapas tratam da redação final, incluindo a expansão deste capítulo em uma versão de defesa que substitui a presente síntese parcial por um capítulo de Resultados e Discussão e por uma conclusão consolidada.
 
 
 \section{Trabalhos futuros}
@@ -58,7 +58,7 @@ Para a quarta etapa, a fábrica dispõe de pelo menos um lote com causa document
 
 Para além da defesa desta dissertação, identificam-se direções de extensão da pesquisa que ampliam o alcance do método proposto e o aproximam da operação cotidiana da fábrica.
 
-A direção principal projeta a construção de uma ferramenta visual de apoio ao operador e à equipe técnica, que tomará o método proposto como núcleo de inferência e adicionará camadas de operação em tempo real, alertas acionáveis e integração com os sistemas de chão de fábrica. O gatilho previsto para a inferência em tempo real é o próprio registro operacional do evento. Assim que o operador anota no sistema da máquina que a parada foi causada por rompimento, o WireSense é acionado e produz a classificação da provável origem com base na janela sensorial imediatamente anterior ao evento e no histórico estatístico do lote em consumo, devolvendo o diagnóstico à interface operacional antes da retomada da produção. Essa integração transforma a análise hoje retrospectiva, indicada na Seção~\ref{sec:caracterizacao_pesquisa}, em ferramenta de apoio à decisão durante o turno, oferecendo à equipe de manutenção indicação imediata sobre se a próxima ação deve recair sobre o lote em consumo ou sobre o equipamento. O detalhamento dessa ferramenta, incluindo escolhas de interface, tecnologia e fluxo operacional, constitui agenda de trabalho posterior à conclusão do mestrado.
+A direção principal de extensão é a passagem do regime reativo para um regime preditivo. A implantação descrita nesta dissertação opera por gatilho, acionando o método de inferência quando o operador registra a parada por rompimento no sistema da máquina. A extensão preditiva inverte esse fluxo: a partir do monitoramento contínuo dos sensores e do histórico estatístico do lote em curso, o sistema antecipa a probabilidade de rompimento iminente e emite alerta preventivo. Essa direção exige tratamento adicional de calibração, definição de métricas de antecipação e gestão de falsos positivos, e constitui agenda de trabalho posterior à conclusão do mestrado.
 
 A ampliação da cobertura de sensores e de tipos de defeito é uma segunda direção de extensão. O Pilar de Sinais Operacionais foi desenhado sobre um subconjunto de variáveis priorizadas, e o Pilar de Histórico Estatístico opera sobre os rompimentos. A incorporação de defeitos de bolha, asperidade e instabilidade de forno como categorias adicionais de evento e a inclusão de variáveis sensoriais hoje fora do conjunto selecionado permitiriam estender a inferência da provável origem para outros sintomas operacionais relevantes.
 
