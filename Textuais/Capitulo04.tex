@@ -317,7 +317,7 @@ Uma métrica ingênua de espalhamento seria a razão entre o número de máquina
 
 Para formalizar essa correção, define-se, para cada lote $L$:
 \begin{itemize}
-    \item $M_E(L)$, o conjunto de máquinas que processaram o lote com hora-máquina acumulada superior a um limiar mínimo $\text{HM}_{\min}$, denominado conjunto de máquinas elegíveis.
+    \item $M_E(L)$, o conjunto de máquinas que processaram o lote com hora-máquina acumulada maior ou igual a um limiar mínimo $\text{HM}_{\min}$, denominado conjunto de máquinas elegíveis.
     \item $M_A(L)$, o subconjunto de $M_E(L)$ no qual foi registrado pelo menos um rompimento durante o consumo de $L$, denominado conjunto de máquinas afetadas.
 \end{itemize}
 
@@ -338,7 +338,7 @@ A fórmula combina dois fatores. O primeiro, $n_A / n_E$, expressa a proporção
 
 Cabe notar que o $\text{SCC}$ mede o espalhamento dos rompimentos entre máquinas, não o volume total de eventos. A intensidade absoluta do problema é capturada pela taxa relativa ao lote definida na Subseção~\ref{subsec:taxa_relativa}, e a evidência histórica final do pilar nasce da combinação dos dois indicadores na tabela de decisão apresentada na Subseção~\ref{subsec:saidas_pilar_historico}. Valores elevados de $\text{SCC}$ indicam espalhamento entre as máquinas que efetivamente processaram o lote, mas não são interpretados isoladamente como diagnóstico de matéria-prima.
 
-A Tabela~\ref{tab:scc_casos} apresenta o comportamento do indicador para configurações canônicas que ilustram a leitura esperada de cada faixa do \emph{score}.
+A Tabela~\ref{tab:scc_casos} apresenta o comportamento do indicador para configurações canônicas de exposição e afetação, servindo como referência interpretativa preliminar antes da calibração empírica das faixas.
 
 \begin{table}[htbp]
     \centering
