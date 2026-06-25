@@ -397,11 +397,36 @@ A categoria \textbf{Sem evidência MP} não deve ser lida como confirmação de 
 \section{Regras de integração e diagnóstico final}
 \label{sec:regras_integracao}
 
-% Conteúdo a desenvolver:
-%   - Lógica de combinação entre Pilar de Sinais Operacionais e Pilar de Histórico Estatístico.
-%   - Categorias de origem provável.
-%   - Forma de apresentação do diagnóstico (texto, indicadores,
-%     evidência de apoio).
+A produção do diagnóstico final de provável origem do evento de rompimento é realizada por uma segunda etapa de classificação, que combina a saída do Pilar de Histórico Estatístico com a saída do Pilar de Sinais Operacionais. A separação em duas etapas preserva a interpretabilidade da inferência, pois cada etapa responde a uma pergunta que pode ser auditada de forma independente. A primeira etapa, descrita na Subseção~\ref{subsec:saidas_pilar_historico}, responde sobre a existência de evidência histórica de matéria-prima associada ao lote em consumo. A segunda etapa, apresentada nesta seção, responde sobre a origem provável do evento dado o cruzamento entre essa evidência histórica e a evidência sensorial específica da máquina no entorno temporal do rompimento.
+
+A entrada da segunda etapa é constituída por dois eixos. O primeiro é a categoria de evidência histórica de matéria-prima produzida pelo Pilar de Histórico Estatístico, com cinco valores possíveis: Evidência MP forte, Evidência MP moderada, Evidência MP fraca, Sem evidência MP e Evidência conflitante. O segundo é a categoria de anomalia sensorial produzida pelo Pilar de Sinais Operacionais, com quatro valores possíveis: FORTE, MODERADA, AUSENTE e SEM MODELO. A faixa SEM MODELO corresponde aos casos em que o pilar sensorial não dispõe de modelo treinado válido para a máquina específica do evento, conforme as condições enunciadas na Seção~\ref{sec:impl_sinais}.
+
+A combinação dos dois eixos é apresentada na Figura~\ref{fig:tabela_diagnostico_final}. Cada célula da tabela mapeia um par possível de entradas em uma das oito classes de diagnóstico final adotadas pelo WireSense.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{Figuras/Tabeladecisaofinal.pdf}
+    \caption{Tabela de decisão da regra de integração. O cruzamento entre a evidência histórica de matéria-prima, no eixo vertical, e a classe de anomalia sensorial de equipamento, no eixo horizontal, produz uma das oito classes de diagnóstico final.}
+    \label{fig:tabela_diagnostico_final}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{figure}
+
+As oito classes de diagnóstico carregam significados distintos quanto à direção da hipótese sustentada e à intensidade da ação recomendada.
+
+\begin{itemize}
+    \item \textbf{Suspeita forte MP}: o histórico aponta evidência forte de matéria-prima e o sinal sensorial não acusa anomalia de equipamento. A leitura é convergente para defeito embarcado na matéria-prima.
+    \item \textbf{Suspeita moderada MP}: o histórico aponta evidência moderada de matéria-prima e o sinal sensorial não acusa anomalia de equipamento. A leitura é compatível com matéria-prima, com sinal histórico de menor intensidade do que na classe anterior.
+    \item \textbf{Suspeita forte EQ}: o sinal sensorial acusa anomalia forte de equipamento e o histórico não traz evidência de matéria-prima ou traz evidência fraca. A leitura é convergente para problema localizado da máquina.
+    \item \textbf{Suspeita EQ}: o sinal sensorial acusa anomalia moderada de equipamento e o histórico não traz evidência de matéria-prima ou traz evidência fraca. A leitura é compatível com equipamento, com sinal sensorial de menor intensidade do que na classe anterior.
+    \item \textbf{Investigar MP e EQ}: tanto o histórico quanto o sinal sensorial trazem evidência ativa de seus respectivos eixos, com pelo menos um deles em intensidade forte. O sistema não força a escolha entre as duas hipóteses, e a recomendação é abrir investigação paralela sobre as duas frentes.
+    \item \textbf{Atenção: MP e EQ}: ambos os pilares trazem evidência ativa em intensidade moderada. A combinação demanda investigação em prioridade menor do que a classe anterior, podendo ser conduzida quando houver folga operacional.
+    \item \textbf{Atenção: investigar}: os pilares fornecem sinais tênues ou contraditórios sem convergência clara. A classe sinaliza necessidade de revisão analítica adicional antes da atribuição de hipótese.
+    \item \textbf{Insuficiente}: nem o histórico nem o sinal sensorial trazem evidência mobilizável. A classe é mantida explícita para registrar a ausência conjunta de suporte, sem que isso seja interpretado como confirmação de normalidade ou de causa conhecida.
+\end{itemize}
+
+A construção da regra segue quatro princípios. O primeiro é o de preservar a escolha quando ambos os pilares acusam de forma simultânea, retornando uma classe Investigar em vez de selecionar a hipótese com maior intensidade aparente. Um lote com defeito real de matéria-prima pode induzir comportamento anômalo da máquina ou coexistir com uma condição operacional degradada, e forçar uma das duas hipóteses introduziria viés interpretativo. O segundo é o de não inferir equipamento a partir da ausência de evidência de matéria-prima isoladamente, refletindo a observação metodológica formulada na Subseção~\ref{subsec:contaminacao_cruzada}. A acusação de equipamento exige evidência sensorial positiva no entorno do evento. O terceiro é o de tratar SEM MODELO de forma equivalente a AUSENTE, evitando que a falta de modelo válido do pilar sensorial seja interpretada como anomalia ou como sua ausência por motivos diferentes da operação efetivamente observada. O quarto é o de preservar a classe Insuficiente como saída legítima quando nenhum dos pilares apresenta evidência mobilizável, em alternativa a forçar uma classificação de baixa confiança.
+
+A apresentação do diagnóstico final ao operador e à equipe técnica acompanha sempre a evidência de apoio que sustentou a classe atribuída. A interface de retorno, descrita no contexto da implantação em regime de inferência continuada apresentada na Seção~\ref{sec:caracterizacao_pesquisa}, exibe, além da classe final, as categorias intermediárias de cada pilar, os valores numéricos dos indicadores que as produziram e a célula da tabela de decisão correspondente ao cruzamento observado. Essa apresentação preserva a rastreabilidade da inferência e permite à equipe técnica avaliar manualmente os componentes da decisão, em vez de receber apenas o rótulo final.
 
 
 \section{Decisões de engenharia e ajustes iterativos}
