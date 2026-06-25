@@ -366,7 +366,29 @@ Cabe registrar uma observação metodológica essencial. A classe SEM não signi
 \subsection{Saídas do pilar}
 \label{subsec:saidas_pilar_historico}
 
-Para cada lote analisado, o pilar produz a classificação de risco por percentil descrita na Subseção~\ref{subsec:percentil_risco} e a classificação por faixa do cruzamento de falhas por máquina descrita na Subseção~\ref{subsec:contaminacao_cruzada}. Os dois rótulos são consumidos pelas regras de integração detalhadas na Seção~\ref{sec:regras_integracao}, que os combinam entre si e com a saída do Pilar de Sinais Operacionais para produzir o diagnóstico da provável origem do evento.
+A saída do Pilar de Histórico Estatístico não corresponde diretamente a um dos dois indicadores parciais descritos nas subseções anteriores, mas à combinação deles em uma classe ordinal única que sintetiza a força da evidência histórica de matéria-prima associada ao lote. Essa combinação é necessária porque a taxa relativa ao lote e o cruzamento de falhas por máquina respondem a perguntas distintas e parcialmente independentes, e a leitura conjunta dos dois eixos preserva informação que seria perdida em uma agregação numérica direta.
+
+A classificação de risco por percentil, descrita na Subseção~\ref{subsec:percentil_risco}, opera sobre a taxa relativa ao lote e responde à pergunta de o lote romper acima ou abaixo do esperado para os materiais que produziu. A classe do \emph{score} de cruzamento, descrita na Subseção~\ref{subsec:contaminacao_cruzada}, opera sobre o cruzamento de falhas por máquina e responde à pergunta de os rompimentos do lote aparecerem espalhados entre máquinas ou concentrados em uma única. A combinação dos dois eixos é apresentada na Figura~\ref{fig:tabela_evidencia_mp}, que mapeia cada par possível de classe de risco e classe de cruzamento em uma das cinco categorias finais de evidência histórica de matéria-prima.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{Figuras/TabelaDecisao.pdf}
+    \caption{Tabela de decisão do Pilar de Histórico Estatístico. O cruzamento entre a classe de risco por percentil, no eixo vertical, e a classe do \emph{score} de cruzamento de falhas por máquina, no eixo horizontal, produz uma das cinco categorias finais de evidência histórica de matéria-prima.}
+    \label{fig:tabela_evidencia_mp}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{figure}
+
+As cinco categorias produzidas pela tabela carregam significados distintos quanto à força e à direção do sinal histórico.
+
+\begin{itemize}
+    \item \textbf{Evidência MP forte}: o lote rompe acima do esperado para os materiais que produziu e os rompimentos aparecem distribuídos entre múltiplas máquinas expostas. A combinação configura o cenário canônico de defeito embarcado na matéria-prima.
+    \item \textbf{Evidência MP moderada}: apenas um dos dois eixos aponta direção compatível com problema de matéria-prima, sem que o outro reforce o sinal com a mesma intensidade. A leitura é compatível com a hipótese de matéria-prima mas exige confirmação adicional.
+    \item \textbf{Evidência MP fraca}: o sinal histórico é tênue, com um dos eixos em faixa intermediária e o outro próximo do regime normal. A hipótese de matéria-prima não pode ser descartada nem sustentada apenas pelo histórico.
+    \item \textbf{Sem evidência MP}: nenhum dos dois eixos aponta padrão atípico. O histórico não fornece, por si só, sinal compatível com problema de matéria-prima.
+    \item \textbf{Evidência conflitante}: configuração específica em que o lote rompe abaixo do esperado, mas os rompimentos aparecem espalhados entre as máquinas expostas. A combinação não é interpretada como evidência de matéria-prima nem como sua ausência, e indica sinal contraditório que demanda análise complementar.
+\end{itemize}
+
+A categoria \textbf{Sem evidência MP} não deve ser lida como confirmação de que o lote não apresenta problema de matéria-prima, conforme observado na Subseção~\ref{subsec:contaminacao_cruzada}. A integração com o Pilar de Sinais Operacionais, descrita na Seção~\ref{sec:regras_integracao}, complementa essa leitura ao incorporar a evidência sensorial específica do evento, e a regra de combinação ali apresentada é o que efetivamente produz o diagnóstico final do WireSense.
 
 
 \section{Regras de integração e diagnóstico final}
