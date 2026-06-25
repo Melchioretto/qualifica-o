@@ -336,6 +336,8 @@ Sejam $n_E = |M_E(L)|$ e $n_A = |M_A(L)|$ as cardinalidades dos dois conjuntos. 
 
 A fórmula combina dois fatores. O primeiro, $n_A / n_E$, expressa a proporção de máquinas expostas que registraram rompimentos. O segundo, $(n_E - 1)/n_E$, atenua o sinal de cruzamento quando o número de máquinas expostas é pequeno, evitando que dois casos com a mesma proporção mas com bases evidenciais distintas recebam o mesmo peso. As duas guardas eliminam configurações em que a discussão de cruzamento é descabida. Quando $n_E < 2$, não há ao menos duas máquinas expostas e portanto não existe espalhamento possível para medir. Quando $n_A < 2$, existe apenas uma máquina afetada, configuração que não constitui evidência de cruzamento ainda que múltiplas máquinas tenham sido expostas.
 
+Cabe notar que o $\text{SCC}$ mede o espalhamento dos rompimentos entre máquinas, não o volume total de eventos. A intensidade absoluta do problema é capturada pela taxa relativa ao lote definida na Subseção~\ref{subsec:taxa_relativa}, e a evidência histórica final do pilar nasce da combinação dos dois indicadores na tabela de decisão apresentada na Subseção~\ref{subsec:saidas_pilar_historico}. Valores elevados de $\text{SCC}$ indicam espalhamento entre as máquinas que efetivamente processaram o lote, mas não são interpretados isoladamente como diagnóstico de matéria-prima.
+
 A Tabela~\ref{tab:scc_casos} apresenta o comportamento do indicador para configurações canônicas que ilustram a leitura esperada de cada faixa do \emph{score}.
 
 \begin{table}[htbp]
@@ -345,7 +347,7 @@ A Tabela~\ref{tab:scc_casos} apresenta o comportamento do indicador para configu
     \label{tab:scc_casos}
     \begin{tabular}{ccrl}
         \toprule
-        $n_E$ & $n_A$ & $\text{SCC}$ & \textbf{Leitura qualitativa} \\
+        $n_E$ & $n_A$ & $\text{SCC}$ & \textbf{Interpretação preliminar} \\
         \midrule
         1  & 1  & 0,000 & Sem cruzamento (guarda $n_E < 2$) \\
         6  & 1  & 0,000 & Sem cruzamento (guarda $n_A < 2$) \\
@@ -359,9 +361,9 @@ A Tabela~\ref{tab:scc_casos} apresenta o comportamento do indicador para configu
     \fonte{Elaborado pelo autor (\the\year).}
 \end{table}
 
-O valor contínuo do $\text{SCC}$, restrito ao intervalo $[0, 1)$, é discretizado em cinco classes para o consumo pela tabela de decisão do Pilar de Histórico Estatístico apresentada na Subseção~\ref{subsec:saidas_pilar_historico}. As classes adotadas são SEM, MUITO FRACO, FRACO, MODERADO e FORTE. Os cortes entre classes são calibrados empiricamente a partir da distribuição do indicador no histórico da fábrica, em alinhamento com a estratégia por percentil já adotada na Subseção~\ref{subsec:percentil_risco} para a classificação de risco, e fazem parte da etapa de validação descrita na Seção~\ref{sec:cronograma}.
+As interpretações apresentadas na coluna direita da Tabela~\ref{tab:scc_casos} são ilustrativas e serão convertidas em faixas definitivas após a calibração empírica dos cortes. O valor contínuo do $\text{SCC}$, restrito ao intervalo $[0, 1)$, é discretizado em cinco classes para o consumo pela tabela de decisão do Pilar de Histórico Estatístico apresentada na Subseção~\ref{subsec:saidas_pilar_historico}. As classes adotadas são SEM, MUITO FRACO, FRACO, MODERADO e FORTE. Os cortes entre classes são calibrados empiricamente a partir da distribuição do indicador no histórico da fábrica, em alinhamento com a estratégia por percentil já adotada na Subseção~\ref{subsec:percentil_risco} para a classificação de risco, e fazem parte da etapa de validação descrita na Seção~\ref{sec:cronograma}.
 
-Cabe registrar uma observação metodológica essencial. A classe SEM não significa ausência de problema de matéria-prima. Significa apenas ausência de evidência de cruzamento entre máquinas. Um lote consumido por uma única máquina não pode produzir cruzamento por construção, mesmo quando contém defeito real de matéria-prima. Essa limitação é intrínseca ao indicador e é compensada pela integração com o Pilar de Sinais Operacionais detalhada na Seção~\ref{sec:regras_integracao}, na qual a saída deste pilar é combinada com a evidência sensorial específica da máquina para produzir o diagnóstico final.
+Cabe registrar uma observação metodológica essencial. A classe SEM não significa ausência de problema de matéria-prima. Significa apenas ausência de evidência de cruzamento entre máquinas. Um lote consumido por uma única máquina não pode produzir cruzamento por construção, mesmo quando contém defeito real de matéria-prima. Essa limitação é intrínseca ao indicador e é considerada na regra de integração com o Pilar de Sinais Operacionais detalhada na Seção~\ref{sec:regras_integracao}, na qual a saída deste pilar é combinada com a evidência sensorial específica da máquina para produzir o diagnóstico final.
 
 
 \subsection{Saídas do pilar}
