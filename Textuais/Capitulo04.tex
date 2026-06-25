@@ -310,9 +310,57 @@ A escolha por percentil em lugar de cortes fixos sobre a taxa relativa absorve m
 \subsection{Cruzamento de falhas por máquina}
 \label{subsec:contaminacao_cruzada}
 
-\textcolor{red}{[SUBSEÇÃO A REESCREVER: a formulação do indicador de cruzamento de falhas por máquina, incluindo a fórmula proposta e os limiares de classificação, ainda será revista. O conteúdo abaixo é um esboço provisório que deve ser reavaliado antes da qualificação.]}
+A contagem direta de rompimentos por lote, mesmo normalizada por hora-máquina como na Subseção~\ref{subsec:taxa_relativa}, não distingue dois cenários de implicações opostas. Cinco rompimentos concentrados em uma única máquina sugerem problema local de equipamento, enquanto cinco rompimentos distribuídos entre cinco máquinas que processaram o mesmo lote sugerem defeito embarcado na matéria-prima. Para a inferência da provável origem do evento, importa não apenas o volume de rompimentos, mas o espalhamento desses eventos entre as máquinas expostas ao lote.
 
-Um lote responsável por rompimentos em uma única máquina pode estar associado a um problema localizado de equipamento, enquanto um lote responsável por rompimentos em várias máquinas simultaneamente aponta para um problema embarcado na matéria-prima. O segundo indicador do pilar quantifica esse cruzamento de falhas por máquina por meio de um \emph{score} dedicado, denotado por $SCC$, cuja formulação será detalhada após a revisão prevista para esta subseção.
+Uma métrica ingênua de espalhamento seria a razão entre o número de máquinas afetadas e o tamanho da frota da fábrica. Essa formulação, no entanto, distorce o indicador para os lotes que circularam por uma fração pequena do parque. Um lote consumido por três máquinas e rompido em todas as três registraria razão de três sobre setenta e sete, da ordem de quatro por cento, sinal aparentemente fraco que mascara o fato de que o lote rompeu em cem por cento das máquinas que efetivamente o processaram. O denominador correto é a exposição real do lote, não a frota total.
+
+Para formalizar essa correção, define-se, para cada lote $L$:
+\begin{itemize}
+    \item $M_E(L)$, o conjunto de máquinas que processaram o lote com hora-máquina acumulada superior a um limiar mínimo $\text{HM}_{\min}$, denominado conjunto de máquinas elegíveis.
+    \item $M_A(L)$, o subconjunto de $M_E(L)$ no qual foi registrado pelo menos um rompimento durante o consumo de $L$, denominado conjunto de máquinas afetadas.
+\end{itemize}
+
+O limiar $\text{HM}_{\min}$ descarta máquinas que tocaram o lote por intervalo desprezível em relação à exposição média, e seu valor numérico é calibrado empiricamente a partir da distribuição de horas-máquina observada no histórico, conforme procedimento previsto na etapa de validação descrita na Seção~\ref{sec:cronograma}.
+
+Sejam $n_E = |M_E(L)|$ e $n_A = |M_A(L)|$ as cardinalidades dos dois conjuntos. O \emph{score} de cruzamento de falhas por máquina, denotado por $\text{SCC}$, é definido conforme a Equação~\ref{eq:scc}.
+
+\begin{equation}
+\text{SCC}(L) = \begin{cases}
+0, & \text{se } n_E < 2 \text{ ou } n_A < 2 \\[4pt]
+\dfrac{n_A}{n_E} \cdot \dfrac{n_E - 1}{n_E}, & \text{caso contrário.}
+\end{cases}
+\label{eq:scc}
+\end{equation}
+\vspace{0.4em}
+
+A fórmula combina dois fatores. O primeiro, $n_A / n_E$, expressa a proporção de máquinas expostas que registraram rompimentos. O segundo, $(n_E - 1)/n_E$, atenua o sinal de cruzamento quando o número de máquinas expostas é pequeno, evitando que dois casos com a mesma proporção mas com bases evidenciais distintas recebam o mesmo peso. As duas guardas eliminam configurações em que a discussão de cruzamento é descabida. Quando $n_E < 2$, não há ao menos duas máquinas expostas e portanto não existe espalhamento possível para medir. Quando $n_A < 2$, existe apenas uma máquina afetada, configuração que não constitui evidência de cruzamento ainda que múltiplas máquinas tenham sido expostas.
+
+A Tabela~\ref{tab:scc_casos} apresenta o comportamento do indicador para configurações canônicas que ilustram a leitura esperada de cada faixa do \emph{score}.
+
+\begin{table}[htbp]
+    \centering
+    \footnotesize
+    \caption{Comportamento do \emph{score} de cruzamento de falhas para configurações canônicas de exposição e afetação.}
+    \label{tab:scc_casos}
+    \begin{tabular}{ccrl}
+        \toprule
+        $n_E$ & $n_A$ & $\text{SCC}$ & \textbf{Leitura qualitativa} \\
+        \midrule
+        1  & 1  & 0,000 & Sem cruzamento (guarda $n_E < 2$) \\
+        6  & 1  & 0,000 & Sem cruzamento (guarda $n_A < 2$) \\
+        77 & 3  & 0,038 & Cruzamento muito fraco \\
+        6  & 2  & 0,278 & Cruzamento fraco \\
+        2  & 2  & 0,500 & Cruzamento forte \\
+        10 & 8  & 0,720 & Cruzamento forte \\
+        10 & 10 & 0,900 & Cruzamento forte \\
+        \bottomrule
+    \end{tabular}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{table}
+
+O valor contínuo do $\text{SCC}$, restrito ao intervalo $[0, 1)$, é discretizado em cinco classes para o consumo pela tabela de decisão do Pilar de Histórico Estatístico apresentada na Subseção~\ref{subsec:saidas_pilar_historico}. As classes adotadas são SEM, MUITO FRACO, FRACO, MODERADO e FORTE. Os cortes entre classes são calibrados empiricamente a partir da distribuição do indicador no histórico da fábrica, em alinhamento com a estratégia por percentil já adotada na Subseção~\ref{subsec:percentil_risco} para a classificação de risco, e fazem parte da etapa de validação descrita na Seção~\ref{sec:cronograma}.
+
+Cabe registrar uma observação metodológica essencial. A classe SEM não significa ausência de problema de matéria-prima. Significa apenas ausência de evidência de cruzamento entre máquinas. Um lote consumido por uma única máquina não pode produzir cruzamento por construção, mesmo quando contém defeito real de matéria-prima. Essa limitação é intrínseca ao indicador e é compensada pela integração com o Pilar de Sinais Operacionais detalhada na Seção~\ref{sec:regras_integracao}, na qual a saída deste pilar é combinada com a evidência sensorial específica da máquina para produzir o diagnóstico final.
 
 
 \subsection{Saídas do pilar}
