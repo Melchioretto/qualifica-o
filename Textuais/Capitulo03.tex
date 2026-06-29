@@ -54,11 +54,30 @@ A pergunta orientadora desdobra-se em quatro perguntas específicas, cada uma as
 
 A construção da estratégia de busca seguiu o protocolo \sigla{PICOC} \cite{petticrew2006systematic}, em que as palavras-chave são organizadas a partir de cinco facetas: \emph{Population} (processos industriais de manufatura), \emph{Intervention} (detecção de anomalias, análise estatística histórica, sistemas híbridos e explicabilidade), \emph{Comparison} (não aplicável neste protocolo), \emph{Outcome} (inferência de causa raiz e apoio à decisão) e \emph{Context} (manufatura contínua baseada em sensores). A formulação \sigla{PICOC} permite derivar blocos de termos canônicos para cada faceta, posteriormente combinados em uma única expressão booleana por base de dados.
 
-A estratégia adotada combina os blocos por meio dos operadores \texttt{AND} e \texttt{OR}, na forma geral
-\[
-\text{Population} \;\texttt{AND}\; \text{Intervention} \;\texttt{AND}\; \text{Outcome} \;\texttt{AND}\; \text{Context},
-\]
-em que cada bloco é uma disjunção de sinônimos pertinentes à faceta correspondente, adaptada à sintaxe específica de cada base de dados consultada.
+Na operacionalização adotada, as facetas \emph{Population} e \emph{Context} foram agregadas em um único bloco de escopo, dado que termos como \emph{sensor data} e \emph{time series} caracterizam simultaneamente o universo populacional dos processos analisados e o contexto de manufatura instrumentada. A faceta \emph{Intervention} concentra os métodos computacionais alvo da revisão, e a faceta \emph{Outcome} reúne os termos que delimitam o objetivo perseguido pelos trabalhos. A Tabela~\ref{tab:blocos_picoc} apresenta os termos canônicos de cada bloco.
+
+\begin{table}[htbp]
+    \centering
+    \footnotesize
+    \caption{Blocos PICOC operacionalizados e termos canônicos combinados internamente pelo operador \texttt{OR}.}
+    \label{tab:blocos_picoc}
+    \begin{tabularx}{\textwidth}{lX}
+        \toprule
+        \textbf{Bloco} & \textbf{Termos canônicos} \\
+        \midrule
+        \emph{Population} + \emph{Context} & ``industrial process'', ``manufacturing'', ``sensor data'', ``time series'' \\
+        \emph{Intervention}                & ``Statistical Process Control'', ``anomaly detection'', ``evidence fusion'', ``fault detection'', ``hybrid systems'', ``root cause analysis'' \\
+        \emph{Outcome}                     & ``Root cause identification'', ``decision support'' \\
+        \bottomrule
+    \end{tabularx}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{table}
+
+A combinação dos três blocos pelo operador \texttt{AND} produz a expressão booleana apresentada a seguir, aplicada às bases consultadas com adaptações pontuais à sintaxe específica de cada uma, como delimitadores de campo e filtros de tipo de documento.
+
+\begin{quote}
+\texttt{(\textquotedbl industrial process\textquotedbl{} OR \textquotedbl manufacturing\textquotedbl{} OR \textquotedbl sensor data\textquotedbl{} OR \textquotedbl time series\textquotedbl) AND (\textquotedbl Statistical Process Control\textquotedbl{} OR \textquotedbl anomaly detection\textquotedbl{} OR \textquotedbl evidence fusion\textquotedbl{} OR \textquotedbl fault detection\textquotedbl{} OR \textquotedbl hybrid systems\textquotedbl{} OR \textquotedbl root cause analysis\textquotedbl) AND (\textquotedbl Root cause identification\textquotedbl{} OR \textquotedbl decision support\textquotedbl)}
+\end{quote}
 
 A janela temporal adotada compreende os anos de 2020 a 2026, com o objetivo de privilegiar a produção da área publicada nesse intervalo, sem excluir trabalhos seminais que tenham aparecido por backward snowballing a partir das referências dos selecionados. Além do recorte temporal, a busca aplicou também restrição por tipo de documento, considerando apenas artigos publicados em conferências e periódicos com revisão por pares e descartando livros, teses, capítulos de livro e materiais avulsos. O idioma de busca foi restrito a inglês, coerente com o perfil das três bases internacionais consultadas.
 
