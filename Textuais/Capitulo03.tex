@@ -60,7 +60,7 @@ A estratégia adotada combina os blocos por meio dos operadores \texttt{AND} e \
 \]
 em que cada bloco é uma disjunção de sinônimos pertinentes à faceta correspondente, adaptada à sintaxe específica de cada base de dados consultada.
 
-A janela temporal adotada compreende os anos de 2020 a 2026, com o objetivo de privilegiar a produção da área publicada nesse intervalo, sem excluir trabalhos seminais que tenham aparecido por backward snowballing a partir das referências dos selecionados. Além do recorte temporal, a busca aplicou também restrição por tipo de documento, considerando apenas artigos publicados em conferências e periódicos com revisão por pares e descartando livros, teses, capítulos de livro e materiais avulsos. O idioma de busca foi restrito a inglês, com complemento em português quando aplicável a bases nacionais.
+A janela temporal adotada compreende os anos de 2020 a 2026, com o objetivo de privilegiar a produção da área publicada nesse intervalo, sem excluir trabalhos seminais que tenham aparecido por backward snowballing a partir das referências dos selecionados. Além do recorte temporal, a busca aplicou também restrição por tipo de documento, considerando apenas artigos publicados em conferências e periódicos com revisão por pares e descartando livros, teses, capítulos de livro e materiais avulsos. O idioma de busca foi restrito a inglês, coerente com o perfil das três bases internacionais consultadas.
 
 A estratégia foi aplicada nas bases IEEE Xplore, ACM Digital Library e Scopus. IEEE e ACM foram selecionadas por concentrarem a maior parte da produção em Computação aplicada a sistemas industriais e por reunirem os principais veículos de publicação em conferências e periódicos do campo. Scopus foi incorporada para ampliar a cobertura interdisciplinar, complementando o recorte das duas bases anteriores com periódicos de Engenharia Industrial, Manufatura e Engenharia Química nos quais aparecem trabalhos metodologicamente relevantes para a proposta. As contagens brutas de trabalhos retornados por base são apresentadas na Tabela~\ref{tab:bases_busca}.
 
@@ -266,7 +266,7 @@ A síntese dos trabalhos correlatos é organizada em torno de sete eixos temáti
         Fuzzy C-Means + XGBoost + SHAP em processos químicos \cite{marindiaz2025fuzzy}                        & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &           \\
         KG + LLM para diagnóstico em CNC \cite{nie2026knowledge}                                              & \checkmark &           & \checkmark & \checkmark & \checkmark & \checkmark &           \\
         \midrule
-        \textbf{Esta dissertação} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+        \textbf{Esta dissertação (projetada)}$^{\star}$ & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark$^{\star}$ & \checkmark \\
         \bottomrule
     \end{tabularx}
     \fonte{Elaborado pelo autor (\the\year).}
@@ -280,6 +280,8 @@ A síntese dos trabalhos correlatos é organizada em torno de sete eixos temáti
 \textbf{E5}: Aplicação em manufatura contínua.
 \textbf{E6}: Validação com dados reais industriais.
 \textbf{E7}: Aplicação em fabricação de fios, cabos ou condutores.
+
+\noindent$^{\star}$~A linha referente a esta dissertação reflete o escopo projetado descrito no Capítulo~\ref{cap:proposta}. O eixo E6 contempla a validação retrospectiva sobre eventos com causa documentada e os experimentos sobre dados históricos da fábrica, programados para o período entre esta qualificação e a defesa, conforme cronograma da Seção~\ref{sec:cronograma}.
 
 A leitura cruzada da Tabela~\ref{tab:sintese_correlatos} expõe três achados centrais. O primeiro é a forte concentração da literatura recente nos eixos E1, E4, E5 e E6, presentes em quinze dos dezesseis trabalhos selecionados. A combinação detecção de anomalias, explicabilidade da inferência, contexto de manufatura contínua e validação com dados reais constitui o núcleo metodológico já bem estabelecido na área. O segundo achado é a presença moderada do eixo E3, com nove trabalhos abordando fusão de evidências, e do eixo E2, com sete trabalhos abordando histórico estatístico por lote ou fornecedor. Esses dois eixos ainda são tratados de forma independente nos trabalhos correlatos, sem combinação sistemática que ofereça inferência conjunta.
 
