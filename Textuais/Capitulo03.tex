@@ -28,7 +28,7 @@ Este capítulo apresenta a revisão sistemática da literatura que fundamenta a 
 \section{Pesquisa Bibliográfica Sistemática}
 \label{sec:pbs}
 
-Esta seção detalha o protocolo de \sigla{PBS} aplicado, da formulação da pergunta orientadora à análise e síntese dos trabalhos selecionados, passando pelo processo de busca e pelos critérios objetivos de seleção. O objetivo é tornar o protocolo explícito e reprodutível, em conformidade com o padrão de relato \sigla{PRISMA} \cite{page2021prisma}.
+Esta seção detalha o protocolo de \sigla{PBS} aplicado, da formulação da pergunta orientadora à análise e síntese dos trabalhos selecionados, em conformidade com o padrão de relato \sigla{PRISMA} \cite{page2021prisma}.
 
 
 \subsection{Pergunta de pesquisa}
@@ -48,9 +48,6 @@ A pergunta orientadora desdobra-se em quatro perguntas específicas, cada uma as
     \item \textbf{RQ3}: Que métodos estatísticos têm sido propostos para analisar histórico de falhas segmentado por lote, material ou fornecedor em manufatura?
     \item \textbf{RQ4}: Que técnicas de explicabilidade são empregadas em sistemas de diagnóstico de falhas industriais para apoiar a decisão de equipes técnicas?
 \end{itemize}
-
-As respostas a essas quatro perguntas, sintetizadas na Seção~\ref{sec:trabalhos_correlatos}, delimitam o espaço de soluções existentes e expõem a lacuna que esta dissertação pretende preencher.
-
 
 \subsection{Processo de busca}
 \label{subsec:processo_busca}
@@ -135,9 +132,7 @@ A aplicação sucessiva desses critérios produz o funil \sigla{PRISMA} apresent
     \fonte{Elaborado pelo autor (\the\year).}
 \end{table}
 
-A caracterização quantitativa do corpus final, incluindo distribuição anual de publicação e principais veículos de divulgação, é apresentada na Seção~\ref{sec:trabalhos_correlatos}.
-
-A Figura~\ref{fig:prisma_flow} apresenta visualmente a redução do corpus ao longo das etapas do funil, com os números efetivos de registros retidos em cada caixa e os volumes excluídos em cada transição.
+A Figura~\ref{fig:prisma_flow} apresenta a redução do corpus ao longo das etapas do funil, com os registros retidos em cada caixa e os volumes excluídos em cada transição.
 
 \begin{figure}[htbp]
     \centering
@@ -151,7 +146,7 @@ A Figura~\ref{fig:prisma_flow} apresenta visualmente a redução do corpus ao lo
 \subsection{Processo de análise e síntese}
 \label{subsec:processo_analise_sintese}
 
-Os trabalhos aprovados na etapa de elegibilidade foram submetidos a leitura integral e fichamento estruturado. Para cada trabalho foram registrados o objetivo declarado pelos autores, o método empregado, a natureza dos dados usados na avaliação, as métricas reportadas, as limitações reconhecidas pelos autores e a contribuição central. Esse fichamento serviu de base tanto para a discussão narrativa apresentada na Seção~\ref{sec:trabalhos_correlatos} quanto para a tabela de síntese da Subseção~\ref{subsec:sintese_lacunas}.
+Os trabalhos aprovados na etapa de elegibilidade foram submetidos a leitura integral e fichamento estruturado. Para cada trabalho foram registrados objetivo, método, natureza dos dados, métricas reportadas, limitações reconhecidas e contribuição central. Esse fichamento serviu de base para a discussão narrativa da Seção~\ref{sec:trabalhos_correlatos} e para a tabela de síntese da Subseção~\ref{subsec:sintese_lacunas}.
 
 A análise organizou cada trabalho em um ou mais dos sete eixos temáticos derivados da proposta desta dissertação. Os eixos cobrem detecção de anomalias em sensor multivariado, análise estatística histórica por lote ou fornecedor, fusão de evidências independentes, explicabilidade da inferência de causa, aplicação em manufatura contínua, validação com dados reais industriais e aplicação em fabricação de fios, cabos ou condutores. A definição operacional de cada eixo é apresentada na Subseção~\ref{subsec:sintese_lacunas}, junto com a tabela que cruza trabalhos correlatos e eixos.
 
@@ -163,9 +158,9 @@ A síntese final está organizada por tema na Seção~\ref{sec:trabalhos_correla
 \section{Trabalhos correlatos}
 \label{sec:trabalhos_correlatos}
 
-Após a aplicação do protocolo descrito na Seção~\ref{sec:pbs}, o conjunto final de trabalhos correlatos compreende 16 trabalhos, agrupados em quatro temas alinhados às perguntas específicas formuladas na Subseção~\ref{subsec:pergunta_pesquisa}. As Subseções~\ref{subsec:correlatos_anomalias},~\ref{subsec:correlatos_estatistica},~\ref{subsec:correlatos_hibridos} e~\ref{subsec:correlatos_xai} discutem os trabalhos de cada tema de forma narrativa, comparando abordagens, dados e limitações. Cada trabalho é discutido na subseção correspondente à sua contribuição central, ainda que possa cobrir mais de um eixo na síntese da Subseção~\ref{subsec:sintese_lacunas}, em que se apresenta a tabela cruzada com os eixos temáticos da proposta e a identificação da lacuna que esta dissertação preenche.
+Após a aplicação do protocolo descrito na Seção~\ref{sec:pbs}, o conjunto final de trabalhos correlatos compreende 16 trabalhos, agrupados em quatro temas alinhados às perguntas específicas formuladas na Subseção~\ref{subsec:pergunta_pesquisa}. Cada trabalho é discutido na subseção correspondente à sua contribuição central, ainda que possa cobrir mais de um eixo na síntese da Subseção~\ref{subsec:sintese_lacunas}.
 
-A Figura~\ref{fig:corpus_distribuicao} apresenta a caracterização quantitativa do corpus que passou pelos filtros de janela temporal e tipo de documento, totalizando 741 trabalhos distribuídos entre as três bases consultadas. A distribuição anual mostra volumes estáveis entre 2020 e 2023, em torno de quarenta trabalhos por ano, seguidos de crescimento expressivo a partir de 2024 e pico em 2025, com o ano de 2026 ainda em curso no momento da coleta. A distribuição por base evidencia maior volume retornado pela ACM Digital Library, em parte explicado pela amplitude do escopo coberto pela base, seguida por IEEE Xplore com cerca de cento e oitenta trabalhos e por Scopus com cerca de cento e quarenta trabalhos.
+A Figura~\ref{fig:corpus_distribuicao} caracteriza o corpus após os filtros de janela temporal e tipo de documento, totalizando 741 trabalhos distribuídos entre as três bases consultadas. Observa-se crescimento expressivo a partir de 2024, com pico em 2025, e maior volume retornado pela ACM Digital Library, seguida por IEEE Xplore e Scopus.
 
 \begin{figure}[htbp]
     \centering
@@ -187,7 +182,7 @@ A família baseada em isolamento explora a hipótese de que pontos anômalos exi
 
 A família que incorpora modelagem causal ou espaço-temporal explícita procura ir além da caracterização do regime nominal e capturar relações de dependência entre variáveis ou entre etapas do processo. Em processos industriais de múltiplos estágios, um arranjo de aprendizado espaço-temporal baseado em grafo causal foi proposto para detecção de anomalias e identificação de causa raiz, explorando explicitamente a propagação de eventos ao longo da cadeia produtiva \cite{xu2026anomaly}. Em ambientes de Internet das Coisas Industrial, a arquitetura CADiS combina um \emph{Transformer} dirigido por causalidade com aprendizado de grafo causal e decomposição de fase causal para detecção e diagnóstico simultâneos \cite{zeng2026cadis}.
 
-A análise conjunta dos trabalhos desta categoria expõe duas características recorrentes. A primeira é a forte concentração sobre dados sensoriais como única fonte de evidência, com pouca exploração da combinação com informação categórica de produção, lote ou fornecedor. A segunda é o foco predominante em detecção, com diagnóstico de causa raiz aparecendo como objetivo secundário em parte dos trabalhos e ausente em outros. Essas características pavimentam a discussão da próxima vertente, a análise estatística histórica segmentada por lote e fornecedor, apresentada na Subseção~\ref{subsec:correlatos_estatistica}.
+A análise conjunta dos trabalhos desta categoria expõe duas características recorrentes: concentração em dados sensoriais como única fonte de evidência e foco predominante em detecção, com diagnóstico de causa raiz tratado como objetivo secundário ou ausente. Essas características motivam a discussão da análise estatística histórica segmentada por lote e fornecedor.
 
 
 \subsection{Análise estatística histórica de lotes e fornecedores}
@@ -201,7 +196,7 @@ Em moldagem por injeção, métodos de seleção dominante de variáveis baseado
 
 Na vertente de mineração de padrões em registros de manufatura, uma análise comparativa de algoritmos de identificação de causa raiz em fabricação de wafers discute técnicas de mineração de sequência e identificação de padrões recorrentes ao longo de séries de eventos de defeito \cite{gaurav2025errorrca}. A detecção de padrões recorrentes em sequências de eventos é metodologicamente análoga à identificação de lotes com taxa de rompimento atipicamente elevada quando vistos ao longo do histórico produtivo.
 
-Em laminação a quente de tiras de aço, um arranjo nomeado \emph{group-aware} aborda diretamente o desafio de dados não-independentes-e-identicamente-distribuídos com dependências temporais curtas, tratando a estrutura de grupos como propriedade estatística de primeira ordem \cite{kontogiannis2026groupaware}. O framework integra um regressor residual, um detector de anomalia consciente de grupos e um esquema de fusão calibrada entre precisão e revocação. A perspectiva de decompor o dado por grupo antes de modelar é conceitualmente próxima à segmentação por lote, material, fornecedor e máquina adotada pelo Pilar de Histórico Estatístico do WireSense.
+Em laminação a quente de tiras de aço, um arranjo nomeado \emph{group-aware} aborda diretamente o desafio de dados não-independentes-e-identicamente-distribuídos com dependências temporais curtas, tratando a estrutura de grupos como propriedade estatística de primeira ordem \cite{kontogiannis2026groupaware}. O framework integra um regressor residual, um detector de anomalia consciente de grupos e um esquema de fusão calibrada entre precisão e revocação. A perspectiva de decompor o dado por grupo antes de modelar é conceitualmente próxima à segmentação por lote, material e máquina adotada pelo Pilar de Histórico Estatístico do WireSense.
 
 Em processos químicos de produção de vinho, um modelo de gestão de qualidade segmenta lotes de produção por meio de agrupamento difuso com \emph{Fuzzy C-Means} e em seguida prediz probabilidade de defeito com \emph{XGBoost} sobre dados históricos, complementando a inferência com técnicas de explicabilidade \cite{marindiaz2025fuzzy}. A combinação de segmentação por lote, modelagem preditiva e atribuição explicável de variáveis dialoga com os objetivos do WireSense ao tratar simultaneamente as dimensões de categoria, predição e interpretabilidade.
 
@@ -233,7 +228,7 @@ A linha de explicabilidade \emph{post-hoc} aparece nos trabalhos que aplicam té
 
 Uma combinação entre as duas linhas aparece em controle de qualidade de processos químicos, já discutida na Subseção~\ref{subsec:correlatos_estatistica} do ponto de vista da segmentação por lote \cite{marindiaz2025fuzzy}. Sob a lente da explicabilidade, o trabalho integra um Sistema de Inferência Fuzzy, transparente por construção e baseado em regras de especialista, com atribuições \sigla{SHAP} e \emph{Local Interpretable Model-agnostic Explanations} aplicadas sobre o \emph{XGBoost}. A coexistência dos dois enquadramentos no mesmo arranjo ilustra a tendência da literatura recente de tratar interpretabilidade como propriedade composta, distribuída entre diferentes componentes do sistema.
 
-A análise conjunta dos trabalhos desta categoria mostra que a explicabilidade na literatura recente concentra-se predominantemente na inspeção das saídas de um único pilar de modelo, seja por construção transparente do próprio modelo, seja por atribuição \emph{post-hoc}. A proposta desta dissertação adota uma estratégia complementar a essas duas linhas. A interpretabilidade do WireSense decorre da arquitetura em dois pilares independentes, cuja saída combinada por regra determinística, descrita na Seção~\ref{sec:regras_integracao}, pode ser auditada separadamente em cada pilar e na regra de combinação. A separação entre o Pilar de Sinais Operacionais e o Pilar de Histórico Estatístico permite à equipe técnica identificar não apenas qual a inferência final, mas também qual vertente de evidência sustenta o diagnóstico em cada evento, característica que nenhum dos trabalhos correlatos do conjunto oferece de forma direta.
+A análise conjunta dos trabalhos desta categoria mostra que a explicabilidade recente se concentra na inspeção das saídas de um único pilar de modelo, seja por construção transparente, seja por atribuição \emph{post-hoc}. A proposta desta dissertação adota estratégia complementar: a interpretabilidade do WireSense decorre de dois pilares independentes, combinados por regra determinística auditável. Essa separação permite identificar não apenas a inferência final, mas também qual vertente de evidência sustenta o diagnóstico em cada evento.
 
 
 \subsection{Síntese e lacunas}
