@@ -3,13 +3,13 @@
 
 % -----------------------------------------------------------------
 % Objetivo do capítulo:
-% Apresentar a proposta da dissertação. Começa pela caracterização
-% metodológica da pesquisa, formaliza o problema e os objetivos com
-% base no Capítulo 1 e na revisão sistemática do Capítulo 3, descreve
-% as fontes de dados em nível operacional e segue para a arquitetura
-% concreta da ferramenta. É aqui que entram diagramas de arquitetura,
-% pseudocódigo dos indicadores, exemplos de saída, decisões de
-% engenharia e ajustes feitos durante o desenvolvimento.
+% Apresentar a proposta da dissertação (WireSense). O problema de
+% pesquisa, os objetivos e o método migraram para o Capítulo 1
+% (Fase 1 da reestruturação pós-feedback do orientador). Este
+% capítulo será reorganizado na Fase 3 como "WIRESENSE": contexto e
+% definições, requisitos, componentes abstratos, fluxos e regras de
+% integração. Fontes de dados, pipeline e tecnologias migrarão para
+% o novo capítulo de Experimentação (Fase 2).
 %
 % Referência interna:
 %   docs/pipeline/README.md
@@ -17,57 +17,7 @@
 %   docs/pipeline/resumo_metodo_estatistico_global.txt
 % -----------------------------------------------------------------
 
-
-\section{Caracterização da pesquisa}
-\label{sec:caracterizacao_pesquisa}
-
-A pesquisa apresentada nesta dissertação tem natureza aplicada e caráter exploratório, orientada por problema concreto observado em ambiente industrial real. O trabalho não parte de uma hipótese formal a ser confirmada, mas sim de uma proposição central a ser construída e avaliada ao longo do desenvolvimento da ferramenta, conforme o problema enunciado na Seção~\ref{sec:problema_pesquisa}.
-
-O desenvolvimento da ferramenta abrange duas fases articuladas. A primeira fase opera sobre dados históricos coletados retrospectivamente da operação da fábrica, com calibração dos pilares, definição da regra de integração e validação contra eventos com causa documentada. A segunda fase implanta o método em regime de inferência continuada, integrado ao sistema de chão de fábrica. O gatilho de execução é o próprio registro operacional do evento. Assim que o operador anota no sistema da máquina que a parada foi causada por rompimento, o WireSense é acionado e devolve a classificação à interface operacional antes da retomada da produção. Camadas de painel de acompanhamento e de alertas direcionados à equipe técnica completam a entrega.
-
-A escolha metodológica recai sobre técnicas não supervisionadas de análise de dados, justificada pela ausência de rótulo padronizado sobre a causa provável dos rompimentos, conforme discutido na Seção~\ref{sec:dados_disponiveis}. Em vez de tratar o evento como classificação direta, a abordagem combina dois eixos independentes de evidência: comportamento operacional das máquinas em séries sensoriais e histórico estatístico de rompimentos por lote, material e máquina, preservando o fornecedor como atributo contextual.
-
-As figuras apresentadas nesta dissertação utilizam paletas de cores projetadas para serem distinguíveis por pessoas com deuteranopia e protanopia, as duas formas mais comuns de daltonismo. As escolhas recaem sobre a paleta Okabe-Ito \cite{okabeito2008color} em figuras com até oito categorias e sobre a paleta de visualização de dados do Carbon Design System da IBM \cite{ibm2024datavis} em figuras com maior número de categorias ou de natureza categórica mais densa. Sempre que a distinção apenas por matiz pode falhar em impressão monocromática ou em projeções de baixa fidelidade cromática, cada categoria recebe ainda textura de hachura distinta, redundância que garante leitura inequívoca em todos os meios de apresentação.
-
-
-\section{Problema de pesquisa}
-\label{sec:problema_pesquisa}
-
-O problema de pesquisa parte do quadro descrito no Capítulo~\ref{cap:fundamentacao}. O rompimento de fio é o sintoma operacional central da fábrica analisada, com impacto direto sobre disponibilidade da linha, retrabalho e perdas materiais. A investigação técnica desse sintoma esbarra em duas dificuldades concretas que justificam o tratamento dado nesta dissertação.
-
-A primeira dificuldade é a sobreposição de mecanismos de causa. Conforme detalhado na Seção~\ref{sec:problema_rompimentos}, defeitos da matéria-prima, danos introduzidos na interação metal-máquina e combinações dos dois produzem características semelhantes na superfície de fratura, de modo que a inspeção direta após o evento raramente discrimina entre as hipóteses. O ponto observável do rompimento pode estar espacialmente desacoplado do ponto de origem do defeito, porque descontinuidades formadas na fundição e na laminação do vergalhão viajam embutidas no fio até serem expostas por solicitação mecânica posterior. Nesse cenário, atribuir a causa de cada evento exige cruzar informações que extrapolam o que está disponível no local da quebra.
-
-A segunda dificuldade é a ausência de rótulo padronizado sobre a causa de cada rompimento nos dados operacionais. Conforme apresentado na Seção~\ref{sec:dados_disponiveis}, os eventos são registrados pelo sistema da fábrica, mas não vêm acompanhados de uma atribuição validada de origem provável, isto é, matéria-prima, equipamento ou combinação. Essa ausência impede o uso direto de abordagens supervisionadas que tratem o evento como problema de classificação. As fontes que poderiam servir como rótulo retrospectivo, como o relatório de devoluções de cliente, chegam meses após o evento e não cobrem o universo dos rompimentos internos, o que reforça a necessidade de uma estratégia que opere sobre evidências indiretas.
-
-O problema de pesquisa desta dissertação é, portanto, o de combinar evidências de duas naturezas distintas, sinais operacionais coletados continuamente pelos sensores das máquinas e histórico estatístico de rompimentos segmentado por lote, material e máquina, preservando o fornecedor como atributo contextual, para inferir a origem provável de cada evento em um cenário sem rótulo direto de causa. Dessa formulação decorre a pergunta orientadora desta pesquisa:
-\begin{quote}
-Como combinar sinais operacionais de máquina e evidências estatísticas históricas de rompimentos para inferir a provável origem de eventos de rompimento em uma fábrica de fios?
-\end{quote}
-
-
-\section{Objetivos}
-\label{sec:objetivos}
-
-
-\subsection{Objetivo geral}
-\label{subsec:objetivo_geral}
-
-Desenvolver uma ferramenta híbrida de apoio à decisão que combine sinais operacionais de máquina e evidências estatísticas históricas de rompimentos para inferir a provável origem de eventos de rompimento em uma fábrica de fios esmaltados de cobre e alumínio.
-
-
-\subsection{Objetivos específicos}
-\label{subsec:objetivos_especificos}
-
-Para alcançar o objetivo geral, são definidos os seguintes objetivos específicos:
-\begin{enumerate}
-    \item Conduzir revisão sistemática da literatura sobre detecção de anomalias e análise estatística aplicadas à atribuição de causa em processos industriais com ausência de rótulos.
-    \item Caracterizar e preparar as fontes de dados operacionais e históricos disponíveis para análise.
-    \item Desenvolver o Pilar de Sinais Operacionais, responsável pela detecção de anomalias a partir de séries temporais de variáveis sensoriais.
-    \item Desenvolver o Pilar de Histórico Estatístico, responsável pela análise de rompimentos segmentada por lote, material e máquina, com fornecedor preservado como atributo contextual.
-    \item Integrar os dois pilares em uma ferramenta de inferência e avaliar o resultado a partir de casos históricos da fábrica.
-    \item Implantar o método em regime de inferência continuada, com gatilho acionado pelo registro operacional do evento no sistema da máquina e devolução do diagnóstico à interface operacional antes da retomada da produção.
-    \item Desenvolver o painel de acompanhamento e a camada de alertas direcionados à equipe técnica, integrados ao sistema de chão de fábrica.
-\end{enumerate}
+Este capítulo apresenta a proposta desta dissertação, partindo das fontes de dados que alimentam a ferramenta e avançando para a arquitetura, os dois pilares de evidência e a regra de integração que produz o diagnóstico final.
 
 
 \section{Fontes de dados}
