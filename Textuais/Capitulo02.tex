@@ -189,3 +189,13 @@ A interpretação de uma taxa isolada exige uma referência de comparação. A f
 \label{subsec:metricas_percentil}
 
 A conversão de um indicador contínuo em classes interpretáveis exige critérios de corte. Cortes absolutos, fixados em valores da própria escala do indicador, pressupõem estabilidade do processo gerador e exigem recalibração sempre que o patamar típico se desloca. Cortes por percentil, fixados em posições da distribuição empírica ordenada, adaptam-se automaticamente à distribuição vigente e são robustos a valores extremos e a mudanças de escala \cite{montgomery2019statistical}. Em monitoramento industrial, a classificação por percentil é adequada quando o interesse recai sobre a posição relativa de uma unidade frente às demais, e não sobre a magnitude absoluta do indicador, condição que caracteriza a identificação de categorias atípicas em uma população de lotes. A combinação dessa tradição com técnicas modernas de detecção de anomalias em dados industriais, conduzida na revisão sistemática do Capítulo~\ref{cap:revisao_sistematica}, é uma das direções exploradas neste trabalho.
+
+
+\section{Considerações parciais}
+\label{sec:consideracoes_cap2}
+
+Este capítulo apresentou o referencial do domínio industrial e as tradições de diagnóstico que fundamentam a dissertação. Quatro elementos devem ser retidos para os capítulos seguintes.
+
+O primeiro é a estrutura da cadeia produtiva do fio esmaltado, na qual defeitos originados na fundição e na laminação do vergalhão viajam embutidos no fio até serem expostos por solicitação mecânica posterior, enquanto danos de equipamento são introduzidos na trefilação e na passagem pela linha de esmaltação. O segundo é a consequência direta dessa estrutura: mecanismos de causa distintos produzem características semelhantes na superfície de fratura, e a inspeção local do evento não discrimina entre as hipóteses, o que desloca a investigação para evidências indiretas registradas pela operação.
+
+O terceiro é o limite das ferramentas tradicionais frente a esse cenário. A \sigla{FMEA} e a \sigla{RCA} dependem de rotulagem manual conduzida por especialistas, e o \sigla{CEP} perde força diante de dezenas de sensores correlacionados sob regimes não estacionários, o que motiva a busca por abordagens orientadas a dados conduzida na revisão sistemática do Capítulo~\ref{cap:revisao_sistematica}. O quarto é o conjunto de fundamentos de medição da tradição estatística, taxa de falha normalizada por exposição, razão de taxas contra referência e classificação por percentis, que sustentam os indicadores formalizados no Capítulo~\ref{cap:proposta}.
