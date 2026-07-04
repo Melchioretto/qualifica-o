@@ -1,69 +1,119 @@
-\chapter{Considerações Parciais}
-\label{cap:consideracoes_parciais}
+\chapter{Experimentação}
+\label{cap:experimentacao}
 
 % -----------------------------------------------------------------
 % Objetivo do capítulo:
-% Fechar o documento de qualificação retomando o problema, descrevendo
-% o estado atual da pesquisa, indicando o cronograma de trabalhos até
-% a defesa e elencando direções de trabalho futuro. A versão de defesa
-% expande este capítulo em "Conclusão" com resultados, contribuições
-% efetivamente entregues e limitações observadas.
+% Materializar a proposta do Capítulo 4 no estudo de caso da fábrica
+% analisada, seguindo o padrão do grupo (CottonTrust 2024, cap. 5:
+% Ambiente de Testes / Protótipo / Plano de Testes / Resultados).
+% Na qualificação, o capítulo descreve o estudo de caso, as fontes
+% de dados, a preparação e o plano de validação. Os resultados da
+% validação retrospectiva e da implantação entram na versão de
+% defesa.
 % -----------------------------------------------------------------
 
-
-\section{Síntese parcial da pesquisa}
-\label{sec:sintese_parcial}
-
-Esta dissertação investiga, no nível da qualificação, como combinar sinais operacionais de máquina e evidências estatísticas históricas de rompimentos para inferir a provável origem de eventos de rompimento em uma fábrica de fios esmaltados de cobre e alumínio. A pergunta foi enunciada na Seção~\ref{sec:problema_pesquisa} e desdobrada nos objetivos específicos da Subseção~\ref{subsec:objetivos_especificos}.
-
-Até este ponto, foram construídos os elementos fundacionais da proposta. A fundamentação do domínio industrial situa o problema do rompimento de fio nas tradições de qualidade e confiabilidade da manufatura contínua, e a revisão sistemática da literatura identifica a lacuna que a proposta enfrenta: a integração de detecção de anomalias, análise estatística histórica, fusão de evidências e explicabilidade em um único sistema aplicado à fabricação de fios esmaltados.
-
-A arquitetura do WireSense foi formalizada no Capítulo~\ref{cap:proposta}, com dois pilares independentes, pipeline de dados e estrutura de saída de cada pilar. O Pilar de Sinais Operacionais opera por máquina, com \emph{Isolation Forest} treinado sobre intervalos sem incidente. O Pilar de Histórico Estatístico usa hora-máquina como métrica de exposição, Taxa Relativa por Material como indicador padronizado e cruzamento de falhas por máquina como sinal complementar.
-
-Os elementos ainda em construção até a defesa completam a proposta com validação retrospectiva, implantação em regime de inferência continuada, painel de acompanhamento e discussão dos resultados. Esta qualificação não traz resultados experimentais, que constituem objeto do trabalho previsto entre esta etapa e a defesa.
+Este capítulo materializa a proposta apresentada no Capítulo~\ref{cap:proposta} sobre o estudo de caso da fábrica analisada. A Seção~\ref{sec:estudo_caso} caracteriza a operação e os conjuntos de dados disponíveis. A Seção~\ref{sec:fontes_dados} descreve as tabelas brutas que alimentam a ferramenta, e a Seção~\ref{sec:pipeline} apresenta as transformações que as convertem nos formatos consumidos pelos dois pilares. A Seção~\ref{sec:plano_validacao} define o plano de validação e as métricas de avaliação previstas, cujos resultados constituem objeto do trabalho entre esta qualificação e a defesa.
 
 
-\section{Cronograma para a defesa}
-\label{sec:cronograma}
+\section{Estudo de caso}
+\label{sec:estudo_caso}
 
-O cronograma de trabalhos previstos entre a qualificação e a defesa está organizado em seis etapas sequenciais, apresentadas na Tabela~\ref{tab:cronograma}. As etapas combinam atividades de implementação, experimentação, implantação e redação, e cobrem o período subsequente à qualificação até a defesa prevista para fevereiro de 2027.
+O estudo de caso desta dissertação é uma fábrica de fios esmaltados de cobre e alumínio que opera com setenta e sete máquinas esmaltadeiras em paralelo, alimentadas por linhas de trefilação primária e abastecidas por vergalhão de múltiplos fornecedores, conforme o processo produtivo descrito no Capítulo~\ref{cap:fundamentacao}. Cada máquina pode processar materiais de bitolas diferentes ao longo do tempo, alternando-se em função das ordens de produção, e um mesmo lote de matéria-prima pode ser distribuído entre várias máquinas conforme a programação.
 
-\begin{table}[htbp]
+Os rompimentos de fio concentram a maior parte das paradas não programadas da operação. Na fábrica analisada, dados operacionais indicam perdas estimadas em 2025 de R\$~2.244.962,30 associadas a rompimentos, e R\$~247.216,56 a defeitos do tipo bolha. Essa magnitude sustenta a relevância prática do problema de pesquisa enunciado na Seção~\ref{sec:problema_pesquisa} e justifica a escolha do rompimento como evento central da experimentação.
+
+A análise conduzida nesta pesquisa baseia-se em três conjuntos de dados produzidos pela operação. O primeiro consiste em registros operacionais das máquinas das linhas de trefilação e de esmaltação, que reúnem leituras de sensores e parâmetros de processo amostrados continuamente durante a produção. O segundo é o histórico de ordens de produção, que vincula cada janela operacional ao lote de matéria-prima processado, ao fornecedor do vergalhão, ao calibre alvo e às demais variáveis de contexto da ordem. O terceiro corresponde aos eventos de rompimento registrados durante a produção, com informações sobre a máquina, o momento do evento e o material em processo.
+
+Um aspecto central do estudo de caso é a ausência de rótulos sobre a causa de cada rompimento. Os eventos são registrados, mas não vêm acompanhados de uma atribuição padronizada da origem provável, isto é, se o rompimento decorreu de defeito de matéria-prima, de falha de equipamento ou de efeito combinado dos dois. Essa característica concreta dos dados confirma, no estudo de caso, a condição de ausência de rótulo que fundamenta a escolha metodológica não supervisionada enunciada na Seção~\ref{sec:caracterizacao_pesquisa}.
+
+
+\section{Fontes de dados}
+\label{sec:fontes_dados}
+
+Os três conjuntos de dados apresentados na Seção~\ref{sec:estudo_caso} se materializam na operação como duas tabelas brutas, cada uma com natureza e granularidade próprias. A tabela de status concentra o histórico cronológico de cada máquina, e nessa tabela os eventos de rompimento aparecem como categorias específicas de parada. A tabela de sensores reúne as leituras das variáveis monitoradas em formato longo. As ordens de produção, terceiro conjunto, não constituem tabela bruta autônoma e alimentam a tabela de status por cruzamento temporal, vinculando cada janela operacional ao lote, material e fornecedor processados. As Subseções~\ref{subsec:tabela_status} e~\ref{subsec:tabela_sensores} descrevem essas tabelas em detalhe, ilustradas nas Figuras~\ref{fig:tabelastatus} e~\ref{fig:tabelasensores}. A estrutura de cada tabela condiciona o tipo de técnica de análise aplicável a cada uma e justifica as transformações tratadas na Seção~\ref{sec:pipeline}.
+
+\begin{figure}[htbp]
+    \begin{minipage}[c]{0.48\linewidth}
+        \centering
+        \includegraphics[height=8cm]{Figuras/TabelaStatusBruta.pdf}
+        \caption{Representação visual da tabela de status bruta.}
+        \label{fig:tabelastatus}
+        \fonte{Elaborado pelo autor (\the\year).}
+    \end{minipage}\hfill
+    \begin{minipage}[c]{0.48\linewidth}
+        \centering
+        \includegraphics[height=8cm]{Figuras/TabelaBruta.pdf}
+        \caption{Representação visual da tabela de sensores em formato longo bruto.}
+        \label{fig:tabelasensores}
+        \fonte{Elaborado pelo autor (\the\year).}
+    \end{minipage}
+\end{figure}
+
+
+\subsection{Tabela de status}
+\label{subsec:tabela_status}
+
+A primeira tabela registra o histórico de status de cada máquina ao longo do tempo. Cada linha corresponde a um intervalo de operação contínua ou a um evento discreto que interrompeu essa operação. As colunas nativas trazem o identificador do programa associado à execução, o centro de máquina, o código e a descrição do evento, o instante inicial, o instante final e a duração do intervalo. A descrição do evento assume o valor \textsc{operando} nos intervalos de produção sem incidente, e valores específicos nos eventos de parada, incluindo categorias associadas a rompimentos por bolha, asperidade ou instabilidade de forno.
+
+Atributos de produção como lote, material e fornecedor não fazem parte da tabela bruta. Eles são incorporados por cruzamento temporal com a tabela de ordens de produção. A Figura~\ref{fig:tabelastatus} apresenta a tabela bruta, sem os atributos de produção. Cada linha representa um instante registrado para a máquina, com o respectivo status, e os eventos de rompimento aparecem como linhas pontuais dentro de blocos majoritariamente compostos por instantes de operação contínua.
+
+
+\subsection{Tabela de sensores}
+\label{subsec:tabela_sensores}
+
+A segunda tabela é gerada pelo sistema de aquisição instalado nas máquinas e contém as leituras das variáveis monitoradas. Esta tabela chega em formato longo, no qual cada linha registra uma leitura individual de um sensor, com identificação da variável de processo, do centro de máquina, do instante de registro e dos valores agregados máximo, médio e mínimo no intervalo amostral. O conjunto de variáveis cobre grandezas físicas e elétricas que descrevem o estado térmico, mecânico e elétrico da linha, com sensores distribuídos no recozedor, no forno, na zona de cura, nos pontos críticos do percurso do fio e nos elementos de controle térmico, conforme apresentado na Figura~\ref{fig:tabelasensores}.
+
+
+\section{Preparação dos dados}
+\label{sec:pipeline}
+
+O \emph{pipeline} de dados converte as tabelas brutas descritas na Seção~\ref{sec:fontes_dados} nos formatos consumidos pelo Pilar de Sinais Operacionais (Seção~\ref{sec:impl_sinais}) e pelo Pilar de Histórico Estatístico (Seção~\ref{sec:impl_historico}). A Figura~\ref{fig:wiresense_pipeline} apresenta as trilhas paralelas que conduzem cada fonte bruta ao formato final consumido pelo pilar correspondente.
+
+\begin{figure}[htbp]
     \centering
-    \footnotesize
-    \caption{Cronograma de trabalhos previstos até a defesa.}
-    \label{tab:cronograma}
-    \begin{tabularx}{\textwidth}{Xl}
-        \toprule
-        \textbf{Etapa}                                                                                 & \textbf{Prazo previsto} \\
-        \midrule
-        Refinamento da implementação dos dois pilares e da regra de integração                          & Jul--Ago 2026 \\
-        Validação retrospectiva sobre o lote-caso confirmatório e demais eventos documentados           & Set--Out 2026 \\
-        Implantação do gatilho de inferência continuada integrado ao sistema de chão de fábrica         & Nov 2026 \\
-        Desenvolvimento do painel de acompanhamento e da camada de alertas                              & Dez 2026 \\
-        Redação do capítulo de Resultados e Discussão                                                   & Jan 2027 \\
-        Revisão geral do texto e preparação da defesa                                                   & Fev 2027 \\
-        \bottomrule
-    \end{tabularx}
+    \includegraphics[width=\textwidth]{Figuras/dados.pdf}
+    \caption{Pipeline de dados do WireSense, das tabelas brutas aos formatos consumidos pelos dois pilares.}
+    \label{fig:wiresense_pipeline}
     \fonte{Elaborado pelo autor (\the\year).}
-\end{table}
+\end{figure}
 
-A primeira etapa avança a implementação dos pilares, incorporando ajustes de engenharia e finalização da regra de integração. A segunda conduz a validação retrospectiva sobre dados históricos da fábrica, partindo de um lote de cobre com causa documentada por inspeção pericial e depois se estendendo a eventos documentados de devoluções de cliente e paradas internas. A expectativa é cobrir as classes de resposta previstas pela regra de integração apresentada na Seção~\ref{sec:regras_integracao}.
+A primeira etapa cruza a tabela de status com a tabela de ordens de produção por interseção temporal entre o intervalo da máquina e o intervalo de validade da ordem. O resultado é uma tabela de status enriquecida, em que cada linha carrega, além das colunas nativas, o lote, o material e o fornecedor processados naquele intervalo. Essa etapa resolve a ausência de atributos de produção apontada na Subseção~\ref{subsec:tabela_status}, ilustrada na Figura~\ref{fig:tabelastatus}, e habilita as agregações por combinação de categoria adotadas pelo Pilar de Histórico Estatístico.
 
-A terceira e a quarta etapas tratam da implantação em regime de inferência continuada, com gatilho acoplado ao sistema da máquina, retorno da classificação à interface operacional, painel de acompanhamento e camada de alertas. As duas últimas etapas tratam da redação final, incluindo a expansão deste capítulo em Resultados e Discussão e conclusão consolidada.
+A segunda etapa converte a tabela de sensores do formato longo para o formato amplo. Cada variável de processo passa a constituir uma coluna própria, e cada instante de aquisição constitui uma linha indexada por máquina. A conversão usa o valor agregado médio do intervalo amostral e preserva, em colunas adicionais, os valores máximo e mínimo para uso posterior. Esse formato é o que o Pilar de Sinais Operacionais espera receber para treinamento e inferência.
+
+A terceira etapa segmenta as duas tabelas processadas em unidades de análise pertinentes a cada pilar. Para o Pilar de Sinais Operacionais, a unidade é a janela operacional de cada rompimento, isto é, um recorte temporal centrado no instante do evento. Para o Pilar de Histórico Estatístico, a unidade é a agregação por combinação de lote, material e máquina, com fornecedor preservado como atributo contextual e exposição produtiva medida em horas-máquina.
+
+A implementação do \emph{pipeline} ocorre em \emph{scripts} organizados por etapa e versionados na base de código da ferramenta. Cada rotina possui interfaces de entrada e saída padronizadas, permitindo reexecução parcial a partir de pontos intermediários.
+
+Após a aplicação das etapas descritas, as tabelas brutas apresentadas na Seção~\ref{sec:fontes_dados} assumem o formato ilustrado na Figura~\ref{fig:tabelas_pos_pipeline}. A tabela de status passa a incorporar as colunas de lote, material e fornecedor, e a tabela de sensores reorganiza-se em formato amplo, com uma coluna por variável de processo.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[c]{0.48\linewidth}
+        \centering
+        \includegraphics[height=6cm]{Figuras/TabelaStatus.pdf}
+        \caption{Tabela de status enriquecida após o cruzamento com as ordens de produção.}
+        \label{fig:tabelastatus_enriquecida}
+    \end{subfigure}\hfill
+    \begin{subfigure}[c]{0.48\linewidth}
+        \centering
+        \includegraphics[height=5.5cm]{Figuras/Sensores.pdf}
+        \caption{Tabela de sensores em formato amplo após o pivot.}
+        \label{fig:tabelasensores_amplo}
+    \end{subfigure}
+    \caption{Tabelas resultantes após a aplicação do pipeline.}
+    \label{fig:tabelas_pos_pipeline}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{figure}
 
 
-\section{Trabalhos futuros}
-\label{sec:trabalhos_futuros}
+\section{Plano de validação}
+\label{sec:plano_validacao}
 
-Para além da defesa desta dissertação, identificam-se direções de extensão da pesquisa que ampliam o alcance do método proposto e o aproximam da operação cotidiana da fábrica.
+A validação da proposta é organizada em duas frentes complementares, alinhadas às duas fases do método da pesquisa descritas na Seção~\ref{sec:caracterizacao_pesquisa}: a validação retrospectiva sobre eventos históricos com causa documentada e a avaliação da implantação em regime de inferência continuada.
 
-A direção principal de extensão é a passagem do regime reativo para um regime preditivo. A implantação descrita nesta dissertação opera por gatilho, acionando o método de inferência quando o operador registra a parada por rompimento no sistema da máquina. A extensão preditiva inverte esse fluxo: a partir do monitoramento contínuo dos sensores e do histórico estatístico do lote em curso, o sistema antecipa a probabilidade de rompimento iminente e emite alerta preventivo. Essa direção exige tratamento adicional de calibração, definição de métricas de antecipação e gestão de falsos positivos, e constitui agenda de trabalho posterior à conclusão do mestrado.
+A validação retrospectiva parte de um caso confirmatório com causa estabelecida por inspeção pericial. A fábrica dispõe de um lote de cobre identificado pela equipe de qualidade como responsável por rompimentos sistemáticos durante o consumo, atribuídos à presença de inclusões metálicas no vergalhão expostas durante a trefilação. A expectativa é que a ferramenta classifique os eventos associados a esse lote na direção de matéria-prima, com taxa relativa ao lote acima do esperado e cruzamento de falhas distribuído entre as máquinas que o processaram. A partir desse caso, a validação se estende aos demais eventos documentados de devoluções de cliente e de paradas internas, com a expectativa de cobrir as classes de resposta previstas pela regra de integração apresentada no Capítulo~\ref{cap:proposta}.
 
-A ampliação da cobertura de sensores e de tipos de defeito é uma segunda direção de extensão. O Pilar de Sinais Operacionais foi desenhado sobre um subconjunto de variáveis priorizadas, e o Pilar de Histórico Estatístico opera sobre os rompimentos. A incorporação de defeitos de bolha, asperidade e instabilidade de forno como categorias adicionais de evento e a inclusão de variáveis sensoriais hoje fora do conjunto selecionado permitiriam estender a inferência da provável origem para outros sintomas operacionais relevantes.
+A avaliação quantitativa prevista compreende quatro medições. A primeira é a taxa de concordância entre a classe de diagnóstico produzida pela ferramenta e a causa documentada nos eventos com laudo disponível. A segunda é a distribuição de frequência das classes de diagnóstico sobre o conjunto completo de eventos históricos, que caracteriza o comportamento da regra de integração em operação normal. A terceira é a frequência relativa das classes Insuficiente e Atenção, que mede a fração de eventos em que a ferramenta declara não dispor de evidência suficiente para atribuição de origem. A quarta é a análise de sensibilidade dos diagnósticos aos limiares calibrados empiricamente, em particular o limiar de exposição mínima e os cortes de discretização dos indicadores do Pilar de Histórico Estatístico.
 
-A inclusão do fornecedor como dimensão estatística direta dos indicadores do Pilar de Histórico Estatístico, complementar à preservação atual como atributo contextual descrita na Seção~\ref{sec:impl_historico}, é uma terceira direção de extensão. A construção de indicadores agregados por fornecedor permitiria identificar padrões sistêmicos de qualidade que se manifestam ao longo de múltiplos lotes da mesma origem, oferecendo evidência adicional para apoiar decisões de qualificação de fornecedores em horizonte estratégico, além do diagnóstico evento a evento que o WireSense produz.
-
-A incorporação de realimentação de especialistas como fonte de rótulo fraco é uma quarta direção. Quando a equipe técnica de qualidade revisa um evento e atribui causa provável, esse julgamento pode ser registrado e usado como rótulo de baixa frequência mas alta confiança, refinando ao longo do tempo a calibração dos pilares e da regra de integração.
-
-A generalização da arquitetura para outros processos de manufatura contínua com falhas multifatoriais é a quinta direção. A separação em pilares independentes, com fusão por regra determinística, é em princípio agnóstica ao domínio. Aplicações em fundição, laminação, extrusão e em outros processos com características semelhantes ao da fábrica analisada poderiam validar a transferibilidade do método proposto, com adaptação dos critérios de seleção de variáveis sensoriais e da estrutura categórica de matérias-primas.
+Os resultados dessas medições, acompanhados da discussão das limitações empíricas observadas, constituem o conteúdo previsto para o capítulo de Resultados e Discussão da versão de defesa, conforme o cronograma apresentado no Capítulo~\ref{cap:consideracoes_parciais}.

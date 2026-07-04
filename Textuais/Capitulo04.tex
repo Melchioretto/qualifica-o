@@ -17,46 +17,7 @@
 %   docs/pipeline/resumo_metodo_estatistico_global.txt
 % -----------------------------------------------------------------
 
-Este capítulo apresenta a proposta desta dissertação, partindo das fontes de dados que alimentam a ferramenta e avançando para a arquitetura, os dois pilares de evidência e a regra de integração que produz o diagnóstico final.
-
-
-\section{Fontes de dados}
-\label{sec:fontes_dados}
-
-% Esta secao descreve as duas tabelas brutas (status e sensores) que materializam os tres conjuntos de dados apresentados na Secao~\ref{sec:dados_disponiveis} do Cap. 2. As ordens de producao entram por cruzamento temporal com a tabela de status, conforme detalhado em 4.4.1.
-
-Os três conjuntos de dados apresentados na Seção~\ref{sec:dados_disponiveis} se materializam na operação como duas tabelas brutas, cada uma com natureza e granularidade próprias. A tabela de status concentra o histórico cronológico de cada máquina, e nessa tabela os eventos de rompimento aparecem como categorias específicas de parada. A tabela de sensores reúne as leituras das variáveis monitoradas em formato longo. As ordens de produção, terceiro conjunto, não constituem tabela bruta autônoma e alimentam a tabela de status por cruzamento temporal, vinculando cada janela operacional ao lote, material e fornecedor processados. As Subseções~\ref{subsec:tabela_status} e~\ref{subsec:tabela_sensores} descrevem essas tabelas em detalhe, ilustradas nas Figuras~\ref{fig:tabelastatus} e~\ref{fig:tabelasensores}. A estrutura de cada tabela condiciona o tipo de técnica de análise aplicável a cada uma e justifica as transformações tratadas na Seção~\ref{sec:pipeline}.
-
-\begin{figure}[htbp]
-    \begin{minipage}[c]{0.48\linewidth}
-        \centering
-        \includegraphics[height=8cm]{Figuras/TabelaStatusBruta.pdf}
-        \caption{Representação visual da tabela de status bruta.}
-        \label{fig:tabelastatus}
-        \fonte{Elaborado pelo autor (\the\year).}
-    \end{minipage}\hfill
-    \begin{minipage}[c]{0.48\linewidth}
-        \centering
-        \includegraphics[height=8cm]{Figuras/TabelaBruta.pdf}
-        \caption{Representação visual da tabela de sensores em formato longo bruto.}
-        \label{fig:tabelasensores}
-        \fonte{Elaborado pelo autor (\the\year).}
-    \end{minipage}
-\end{figure}
-
-
-\subsection{Tabela de status}
-\label{subsec:tabela_status}
-
-A primeira tabela registra o histórico de status de cada máquina ao longo do tempo. Cada linha corresponde a um intervalo de operação contínua ou a um evento discreto que interrompeu essa operação. As colunas nativas trazem o identificador do programa associado à execução, o centro de máquina, o código e a descrição do evento, o instante inicial, o instante final e a duração do intervalo. A descrição do evento assume o valor \textsc{operando} nos intervalos de produção sem incidente, e valores específicos nos eventos de parada, incluindo categorias associadas a rompimentos por bolha, asperidade ou instabilidade de forno.
-
-Atributos de produção como lote, material e fornecedor não fazem parte da tabela bruta. Eles são incorporados por cruzamento temporal com a tabela de ordens de produção. A Figura~\ref{fig:tabelastatus} apresenta a tabela bruta, sem os atributos de produção. Cada linha representa um instante registrado para a máquina, com o respectivo status, e os eventos de rompimento aparecem como linhas pontuais dentro de blocos majoritariamente compostos por instantes de operação contínua.
-
-
-\subsection{Tabela de sensores}
-\label{subsec:tabela_sensores}
-
-A segunda tabela é gerada pelo sistema de aquisição instalado nas máquinas e contém as leituras das variáveis monitoradas. Esta tabela chega em formato longo, no qual cada linha registra uma leitura individual de um sensor, com identificação da variável de processo, do centro de máquina, do instante de registro e dos valores agregados máximo, médio e mínimo no intervalo amostral. O conjunto de variáveis cobre grandezas físicas e elétricas que descrevem o estado térmico, mecânico e elétrico da linha, com sensores distribuídos no recozedor, no forno, na zona de cura, nos pontos críticos do percurso do fio e nos elementos de controle térmico, conforme apresentado na Figura~\ref{fig:tabelasensores}.
+Este capítulo apresenta a proposta desta dissertação: a arquitetura de inferência da provável origem de eventos de rompimento, os dois pilares independentes de evidência que a compõem e a regra de integração que produz o diagnóstico final. A materialização da proposta sobre o estudo de caso da fábrica, incluindo as fontes de dados e a preparação, é apresentada no Capítulo~\ref{cap:experimentacao}.
 
 
 \section{Visão geral da arquitetura}
@@ -72,54 +33,11 @@ A ferramenta proposta nesta dissertação é denominada internamente WireSense. 
     \fonte{Elaborado pelo autor (\the\year).}
 \end{figure}
 
-O Pilar de Sinais Operacionais opera sobre a tabela de sensores descrita na Subseção~\ref{subsec:tabela_sensores} e ilustrada na Figura~\ref{fig:tabelasensores}. Sua função é caracterizar o estado operacional da linha no entorno temporal de cada rompimento, comparando-o ao padrão esperado da operação. A saída do pilar é um indicador de anomalia por janela, que sinaliza se o comportamento das variáveis sensoriais antes do evento se afastou do regime nominal observado no histórico recente da máquina. A natureza da evidência produzida é local ao evento, atrelada à máquina específica em que o rompimento ocorreu, e independe da identidade do lote ou do fornecedor processados naquele momento.
+O Pilar de Sinais Operacionais opera sobre as leituras das variáveis sensoriais das máquinas, materializadas na tabela de sensores descrita no Capítulo~\ref{cap:experimentacao}. Sua função é caracterizar o estado operacional da linha no entorno temporal de cada rompimento, comparando-o ao padrão esperado da operação. A saída do pilar é um indicador de anomalia por janela, que sinaliza se o comportamento das variáveis sensoriais antes do evento se afastou do regime nominal observado no histórico recente da máquina. A natureza da evidência produzida é local ao evento, atrelada à máquina específica em que o rompimento ocorreu, e independe da identidade do lote ou do fornecedor processados naquele momento.
 
-O Pilar de Histórico Estatístico opera sobre a tabela de status cruzada com as ordens de produção que vinculam cada janela operacional ao lote, material e fornecedor processados. A Figura~\ref{fig:wiresense_arquitetura} representa apenas a fonte direta do pilar, e o cruzamento com as ordens de produção ocorre no pipeline da Seção~\ref{sec:pipeline} antes do consumo pelo pilar. Sua função é caracterizar o padrão histórico de rompimentos por lote, material e máquina, considerando a exposição produtiva acumulada. A evidência produzida é agregada, refere-se a categorias de matéria-prima e configurações de máquina, e independe do comportamento sensorial imediato do evento sob análise.
+O Pilar de Histórico Estatístico opera sobre o histórico de eventos das máquinas cruzado com as ordens de produção que vinculam cada janela operacional ao lote, material e fornecedor processados. A Figura~\ref{fig:wiresense_arquitetura} representa apenas a fonte direta do Pilar de Histórico Estatístico, e o cruzamento com as ordens de produção ocorre na preparação de dados descrita no Capítulo~\ref{cap:experimentacao}, antes do consumo pelo pilar. Sua função é caracterizar o padrão histórico de rompimentos por lote, material e máquina, considerando a exposição produtiva acumulada. A evidência produzida é agregada, refere-se a categorias de matéria-prima e configurações de máquina, e independe do comportamento sensorial imediato do evento sob análise.
 
 A comunicação entre os dois pilares ocorre apenas no momento da inferência. Cada pilar produz sua saída de forma autônoma, sem trocar parâmetros internos ou compartilhar representações intermediárias. A integração opera sobre as duas saídas, combinadas segundo regras determinísticas que preservam a interpretabilidade do diagnóstico final. Essa decisão de projeto permite auditar cada pilar separadamente e atualizar um deles sem efeito sobre o outro.
-
-
-\section{Pipeline de dados}
-\label{sec:pipeline}
-
-O pipeline de dados converte as tabelas brutas descritas na Seção~\ref{sec:fontes_dados} nos formatos consumidos pelo Pilar de Sinais Operacionais (Seção~\ref{sec:impl_sinais}) e pelo Pilar de Histórico Estatístico (Seção~\ref{sec:impl_historico}). A Figura~\ref{fig:wiresense_pipeline} apresenta as trilhas paralelas que conduzem cada fonte bruta ao formato final consumido pelo pilar correspondente.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{Figuras/dados.pdf}
-    \caption{Pipeline de dados do WireSense, das tabelas brutas aos formatos consumidos pelos dois pilares.}
-    \label{fig:wiresense_pipeline}
-    \fonte{Elaborado pelo autor (\the\year).}
-\end{figure}
-
-A primeira etapa cruza a tabela de status com a tabela de ordens de produção por interseção temporal entre o intervalo da máquina e o intervalo de validade da ordem. O resultado é uma tabela de status enriquecida, em que cada linha carrega, além das colunas nativas, o lote, o material e o fornecedor processados naquele intervalo. Essa etapa resolve a ausência de atributos de produção apontada na Subseção~\ref{subsec:tabela_status}, ilustrada na Figura~\ref{fig:tabelastatus}, e habilita as agregações por combinação de categoria adotadas pelo Pilar de Histórico Estatístico.
-
-A segunda etapa converte a tabela de sensores do formato longo para o formato amplo. Cada variável de processo passa a constituir uma coluna própria, e cada instante de aquisição constitui uma linha indexada por máquina. A conversão usa o valor agregado médio do intervalo amostral e preserva, em colunas adicionais, os valores máximo e mínimo para uso posterior. Esse formato é o que o Pilar de Sinais Operacionais espera receber para treinamento e inferência.
-
-A terceira etapa segmenta as duas tabelas processadas em unidades de análise pertinentes a cada pilar. Para o Pilar de Sinais Operacionais, a unidade é a janela operacional de cada rompimento, isto é, um recorte temporal centrado no instante do evento. Para o Pilar de Histórico Estatístico, a unidade é a agregação por combinação de lote, material e máquina, com fornecedor preservado como atributo contextual e exposição produtiva medida em horas-máquina.
-
-A implementação do pipeline ocorre em \emph{scripts} organizados por etapa e versionados na base de código da ferramenta. Cada rotina possui interfaces de entrada e saída padronizadas, permitindo reexecução parcial a partir de pontos intermediários.
-
-Após a aplicação das etapas descritas, as tabelas brutas apresentadas na Seção~\ref{sec:fontes_dados} assumem o formato ilustrado na Figura~\ref{fig:tabelas_pos_pipeline}. A tabela de status passa a incorporar as colunas de lote, material e fornecedor, e a tabela de sensores reorganiza-se em formato amplo, com uma coluna por variável de processo.
-
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}[c]{0.48\linewidth}
-        \centering
-        \includegraphics[height=6cm]{Figuras/TabelaStatus.pdf}
-        \caption{Tabela de status enriquecida após o cruzamento com as ordens de produção.}
-        \label{fig:tabelastatus_enriquecida}
-    \end{subfigure}\hfill
-    \begin{subfigure}[c]{0.48\linewidth}
-        \centering
-        \includegraphics[height=5.5cm]{Figuras/Sensores.pdf}
-        \caption{Tabela de sensores em formato amplo após o pivot.}
-        \label{fig:tabelasensores_amplo}
-    \end{subfigure}
-    \caption{Tabelas resultantes após a aplicação do pipeline.}
-    \label{fig:tabelas_pos_pipeline}
-    \fonte{Elaborado pelo autor (\the\year).}
-\end{figure}
 
 
 \section{Pilar de Sinais Operacionais}
