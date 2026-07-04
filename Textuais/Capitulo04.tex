@@ -1,14 +1,63 @@
-\chapter{Proposta}
+\chapter{WireSense}
 \label{cap:proposta}
 
 
-Este capítulo apresenta a proposta desta dissertação: a arquitetura de inferência da provável origem de eventos de rompimento, os dois pilares independentes de evidência que a compõem e a regra de integração que produz o diagnóstico final. A materialização da proposta sobre o estudo de caso da fábrica, incluindo as fontes de dados e a preparação, é apresentada no Capítulo~\ref{cap:experimentacao}.
+Este capítulo apresenta o WireSense, a proposta desta dissertação para a inferência da provável origem de eventos de rompimento em fabricação de fios. A Seção~\ref{sec:contexto_definicoes} estabelece o contexto da proposta e define os termos empregados ao longo do capítulo. A Seção~\ref{sec:requisitos} enuncia os requisitos funcionais e não funcionais que delimitam o comportamento esperado. As seções seguintes apresentam a arquitetura, os dois pilares de evidência e a regra de integração que produz o diagnóstico final. A materialização da proposta sobre o estudo de caso da fábrica, incluindo fontes de dados, preparação, protótipo e plano de validação, é apresentada no Capítulo~\ref{cap:experimentacao}.
+
+
+\section{Contexto e definições}
+\label{sec:contexto_definicoes}
+
+WireSense designa a proposta desta dissertação: uma arquitetura de apoio à decisão que infere a provável origem de eventos de rompimento pela combinação de duas vertentes independentes de evidência. A contribuição científica reside na arquitetura e na regra de integração, definidas neste capítulo em termos de componentes, relações e fluxos independentes de tecnologia específica. A materialização dessa arquitetura em uma ferramenta executável constitui a prova de conceito da proposta, associada ao estudo de caso e às escolhas tecnológicas descritas no Capítulo~\ref{cap:experimentacao}.
+
+A leitura do capítulo apoia-se nas seguintes definições:
+
+\begin{itemize}
+    \item \textbf{Evento de rompimento}: interrupção da continuidade do fio registrada pelo sistema operacional da fábrica, caracterizada pela máquina em que ocorreu, pelo instante do registro e pelo material em processamento.
+    \item \textbf{Janela operacional}: recorte temporal imediatamente anterior a um evento de rompimento, sobre o qual a evidência sensorial da máquina é avaliada.
+    \item \textbf{Lote}: unidade de fornecimento de matéria-prima, associada a um fornecedor e consumida por uma ou mais máquinas na produção de um ou mais materiais.
+    \item \textbf{Exposição produtiva}: tempo acumulado de operação de uma combinação de lote, material e máquina, medido em horas-máquina.
+    \item \textbf{Evidência sensorial}: sinal local ao evento, produzido pela análise da janela operacional da máquina em que o rompimento ocorreu.
+    \item \textbf{Evidência histórica}: sinal agregado, produzido pela análise estatística do padrão de rompimentos do lote em consumo ao longo de toda a sua exposição produtiva.
+    \item \textbf{Diagnóstico}: classificação final atribuída a um evento de rompimento pela regra de integração, acompanhada da evidência de apoio que a sustentou.
+\end{itemize}
+
+As duas vertentes de evidência respondem a perguntas complementares. A evidência sensorial responde se a máquina específica apresentou comportamento anômalo no entorno do evento. A evidência histórica responde se o lote em consumo apresenta padrão de rompimentos atípico quando observado em todas as máquinas que o processaram. A combinação das duas respostas fundamenta a inferência da provável origem, conforme os requisitos enunciados na Seção~\ref{sec:requisitos}.
+
+
+\section{Requisitos da proposta}
+\label{sec:requisitos}
+
+Os requisitos que delimitam o comportamento esperado do WireSense derivam do problema de pesquisa enunciado na Seção~\ref{sec:problema_pesquisa} e das necessidades operacionais da equipe técnica que consome o diagnóstico. Os requisitos funcionais definem o que a proposta deve produzir:
+
+\begin{itemize}
+    \item \textbf{RF1}: produzir, para cada evento de rompimento registrado, uma classificação da provável origem entre as classes definidas pela regra de integração.
+    \item \textbf{RF2}: avaliar a evidência sensorial da máquina na janela operacional do evento e classificá-la por intensidade de anomalia.
+    \item \textbf{RF3}: calcular indicadores estatísticos por lote normalizados pela exposição produtiva, cobrindo a intensidade dos rompimentos e o seu espalhamento entre as máquinas expostas.
+    \item \textbf{RF4}: classificar a evidência histórica de matéria-prima em classes ordinais a partir dos indicadores estatísticos do lote.
+    \item \textbf{RF5}: apresentar cada diagnóstico acompanhado da evidência de apoio, incluindo as classes intermediárias de cada pilar, os valores dos indicadores e a célula da tabela de decisão aplicada.
+    \item \textbf{RF6}: ser acionável por gatilho a partir do registro operacional do evento, devolvendo o diagnóstico à interface operacional.
+    \item \textbf{RF7}: declarar explicitamente as condições de incapacidade de avaliação, tanto na ausência de modelo sensorial válido quanto na insuficiência conjunta de evidência.
+\end{itemize}
+
+Os requisitos não funcionais delimitam as propriedades de qualidade da proposta:
+
+\begin{itemize}
+    \item \textbf{RNF1} (interpretabilidade): toda classificação produzida deve ser rastreável aos valores dos indicadores e às regras que a geraram, sem componentes de decisão opacos entre a evidência e o diagnóstico.
+    \item \textbf{RNF2} (operação sem rótulos): a proposta deve operar sem rótulos de causa nos dados históricos, condição imposta pelo cenário caracterizado na Seção~\ref{sec:problema_pesquisa}.
+    \item \textbf{RNF3} (independência entre componentes): os pilares de evidência devem ser auditáveis e atualizáveis isoladamente, sem compartilhamento de parâmetros internos.
+    \item \textbf{RNF4} (adaptabilidade ao regime): os limiares de classificação devem se ajustar à distribuição vigente dos indicadores, evitando recalibração manual a cada mudança de patamar operacional.
+    \item \textbf{RNF5} (tempo de resposta): o diagnóstico deve estar disponível antes da retomada da produção após a parada, para sustentar a decisão da equipe no momento da intervenção.
+    \item \textbf{RNF6} (generalidade): os componentes devem ser definidos de forma independente de tecnologia, com instâncias substituíveis sem alteração da estrutura da proposta.
+\end{itemize}
+
+As seções seguintes apresentam os componentes que realizam esses requisitos: a arquitetura geral na Seção~\ref{sec:arquitetura}, os dois pilares de evidência nas Seções~\ref{sec:impl_sinais} e~\ref{sec:impl_historico} e a regra de integração na Seção~\ref{sec:regras_integracao}.
 
 
 \section{Visão geral da arquitetura}
 \label{sec:arquitetura}
 
-A ferramenta proposta nesta dissertação é denominada internamente WireSense. Seu projeto organiza a análise em dois pilares independentes de evidência, cada um operando sobre uma natureza distinta de dado e produzindo uma saída interpretável sobre o evento de rompimento. A inferência da provável origem decorre da combinação dessas saídas pelas regras de integração apresentadas na Seção~\ref{sec:regras_integracao}. A Figura~\ref{fig:wiresense_arquitetura} apresenta a visão geral da arquitetura.
+O WireSense organiza a análise em dois pilares independentes de evidência, cada um operando sobre uma natureza distinta de dado e produzindo uma saída interpretável sobre o evento de rompimento. A inferência da provável origem decorre da combinação dessas saídas pelas regras de integração apresentadas na Seção~\ref{sec:regras_integracao}. A Figura~\ref{fig:wiresense_arquitetura} apresenta a visão geral da arquitetura.
 
 \begin{figure}[htbp]
     \centering
@@ -22,54 +71,21 @@ O Pilar de Sinais Operacionais opera sobre as leituras das variáveis sensoriais
 
 O Pilar de Histórico Estatístico opera sobre o histórico de eventos das máquinas cruzado com as ordens de produção que vinculam cada janela operacional ao lote, material e fornecedor processados. A Figura~\ref{fig:wiresense_arquitetura} representa apenas a fonte direta do Pilar de Histórico Estatístico, e o cruzamento com as ordens de produção ocorre na preparação de dados descrita no Capítulo~\ref{cap:experimentacao}, antes do consumo pelo pilar. Sua função é caracterizar o padrão histórico de rompimentos por lote, material e máquina, considerando a exposição produtiva acumulada. A evidência produzida é agregada, refere-se a categorias de matéria-prima e configurações de máquina, e independe do comportamento sensorial imediato do evento sob análise.
 
-A comunicação entre os dois pilares ocorre apenas no momento da inferência. Cada pilar produz sua saída de forma autônoma, sem trocar parâmetros internos ou compartilhar representações intermediárias. A integração opera sobre as duas saídas, combinadas segundo regras determinísticas que preservam a interpretabilidade do diagnóstico final. Essa decisão de projeto permite auditar cada pilar separadamente e atualizar um deles sem efeito sobre o outro.
+A comunicação entre os dois pilares ocorre apenas no momento da inferência. Cada pilar produz sua saída de forma autônoma, sem trocar parâmetros internos ou compartilhar representações intermediárias. A integração opera sobre as duas saídas, combinadas segundo regras determinísticas que preservam a interpretabilidade do diagnóstico final. Essa decisão de projeto permite auditar cada pilar separadamente e atualizar um deles sem efeito sobre o outro, realizando os requisitos RNF1 e RNF3.
+
+O fluxo de inferência percorre cinco passos. O registro operacional do rompimento pelo operador aciona a execução, atendendo ao requisito RF6. A partir do evento, recuperam-se a janela operacional da máquina e a identificação do lote em consumo. Os dois pilares avaliam suas evidências em paralelo: o Pilar de Sinais Operacionais classifica a intensidade da anomalia sensorial da janela, e o Pilar de Histórico Estatístico classifica a evidência histórica de matéria-prima do lote. A regra de integração combina as duas classes e produz o diagnóstico final. Por fim, o diagnóstico retorna à interface operacional acompanhado da evidência de apoio, atendendo ao requisito RF5.
 
 
 \section{Pilar de Sinais Operacionais}
 \label{sec:impl_sinais}
 
-O Pilar de Sinais Operacionais analisa o comportamento das variáveis sensoriais no entorno temporal de cada rompimento, com o objetivo de identificar se a operação da máquina apresentou desvio em relação ao padrão recente de funcionamento. A escolha por uma abordagem de detecção de anomalias decorre da ausência de rótulo padronizado de causa discutida na Seção~\ref{sec:problema_pesquisa}, que impede o uso direto de classificadores supervisionados. O método selecionado para esta dissertação é o Isolation Forest, cujo enquadramento na literatura de detecção de anomalias em séries temporais industriais é apresentado no Capítulo~\ref{cap:revisao_sistematica}.
+O Pilar de Sinais Operacionais é o componente responsável pela evidência sensorial. Sua função é avaliar se a máquina em que o rompimento ocorreu apresentou, na janela operacional do evento, desvio em relação ao padrão de funcionamento aprendido do seu próprio histórico, realizando o requisito RF2. A escolha por uma abordagem de detecção de anomalias decorre da ausência de rótulo padronizado de causa discutida na Seção~\ref{sec:problema_pesquisa}, que impede o uso direto de classificadores supervisionados e impõe o requisito RNF2.
 
-O conjunto de variáveis monitoradas pela tabela de sensores cobre grandezas térmicas, elétricas e mecânicas distribuídas ao longo da linha, conforme descrito na Subseção~\ref{subsec:tabela_sensores} e ilustrado na Figura~\ref{fig:tabelasensores}. Desse conjunto, foi selecionado um subconjunto de 14 variáveis com base em critérios de cobertura do processo, qualidade da aquisição e relevância para os modos de falha caracterizados no Capítulo~\ref{cap:fundamentacao}. A seleção privilegia variáveis cujo desvio em relação à operação nominal carrega significado físico interpretável pela equipe de engenharia da fábrica. A Tabela~\ref{tab:sensores_pilar_sinais} apresenta as variáveis selecionadas, agrupadas por categoria.
+O componente é definido por três elementos independentes de tecnologia. O primeiro é um modelo de normalidade por máquina, construído sobre o histórico de operação sem incidente daquela máquina específica, de modo que o padrão de referência reflita o regime nominal individual e não um comportamento médio da frota. O segundo é uma função de avaliação que recebe a janela operacional do evento e produz um indicador escalar de anomalia, tanto maior quanto mais a janela se afasta do regime nominal aprendido. O terceiro é uma discretização do indicador escalar em classes ordinais de intensidade, \textsc{forte}, \textsc{moderada} e \textsc{ausente}, com cortes calibrados empiricamente sobre a distribuição do indicador, em alinhamento com o requisito RNF4.
 
-\begin{table}[htbp]
-    \centering
-    \footnotesize
-    \caption{Variáveis sensoriais selecionadas para o Pilar de Sinais Operacionais.}
-    \label{tab:sensores_pilar_sinais}
-    \begin{tabularx}{\textwidth}{lX}
-        \toprule
-        \textbf{Categoria} & \textbf{Variável} \\
-        \midrule
-        \multirow{9}{*}{Temperatura}
-            & Exaustor do forno \\
-            & Antes do catalisador \\
-            & Após o catalisador \\
-            & Ar de exaustão \\
-            & Zona de secagem \\
-            & Recozedor, zona 1 \\
-            & Recozedor, zona 2 \\
-            & Trocador de calor \\
-            & Zona de cura \\
-        \midrule
-        \multirow{2}{*}{Tensão do fio}
-            & Trefila \\
-            & Bobinador \\
-        \midrule
-        Velocidade
-            & Supervisório \\
-        \midrule
-        \multirow{2}{*}{Ventiladores}
-            & Exaustão \\
-            & Recirculação \\
-        \bottomrule
-    \end{tabularx}
-    \fonte{Elaborado pelo autor (\the\year).}
-\end{table}
+A confiabilidade da avaliação depende de o modelo de normalidade ter sido construído sobre histórico suficiente e de estar calibrado em relação ao regime operacional vigente. Quando essas condições não são satisfeitas, isto é, máquinas com histórico insuficiente, períodos de mudança de regime ou janelas com dados ausentes em proporção excessiva, o pilar declara o evento como \textsc{sem modelo}, realizando o requisito RF7, e o diagnóstico final descrito na Seção~\ref{sec:regras_integracao} passa a depender apenas da saída do Pilar de Histórico Estatístico. A saída do pilar é composta pela classe de intensidade atribuída, pelo valor do indicador escalar e pela identificação da máquina e da janela avaliada.
 
-O treinamento do modelo é previsto por máquina, sobre o histórico de intervalos com status \textsc{operando} sem incidente registrado. Cada amostra de treino corresponderá a uma janela temporal das variáveis selecionadas, e o Isolation Forest aprenderá a estrutura do regime nominal específico daquela máquina. A inferência operará sobre a janela imediatamente anterior a cada rompimento, e o resultado será um indicador de anomalia escalar por evento.
-
-A confiabilidade do indicador dependerá de o modelo da máquina ter sido treinado sobre histórico suficiente e de estar calibrado em relação ao regime operacional vigente. Quando essas condições não forem satisfeitas, isto é, máquinas com histórico insuficiente, períodos de mudança de regime ou janelas com dados ausentes em proporção excessiva, o pilar declarará o evento como \textsc{sem modelo} e o diagnóstico final descrito na Seção~\ref{sec:regras_integracao} passará a depender apenas da saída do Pilar de Histórico Estatístico. A saída do pilar será apresentada como o valor do indicador de anomalia, acompanhado da identificação da máquina e da janela analisada.
+A instância do detector adotada na prova de conceito é o \emph{Isolation Forest}, cujo enquadramento na literatura de detecção de anomalias em séries temporais industriais é apresentado no Capítulo~\ref{cap:revisao_sistematica} e cuja configuração, junto com a seleção de variáveis sensoriais do estudo de caso, é descrita no Capítulo~\ref{cap:experimentacao}. Em atenção ao requisito RNF6, o detector é substituível por outra técnica de detecção de anomalias sem alteração da estrutura do pilar, desde que a interface de entrada e saída definida nesta seção seja preservada.
 
 
 \section{Pilar de Histórico Estatístico}
@@ -80,10 +96,10 @@ O Pilar de Histórico Estatístico analisa o padrão de rompimentos associado a 
 O atributo fornecedor não entra diretamente nas fórmulas dos dois indicadores, que operam no nível do lote, mas é mantido como atributo contextual associado a cada lote no resultado final. Essa preservação permite agrupamento e segmentação posterior das saídas por fornecedor durante a análise da equipe técnica, sustentando a leitura do padrão por origem da matéria-prima sem comprometer a parcimônia das fórmulas. A inclusão direta do fornecedor como dimensão própria de cálculo, com indicadores estatísticos agregados por fornecedor para identificação de padrões sistêmicos de qualidade, é deixada como direção de refinamento futuro indicada na Seção~\ref{sec:trabalhos_futuros}.
 
 
-\subsection{Modelo operacional}
+\subsection{Relação entre lotes, materiais e máquinas}
 \label{subsec:modelo_operacional}
 
-A fábrica analisada opera com 77 máquinas esmaltadeiras em paralelo, e cada máquina pode processar materiais de bitolas diferentes ao longo do tempo. A Figura~\ref{fig:modelo_lotes} ilustra o ponto de partida: a operação recebe um conjunto de N lotes de matéria-prima e cada lote pode ser consumido em M materiais distintos. A formulação é apresentada em termos abstratos de N, M e máquinas para que a metodologia permaneça aplicável a parques fabris de outra escala.
+A formulação do pilar parte de uma operação com múltiplas máquinas em paralelo, na qual cada máquina pode processar materiais de bitolas diferentes ao longo do tempo, alternando-se em função das ordens de produção. A Figura~\ref{fig:modelo_lotes} ilustra o ponto de partida: a operação recebe um conjunto de N lotes de matéria-prima e cada lote pode ser consumido em M materiais distintos. A formulação é apresentada em termos abstratos de N, M e máquinas para que a proposta permaneça aplicável a parques fabris de qualquer escala, e a configuração concreta do estudo de caso é caracterizada no Capítulo~\ref{cap:experimentacao}.
 
 \begin{figure}[htbp]
     \centering
@@ -166,7 +182,7 @@ A escolha por percentil em lugar de cortes fixos sobre a taxa relativa absorve m
 
 A contagem direta de rompimentos por lote, mesmo normalizada por hora-máquina como na Subseção~\ref{subsec:taxa_relativa}, não distingue dois cenários de implicações opostas. Cinco rompimentos concentrados em uma única máquina sugerem problema local de equipamento, enquanto cinco rompimentos distribuídos entre cinco máquinas que processaram o mesmo lote sugerem defeito embarcado na matéria-prima. Para a inferência da provável origem do evento, importa não apenas o volume de rompimentos, mas o espalhamento desses eventos entre as máquinas expostas ao lote.
 
-Uma métrica ingênua de espalhamento seria a razão entre o número de máquinas afetadas e o tamanho da frota da fábrica. Essa formulação, no entanto, distorce o indicador para os lotes que circularam por uma fração pequena do parque. Um lote consumido por três máquinas e rompido em todas as três registraria razão de três sobre setenta e sete, da ordem de quatro por cento, sinal aparentemente fraco que mascara o fato de que o lote rompeu em cem por cento das máquinas que efetivamente o processaram. O denominador correto é a exposição real do lote, não a frota total.
+Uma métrica ingênua de espalhamento seria a razão entre o número de máquinas afetadas e o tamanho da frota da fábrica. Essa formulação, no entanto, distorce o indicador para os lotes que circularam por uma fração pequena do parque. Em uma frota de dezenas de máquinas, um lote consumido por três máquinas e rompido em todas as três registraria razão da ordem de poucos por cento, sinal aparentemente fraco que mascara o fato de que o lote rompeu em cem por cento das máquinas que efetivamente o processaram. O denominador correto é a exposição real do lote, não a frota total.
 
 Para formalizar essa correção, define-se, para cada lote $L$:
 \begin{itemize}
@@ -204,7 +220,7 @@ A Tabela~\ref{tab:scc_casos} apresenta o comportamento do indicador para configu
         \midrule
         1  & 1  & 0,000 & Sem cruzamento (guarda $n_E < 2$) \\
         6  & 1  & 0,000 & Sem cruzamento (guarda $n_A < 2$) \\
-        77 & 3  & 0,038 & Cruzamento muito fraco \\
+        50 & 3  & 0,059 & Cruzamento muito fraco \\
         6  & 2  & 0,278 & Cruzamento fraco \\
         2  & 2  & 0,500 & Cruzamento forte \\
         10 & 8  & 0,720 & Cruzamento forte \\
@@ -282,21 +298,19 @@ A construção da regra segue quatro princípios. O primeiro é preservar a coex
 A apresentação do diagnóstico final ao operador e à equipe técnica acompanha sempre a evidência de apoio que sustentou a classe atribuída. A interface de retorno, descrita no contexto da implantação em regime de inferência continuada apresentada na Seção~\ref{sec:caracterizacao_pesquisa}, exibe, além da classe final, as categorias intermediárias de cada pilar, os valores numéricos dos indicadores que as produziram e a célula da tabela de decisão correspondente ao cruzamento observado. Essa apresentação preserva a rastreabilidade da inferência e permite à equipe técnica avaliar manualmente os componentes da decisão, em vez de receber apenas o rótulo final.
 
 
-\section{Decisões de engenharia e ajustes iterativos}
+\section{Justificativas das decisões de projeto}
 \label{sec:decisoes_engenharia}
 
-A arquitetura do WireSense incorpora uma série de decisões de engenharia que privilegiam interpretabilidade, parcimônia e auditabilidade sobre otimização pontual de desempenho. Esta seção consolida as decisões principais tomadas durante o desenvolvimento da proposta, registra os compromissos assumidos em cada uma e indica os pontos de extensibilidade que abrem caminho a aprofundamentos posteriores.
+A arquitetura do WireSense incorpora decisões de projeto que privilegiam interpretabilidade, parcimônia e auditabilidade sobre otimização pontual de desempenho. Esta seção consolida as decisões principais, registra o compromisso assumido em cada uma e indica os pontos de extensibilidade que abrem caminho a aprofundamentos posteriores. As escolhas tecnológicas da prova de conceito, incluindo a instância do detector de anomalias, são justificadas no Capítulo~\ref{cap:experimentacao}.
 
-A primeira decisão, de natureza arquitetural, é a separação em dois pilares independentes em vez de um modelo único de fusão aprendido. A motivação é a ausência de rótulo padronizado sobre a causa de cada rompimento, conforme discutido na Seção~\ref{sec:problema_pesquisa}, que impede a construção de um \emph{ground truth} sobre o qual um modelo de fusão supervisionado pudesse ser treinado. A separação também permite atribuir responsabilidade interpretativa a cada pilar isoladamente, o que se mostra essencial na auditoria das decisões. O compromisso assumido é a renúncia ao ganho potencial de uma otimização conjunta em favor da auditabilidade pilar a pilar.
+A primeira decisão é a separação em dois pilares independentes em vez de um modelo único de fusão aprendido. A motivação é a ausência de rótulo padronizado sobre a causa de cada rompimento, conforme discutido na Seção~\ref{sec:problema_pesquisa}, que impede a construção de um \emph{ground truth} sobre o qual um modelo de fusão supervisionado pudesse ser treinado. A separação também permite atribuir responsabilidade interpretativa a cada pilar isoladamente, o que se mostra essencial na auditoria das decisões. O compromisso assumido é a renúncia ao ganho potencial de uma otimização conjunta em favor da auditabilidade pilar a pilar.
 
 A segunda decisão é a adoção de uma regra determinística representada por tabela de decisão em vez de um classificador treinado para a integração final. A escolha decorre do mesmo argumento da ausência de rótulo, mas tem motivação adicional. A regra determinística permite codificar diretamente a política industrial sobre quando suspeitar de matéria-prima, quando suspeitar de equipamento e quando recusar uma escolha forçada entre as duas hipóteses, conforme detalhado na Seção~\ref{sec:regras_integracao}. O compromisso é a rigidez frente a casos não previstos pela tabela, mitigada pela inclusão explícita das classes Atenção e Insuficiente que cobrem configurações de baixa confiança.
 
-A terceira decisão é a escolha do \emph{Isolation Forest} como detector do Pilar de Sinais Operacionais em vez de arquiteturas mais expressivas como autoencoders ou \emph{transformers} dedicados a séries temporais. A escolha é justificada pelo amadurecimento do método em aplicações industriais correlatas discutidas no Capítulo~\ref{cap:revisao_sistematica}, pela baixa exigência de calibração de hiperparâmetros e pela ausência de janelas rotuladas suficientes para o treinamento robusto de modelos mais complexos. O compromisso é a capacidade limitada de capturar dependência temporal de longa duração, e o ponto de extensibilidade correspondente é a substituibilidade do detector dentro da interface esperada pelo pilar, sem impacto sobre o Pilar de Histórico Estatístico.
+A terceira decisão é a discretização por percentil tanto na classificação de risco da taxa relativa ao lote, descrita na Subseção~\ref{subsec:percentil_risco}, quanto na discretização do \emph{score} de cruzamento de falhas por máquina, descrita na Subseção~\ref{subsec:contaminacao_cruzada}. A escolha adapta automaticamente os cortes à distribuição vigente do indicador na fábrica, evitando recalibrações sempre que o regime operacional sofre alteração. O compromisso é a dependência explícita da distribuição vigente, que exige recalibração periódica em horizonte de meses e não em anos.
 
-A quarta decisão é a discretização por percentil tanto na classificação de risco da taxa relativa ao lote, descrita na Subseção~\ref{subsec:percentil_risco}, quanto na discretização do \emph{score} de cruzamento de falhas por máquina, descrita na Subseção~\ref{subsec:contaminacao_cruzada}. A escolha adapta automaticamente os cortes à distribuição vigente do indicador na fábrica, evitando recalibrações sempre que o regime operacional sofre alteração. O compromisso é a dependência explícita da distribuição vigente, que exige recalibração periódica em horizonte de meses e não em anos.
+A quarta decisão é a adoção da hora-máquina como métrica única de exposição produtiva, conforme definido na Subseção~\ref{subsec:hora_maquina}. A escolha permite comparação justa entre lotes consumidos em volumes e configurações de máquinas distintos. O compromisso é a invisibilidade de variações finas de regime intramáquina, como diferenças entre turnos ou janelas de pós-manutenção, que poderiam ser incorporadas em refinamentos posteriores por meio de fatores multiplicativos de exposição.
 
-A quinta decisão é a adoção da hora-máquina como métrica única de exposição produtiva, conforme definido na Subseção~\ref{subsec:hora_maquina}. A escolha permite comparação justa entre lotes consumidos em volumes e configurações de máquinas distintos. O compromisso é a invisibilidade de variações finas de regime intramáquina, como diferenças entre turnos ou janelas de pós-manutenção, que poderiam ser incorporadas em refinamentos posteriores por meio de fatores multiplicativos de exposição.
-
-A sexta decisão é o tratamento da faixa SEM MODELO da anomalia sensorial como ausência de evidência sensorial ativa para fins da regra de decisão, conforme apresentado na Seção~\ref{sec:regras_integracao}. A motivação é prudencial. A inexistência de modelo treinado válido para a máquina específica não constitui evidência sensorial, e tratá-la como informação ativa em qualquer direção introduziria assimetria interpretativa sem suporte empírico. A distinção qualitativa entre SEM MODELO, que indica ausência de capacidade de avaliação, e AUSENTE, que indica avaliação sensorial efetuada sem identificação de anomalia, é preservada como estado registrado do pilar e disponibilizada na evidência de apoio do diagnóstico. O compromisso é que ambos os estados produzem a mesma saída final na tabela de decisão, separação que pode ser refinada em desenvolvimento futuro com a maturação dos modelos por máquina.
+A quinta decisão é o tratamento da faixa SEM MODELO da anomalia sensorial como ausência de evidência sensorial ativa para fins da regra de decisão, conforme apresentado na Seção~\ref{sec:regras_integracao}. A motivação é prudencial. A inexistência de modelo válido para a máquina específica não constitui evidência sensorial, e tratá-la como informação ativa em qualquer direção introduziria assimetria interpretativa sem suporte empírico. A distinção qualitativa entre SEM MODELO, que indica ausência de capacidade de avaliação, e AUSENTE, que indica avaliação sensorial efetuada sem identificação de anomalia, é preservada como estado registrado do pilar e disponibilizada na evidência de apoio do diagnóstico. O compromisso é que ambos os estados produzem a mesma saída final na tabela de decisão, separação que pode ser refinada em desenvolvimento futuro com a maturação dos modelos por máquina.
 
 Para além das decisões enumeradas, a proposta deixa indicados pontos de extensibilidade que ampliam o alcance do método sem alterar sua estrutura conceitual. O detector do Pilar de Sinais Operacionais é substituível sem impacto sobre os demais componentes. Indicadores adicionais podem ser agregados ao Pilar de Histórico Estatístico desde que respeitem a estrutura de saída categórica esperada pela tabela de decisão. Outras categorias de evento, como bolha e asperidade, podem ser incorporadas ao escopo do método com adaptação das janelas operacionais analisadas. A realimentação de especialistas, quando disponível, pode operar como rótulo fraco de calibração dos limiares categóricos ao longo do tempo. Essas direções de extensão são detalhadas na Seção~\ref{sec:trabalhos_futuros}.

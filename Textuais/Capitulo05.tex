@@ -2,7 +2,7 @@
 \label{cap:experimentacao}
 
 
-Este capítulo materializa a proposta apresentada no Capítulo~\ref{cap:proposta} sobre o estudo de caso da fábrica analisada. A Seção~\ref{sec:estudo_caso} caracteriza a operação e os conjuntos de dados disponíveis. A Seção~\ref{sec:fontes_dados} descreve as tabelas brutas que alimentam a ferramenta, e a Seção~\ref{sec:pipeline} apresenta as transformações que as convertem nos formatos consumidos pelos dois pilares. A Seção~\ref{sec:plano_validacao} define o plano de validação e as métricas de avaliação previstas, cujos resultados constituem objeto do trabalho entre esta qualificação e a defesa.
+Este capítulo materializa a proposta apresentada no Capítulo~\ref{cap:proposta} sobre o estudo de caso da fábrica analisada. A Seção~\ref{sec:estudo_caso} caracteriza a operação e os conjuntos de dados disponíveis. A Seção~\ref{sec:fontes_dados} descreve as tabelas brutas que alimentam a ferramenta, e a Seção~\ref{sec:pipeline} apresenta as transformações que as convertem nos formatos consumidos pelos dois pilares. A Seção~\ref{sec:prototipo} descreve as escolhas tecnológicas do protótipo, e a Seção~\ref{sec:plano_validacao} define o plano de validação e as métricas de avaliação previstas, cujos resultados constituem objeto do trabalho entre esta qualificação e a defesa.
 
 
 \section{Estudo de caso}
@@ -95,6 +95,53 @@ Após a aplicação das etapas descritas, as tabelas brutas apresentadas na Seç
     \label{fig:tabelas_pos_pipeline}
     \fonte{Elaborado pelo autor (\the\year).}
 \end{figure}
+
+
+\section{Protótipo}
+\label{sec:prototipo}
+
+O protótipo do WireSense instancia os componentes abstratos definidos no Capítulo~\ref{cap:proposta} com as escolhas tecnológicas adequadas ao estudo de caso. Esta seção descreve a instância do detector de anomalias do Pilar de Sinais Operacionais e a seleção de variáveis sensoriais que o alimenta. O Pilar de Histórico Estatístico não requer instanciação tecnológica além dos indicadores já formalizados na proposta, e sua implementação segue diretamente as definições das Equações~\ref{eq:trm},~\ref{eq:taxa_relativa_lote} e~\ref{eq:scc}.
+
+A instância adotada para o detector de anomalias é o \emph{Isolation Forest}, em vez de arquiteturas mais expressivas como autoencoders ou \emph{transformers} dedicados a séries temporais. A escolha é justificada pelo amadurecimento do método em aplicações industriais correlatas discutidas no Capítulo~\ref{cap:revisao_sistematica}, pela baixa exigência de calibração de hiperparâmetros e pela ausência de janelas rotuladas suficientes para o treinamento robusto de modelos mais complexos. O compromisso é a capacidade limitada de capturar dependência temporal de longa duração, mitigada pela substituibilidade do detector prevista pelo requisito RNF6 da proposta. Os hiperparâmetros do detector partem dos valores padrão da implementação adotada e serão documentados junto com a calibração empírica na etapa de validação.
+
+O conjunto de variáveis monitoradas pela tabela de sensores cobre grandezas térmicas, elétricas e mecânicas distribuídas ao longo da linha, conforme descrito na Subseção~\ref{subsec:tabela_sensores} e ilustrado na Figura~\ref{fig:tabelasensores}. Desse conjunto, foi selecionado um subconjunto de 14 variáveis com base em critérios de cobertura do processo, qualidade da aquisição e relevância para os modos de falha caracterizados no Capítulo~\ref{cap:fundamentacao}. A seleção privilegia variáveis cujo desvio em relação à operação nominal carrega significado físico interpretável pela equipe de engenharia da fábrica. A Tabela~\ref{tab:sensores_pilar_sinais} apresenta as variáveis selecionadas, agrupadas por categoria.
+
+\begin{table}[htbp]
+    \centering
+    \footnotesize
+    \caption{Variáveis sensoriais selecionadas para o Pilar de Sinais Operacionais.}
+    \label{tab:sensores_pilar_sinais}
+    \begin{tabularx}{\textwidth}{lX}
+        \toprule
+        \textbf{Categoria} & \textbf{Variável} \\
+        \midrule
+        \multirow{9}{*}{Temperatura}
+            & Exaustor do forno \\
+            & Antes do catalisador \\
+            & Após o catalisador \\
+            & Ar de exaustão \\
+            & Zona de secagem \\
+            & Recozedor, zona 1 \\
+            & Recozedor, zona 2 \\
+            & Trocador de calor \\
+            & Zona de cura \\
+        \midrule
+        \multirow{2}{*}{Tensão do fio}
+            & Trefila \\
+            & Bobinador \\
+        \midrule
+        Velocidade
+            & Supervisório \\
+        \midrule
+        \multirow{2}{*}{Ventiladores}
+            & Exaustão \\
+            & Recirculação \\
+        \bottomrule
+    \end{tabularx}
+    \fonte{Elaborado pelo autor (\the\year).}
+\end{table}
+
+O treinamento do modelo de normalidade é realizado por máquina, sobre o histórico de intervalos com status \textsc{operando} sem incidente registrado. Cada amostra de treino corresponde a uma janela temporal das variáveis selecionadas, e o \emph{Isolation Forest} aprende a estrutura do regime nominal específico daquela máquina. A inferência opera sobre a janela imediatamente anterior a cada rompimento, e o resultado é o indicador de anomalia escalar posteriormente discretizado nas classes definidas na proposta.
 
 
 \section{Plano de validação}
