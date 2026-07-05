@@ -2,13 +2,13 @@
 \label{cap:revisao_sistematica}
 
 
-Este capítulo apresenta a revisão sistemática da literatura que fundamenta a parte computacional desta dissertação, conduzida segundo as diretrizes consolidadas para revisões sistemáticas em Engenharia de Software \cite{kitchenham2007guidelines}. A revisão investiga, de forma transparente e replicável, como a literatura de Computação aplicada a sistemas industriais aborda as quatro vertentes de método relevantes para a proposta: detecção de anomalias em séries temporais de variáveis operacionais, análise estatística histórica de falhas por lote e fornecedor, sistemas híbridos de fusão de evidências e explicabilidade em diagnóstico industrial. As tradições de diagnóstico oriundas do próprio domínio industrial, baseadas em ferramentas clássicas de qualidade e em análise estatística de confiabilidade, foram apresentadas no Capítulo~\ref{cap:fundamentacao} e não constituem objeto desta revisão.
+Este capítulo apresenta a revisão sistemática da literatura que fundamenta a parte computacional desta dissertação, conduzida segundo as diretrizes consolidadas para revisões sistemáticas em Engenharia de Software \cite{kitchenham2007guidelines}. Por meio da revisão, investiga-se, de forma transparente e replicável, como a literatura de computação aplicada a sistemas industriais aborda as quatro vertentes de método relevantes para a proposta: detecção de anomalias em séries temporais de variáveis operacionais, análise estatística histórica de falhas por lote e fornecedor, sistemas híbridos de fusão de evidências e explicabilidade em diagnóstico industrial. As ferramentas de diagnóstico oriundas do próprio domínio industrial, baseadas em ferramentas clássicas de qualidade e em análise estatística de confiabilidade, foram apresentadas no Capítulo~\ref{cap:fundamentacao} e não constituem objeto desta revisão.
 
 
 \section{Pesquisa Bibliográfica Sistemática}
 \label{sec:pbs}
 
-Esta seção detalha o protocolo de \sigla{PBS} aplicado, da formulação da pergunta orientadora à análise e síntese dos trabalhos selecionados, em conformidade com o padrão de relato \sigla{PRISMA} \cite{page2021prisma}.
+Esta seção detalha o protocolo de \sigla{PBS}, termo que designa neste texto a operacionalização da revisão sistemática da literatura, aplicado da formulação da pergunta orientadora à análise e síntese dos trabalhos selecionados, em conformidade com o padrão de relato \sigla{PRISMA} \cite{page2021prisma}.
 
 
 \subsection{Pergunta de pesquisa}
@@ -17,7 +17,7 @@ Esta seção detalha o protocolo de \sigla{PBS} aplicado, da formulação da per
 A revisão sistemática é orientada pela seguinte pergunta de pesquisa, formulada a partir do problema enunciado na Seção~\ref{sec:problema_pesquisa}:
 
 \begin{quote}
-Como a literatura de Computação aplicada a sistemas industriais aborda a combinação de sinais operacionais de máquina e de evidências estatísticas históricas de falhas para apoiar a inferência da provável origem de eventos de falha em manufatura?
+Como a literatura de computação aplicada a sistemas industriais aborda a combinação de sinais operacionais de máquina e de evidências estatísticas históricas de falhas para apoiar a inferência da provável origem de eventos de falha em manufatura?
 \end{quote}
 
 A pergunta orientadora desdobra-se em quatro perguntas específicas, cada uma associada a uma das vertentes metodológicas que sustentam a proposta apresentada no Capítulo~\ref{cap:proposta}:
@@ -34,7 +34,7 @@ A pergunta orientadora desdobra-se em quatro perguntas específicas, cada uma as
 
 A construção da estratégia de busca seguiu o protocolo \sigla{PICOC} \cite{petticrew2006systematic}, em que as palavras-chave são organizadas a partir de cinco facetas: \emph{Population} (processos industriais de manufatura), \emph{Intervention} (detecção de anomalias, análise estatística histórica, sistemas híbridos e explicabilidade), \emph{Comparison} (não aplicável neste protocolo), \emph{Outcome} (inferência de causa raiz e apoio à decisão) e \emph{Context} (manufatura contínua baseada em sensores). A formulação \sigla{PICOC} permite derivar blocos de termos canônicos para cada faceta, posteriormente combinados em uma única expressão booleana por base de dados.
 
-Na operacionalização adotada, as facetas \emph{Population} e \emph{Context} foram agregadas em um único bloco de escopo, dado que termos como \emph{sensor data} e \emph{time series} caracterizam simultaneamente o universo populacional dos processos analisados e o contexto de manufatura instrumentada. A faceta \emph{Intervention} concentra os métodos computacionais alvo da revisão, e a faceta \emph{Outcome} reúne os termos que delimitam o objetivo perseguido pelos trabalhos. A Tabela~\ref{tab:blocos_picoc} apresenta os termos canônicos de cada bloco.
+Na operacionalização adotada, as facetas \emph{Population} e \emph{Context} foram agregadas em um único bloco de escopo, dado que termos como \emph{sensor data} e \emph{time series} caracterizam simultaneamente o universo populacional dos processos analisados e o contexto de manufatura instrumentada. A faceta \emph{Intervention} concentra os métodos computacionais alvo da revisão, e a faceta \emph{Outcome} reúne os termos que delimitam o objetivo perseguido pelos trabalhos. A Tabela~\ref{tab:blocos_picoc} reúne os termos canônicos de cada bloco.
 
 \begin{table}[htbp]
     \centering
@@ -59,9 +59,9 @@ A combinação dos três blocos pelo operador \texttt{AND} produz a expressão b
 \texttt{(\textquotedbl industrial process\textquotedbl{} OR \textquotedbl manufacturing\textquotedbl{} OR \textquotedbl sensor data\textquotedbl{} OR \textquotedbl time series\textquotedbl) AND (\textquotedbl Statistical Process Control\textquotedbl{} OR \textquotedbl anomaly detection\textquotedbl{} OR \textquotedbl evidence fusion\textquotedbl{} OR \textquotedbl fault detection\textquotedbl{} OR \textquotedbl hybrid systems\textquotedbl{} OR \textquotedbl root cause analysis\textquotedbl) AND (\textquotedbl Root cause identification\textquotedbl{} OR \textquotedbl decision support\textquotedbl)}
 \end{quote}
 
-A janela temporal adotada compreende os anos de 2020 a 2026, com o objetivo de privilegiar a produção da área publicada nesse intervalo, sem excluir trabalhos seminais que tenham aparecido por backward snowballing a partir das referências dos selecionados. Além do recorte temporal, a busca aplicou também restrição por tipo de documento, considerando apenas artigos publicados em conferências e periódicos com revisão por pares e descartando livros, teses, capítulos de livro e materiais avulsos. O idioma de busca foi restrito a inglês, coerente com o perfil das três bases internacionais consultadas.
+A janela temporal adotada compreende os anos de 2020 a 2026, com o objetivo de privilegiar a produção da área publicada nesse intervalo, sem excluir trabalhos seminais que tenham aparecido por \emph{backward snowballing} a partir das referências dos selecionados. Além do recorte temporal, a busca aplicou também restrição por tipo de documento, considerando apenas artigos publicados em conferências e periódicos com revisão por pares e descartando livros, teses, capítulos de livro e materiais avulsos. O idioma de busca foi restrito a inglês, coerente com o perfil das três bases internacionais consultadas.
 
-A estratégia foi aplicada nas bases IEEE Xplore, ACM Digital Library e Scopus. IEEE e ACM foram selecionadas por concentrarem a maior parte da produção em Computação aplicada a sistemas industriais e por reunirem os principais veículos de publicação em conferências e periódicos do campo. Scopus foi incorporada para ampliar a cobertura interdisciplinar, complementando o recorte das duas bases anteriores com periódicos de Engenharia Industrial, Manufatura e Engenharia Química nos quais aparecem trabalhos metodologicamente relevantes para a proposta. As contagens brutas de trabalhos retornados por base são apresentadas na Tabela~\ref{tab:bases_busca}.
+A estratégia foi aplicada nas bases IEEE Xplore, ACM Digital Library e Scopus. IEEE e ACM foram selecionadas por concentrarem a maior parte da produção em computação aplicada a sistemas industriais e por reunirem os principais veículos de publicação em conferências e periódicos do campo. Scopus foi incorporada para ampliar a cobertura interdisciplinar, complementando o recorte das duas bases anteriores com periódicos de Engenharia Industrial, Manufatura e Engenharia Química nos quais aparecem trabalhos metodologicamente relevantes para a proposta. As contagens brutas de trabalhos retornados por base são apresentadas na Tabela~\ref{tab:bases_busca}.
 
 \begin{table}[htbp]
     \centering
@@ -92,7 +92,7 @@ Os critérios de inclusão definidos para esta revisão são:
 
 \begin{itemize}
     \item \textbf{CI1}: trabalho publicado entre 2020 e 2026.
-    \item \textbf{CI2}: redigido em inglês ou em português.
+    \item \textbf{CI2}: redigido em inglês, idioma da estratégia de busca aplicada às três bases.
     \item \textbf{CI3}: aborda detecção de anomalias, análise estatística histórica de falhas, fusão de evidências ou explicabilidade em contexto de processo industrial.
     \item \textbf{CI4}: texto completo disponível para leitura.
     \item \textbf{CI5}: apresenta contribuição metodológica clara, com descrição suficiente do método aplicado.
@@ -110,7 +110,7 @@ Os critérios de exclusão complementam os de inclusão e foram aplicados quando
     \item \textbf{CE6}: trabalho centrado em problemas cuja natureza seja incompatível com o objeto desta revisão, como ciberataques, fraude financeira ou diagnóstico médico.
 \end{itemize}
 
-A aplicação sucessiva desses critérios produz o funil \sigla{PRISMA} apresentado na Tabela~\ref{tab:funil_prisma}, que descreve a redução do corpus ao longo das etapas de identificação, triagem, elegibilidade e inclusão final.
+A aplicação sucessiva desses critérios produz o funil \sigla{PRISMA} apresentado na Tabela~\ref{tab:funil_prisma}, que descreve a redução do corpus, isto é, do conjunto de trabalhos retornados pela busca, ao longo das etapas de identificação, triagem, elegibilidade e inclusão final.
 
 \begin{table}[htbp]
     \centering
@@ -131,7 +131,7 @@ A aplicação sucessiva desses critérios produz o funil \sigla{PRISMA} apresent
     \fonte{Elaborado pelo autor (\the\year).}
 \end{table}
 
-A Figura~\ref{fig:prisma_flow} apresenta a redução do corpus ao longo das etapas do funil, com os registros retidos em cada caixa e os volumes excluídos em cada transição.
+A Figura~\ref{fig:prisma_flow} ilustra a redução do corpus ao longo das etapas do funil, com os registros retidos em cada caixa e os volumes excluídos em cada transição.
 
 \begin{figure}[htbp]
     \centering
@@ -159,7 +159,7 @@ A síntese final está organizada por tema na Seção~\ref{sec:trabalhos_correla
 
 Após a aplicação do protocolo descrito na Seção~\ref{sec:pbs}, o conjunto final de trabalhos correlatos compreende 16 trabalhos, agrupados em quatro temas alinhados às perguntas específicas formuladas na Subseção~\ref{subsec:pergunta_pesquisa}. Cada trabalho é discutido na subseção correspondente à sua contribuição central, ainda que possa cobrir mais de um eixo na síntese da Subseção~\ref{subsec:sintese_lacunas}.
 
-A Figura~\ref{fig:corpus_distribuicao} caracteriza o corpus após os filtros de janela temporal e tipo de documento, totalizando 741 trabalhos distribuídos entre as três bases consultadas. Observa-se crescimento expressivo a partir de 2024, com pico em 2025, e maior volume retornado pela ACM Digital Library, seguida por IEEE Xplore e Scopus.
+A Figura~\ref{fig:corpus_distribuicao} caracteriza o corpus após os filtros de janela temporal e tipo de documento, totalizando 741 trabalhos distribuídos entre as três bases consultadas. Observa-se crescimento de 43 trabalhos em 2023 para 126 em 2024 e 256 em 2025, e maior volume retornado pela ACM Digital Library, seguida por IEEE Xplore e Scopus.
 
 \begin{figure}[htbp]
     \centering
@@ -199,7 +199,7 @@ Em laminação a quente de tiras de aço, um arranjo nomeado \emph{group-aware} 
 
 Em processos químicos de produção de vinho, um modelo de gestão de qualidade segmenta lotes de produção por meio de agrupamento difuso com \emph{Fuzzy C-Means} e em seguida prediz probabilidade de defeito com \emph{XGBoost} sobre dados históricos, complementando a inferência com técnicas de explicabilidade \cite{marindiaz2025fuzzy}. A combinação de segmentação por lote, modelagem preditiva e atribuição explicável de variáveis dialoga com os objetivos desta dissertação ao tratar simultaneamente as dimensões de categoria, predição e interpretabilidade.
 
-A análise conjunta desses trabalhos confirma o diagnóstico inicial. A literatura recente em Computação aplicada a sistemas industriais explora a noção de segmentação por categoria de processo, mas não converge para uma formalização explícita de taxa relativa por lote ou por fornecedor, com normalização por exposição produtiva. Essa lacuna metodológica delimita o espaço de contribuição do Pilar de Histórico Estatístico desta dissertação, que adota a hora-máquina como métrica de exposição e a Taxa Relativa por Material como indicador padronizado por categoria, conforme descrito no Capítulo~\ref{cap:proposta}.
+A análise conjunta desses trabalhos confirma o diagnóstico inicial. A literatura examinada explora a noção de segmentação por categoria de processo, mas não converge para uma formalização explícita de taxa relativa por lote ou por fornecedor, com normalização por exposição produtiva. Essa lacuna metodológica delimita o espaço de contribuição do Pilar de Histórico Estatístico desta dissertação, que adota a hora-máquina como métrica de exposição e a Taxa Relativa por Material como indicador padronizado por categoria, conforme descrito no Capítulo~\ref{cap:proposta}.
 
 
 \subsection{Sistemas híbridos e fusão de evidências}
@@ -225,9 +225,9 @@ A linha de explicabilidade intrínseca aparece com mais clareza nos trabalhos qu
 
 A linha de explicabilidade \emph{post-hoc} aparece nos trabalhos que aplicam técnicas externas sobre modelos cuja estrutura interna não é diretamente legível. O arranjo autossupervisionado em mineração emprega valores \sigla{SHAP} para atribuir importância às variáveis na fase supervisionada subsequente à geração de rótulos por autoencoders e \emph{Isolation Forest} \cite{islam2026explainable}. O CUAD-Mo, em usinagem em centros de controle numérico computadorizado, incorpora o método \sigla{DIFFI} para explicar a contribuição de cada variável ao indicador de anomalia produzido pelo \emph{Isolation Forest} \cite{lorenti2022cuadmo}.
 
-Uma combinação entre as duas linhas aparece em controle de qualidade de processos químicos, já discutida na Subseção~\ref{subsec:correlatos_estatistica} do ponto de vista da segmentação por lote \cite{marindiaz2025fuzzy}. Sob a lente da explicabilidade, o trabalho integra um Sistema de Inferência Fuzzy, transparente por construção e baseado em regras de especialista, com atribuições \sigla{SHAP} e \emph{Local Interpretable Model-agnostic Explanations} aplicadas sobre o \emph{XGBoost}. A coexistência dos dois enquadramentos no mesmo arranjo ilustra a tendência da literatura recente de tratar interpretabilidade como propriedade composta, distribuída entre diferentes componentes do sistema.
+Uma combinação entre as duas linhas aparece em controle de qualidade de processos químicos, já discutida na Subseção~\ref{subsec:correlatos_estatistica} do ponto de vista da segmentação por lote \cite{marindiaz2025fuzzy}. Sob a lente da explicabilidade, o trabalho integra um Sistema de Inferência Fuzzy, transparente por construção e baseado em regras de especialista, com atribuições \sigla{SHAP} e \emph{Local Interpretable Model-agnostic Explanations} aplicadas sobre o \emph{XGBoost}. A coexistência dos dois enquadramentos no mesmo arranjo ilustra a tendência, observada no corpus examinado, de tratar interpretabilidade como propriedade composta, distribuída entre diferentes componentes do sistema.
 
-A análise conjunta dos trabalhos desta categoria mostra que a explicabilidade recente se concentra na inspeção das saídas de um único pilar de modelo, seja por construção transparente, seja por atribuição \emph{post-hoc}. A proposta desta dissertação adota estratégia complementar: a interpretabilidade decorre de dois pilares independentes de evidência, combinados por regra determinística auditável. Essa separação permite identificar não apenas a inferência final, mas também qual vertente de evidência sustenta o diagnóstico em cada evento.
+A análise conjunta dos trabalhos desta categoria mostra que a explicabilidade na literatura examinada se concentra na inspeção das saídas de um único pilar de modelo, seja por construção transparente, seja por atribuição \emph{post-hoc}. A proposta desta dissertação adota estratégia complementar: a interpretabilidade decorre de dois pilares independentes de evidência, combinados por regra determinística auditável. Essa separação permite identificar não apenas a inferência final, mas também qual vertente de evidência sustenta o diagnóstico em cada evento.
 
 
 \subsection{Discussão dos trabalhos relacionados}
@@ -282,9 +282,9 @@ A discussão dos trabalhos correlatos é organizada em torno de sete eixos temá
 
 \noindent$^{\star}$~A linha referente a esta dissertação reflete o escopo projetado descrito no Capítulo~\ref{cap:proposta}. O eixo E6 contempla a validação retrospectiva sobre eventos com causa documentada e os experimentos sobre dados históricos da fábrica, programados para o período entre esta qualificação e a defesa, conforme cronograma da Seção~\ref{sec:cronograma}.
 
-A leitura cruzada da Tabela~\ref{tab:sintese_correlatos} expõe três achados centrais. O primeiro é a forte concentração da literatura recente nos eixos E1, E4, E5 e E6, presentes em quinze dos dezesseis trabalhos selecionados. A combinação detecção de anomalias, explicabilidade da inferência, contexto de manufatura contínua e validação com dados reais constitui o núcleo metodológico já bem estabelecido na área. O segundo achado é a presença moderada do eixo E3, com nove trabalhos abordando fusão de evidências, e do eixo E2, com sete trabalhos abordando histórico estatístico por lote ou fornecedor. Esses dois eixos ainda são tratados de forma independente nos trabalhos correlatos, sem combinação sistemática que ofereça inferência conjunta.
+A leitura cruzada da Tabela~\ref{tab:sintese_correlatos} expõe três achados centrais. O primeiro é a forte concentração do corpus nos eixos E1, E4, E5 e E6, presentes em quinze dos dezesseis trabalhos selecionados. A combinação detecção de anomalias, explicabilidade da inferência, contexto de manufatura contínua e validação com dados reais constitui o núcleo metodológico já bem estabelecido na área. O segundo achado é a presença moderada do eixo E3, com nove trabalhos abordando fusão de evidências, e do eixo E2, com sete trabalhos abordando histórico estatístico por lote ou fornecedor. Esses dois eixos ainda são tratados de forma independente nos trabalhos correlatos, sem combinação sistemática que ofereça inferência conjunta.
 
-O terceiro achado é a presença ainda restrita do eixo E7. Apenas três dos dezesseis trabalhos operam diretamente sobre fabricação de fios, todos restritos a vertentes específicas: monitoramento de condição em linha de esmaltamento, deposição por arco em manufatura aditiva por fio e deposição coaxial por laser. Nenhum aborda análise estatística histórica segmentada por lote ou fornecedor no domínio de fios. Esse resultado confirma que o domínio específico de fabricação de fios esmaltados é pouco explorado pela literatura de Computação aplicada a sistemas industriais e reforça a oportunidade de contribuição desta dissertação.
+O terceiro achado é a presença ainda restrita do eixo E7. Apenas três dos dezesseis trabalhos operam diretamente sobre fabricação de fios, todos restritos a vertentes específicas: monitoramento de condição em linha de esmaltamento, deposição por arco em manufatura aditiva por fio e deposição coaxial por laser. Nenhum aborda análise estatística histórica segmentada por lote ou fornecedor no domínio de fios. Esse resultado confirma que o domínio específico de fabricação de fios esmaltados é pouco explorado pela literatura de computação aplicada a sistemas industriais e reforça a oportunidade de contribuição desta dissertação.
 
 \section{Considerações parciais}
 \label{sec:consideracoes_cap3}

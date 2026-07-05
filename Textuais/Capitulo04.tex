@@ -57,7 +57,7 @@ As seções seguintes apresentam os componentes que realizam esses requisitos: a
 \section{Visão geral da arquitetura}
 \label{sec:arquitetura}
 
-O WireSense organiza a análise em dois pilares independentes de evidência, cada um operando sobre uma natureza distinta de dado e produzindo uma saída interpretável sobre o evento de rompimento. A inferência da provável origem decorre da combinação dessas saídas pelas regras de integração apresentadas na Seção~\ref{sec:regras_integracao}. A Figura~\ref{fig:wiresense_arquitetura} apresenta a visão geral da arquitetura.
+O WireSense organiza a análise em dois pilares independentes de evidência, cada um operando sobre uma natureza distinta de dado e produzindo uma saída interpretável sobre o evento de rompimento. A inferência da provável origem decorre da combinação dessas saídas pelas regras de integração apresentadas na Seção~\ref{sec:regras_integracao}. A Figura~\ref{fig:wiresense_arquitetura} ilustra a visão geral da arquitetura.
 
 \begin{figure}[htbp]
     \centering
@@ -133,7 +133,7 @@ A combinação dessas dimensões configura uma relação muitos-para-muitos entr
 \subsection{Hora-máquina como métrica de exposição}
 \label{subsec:hora_maquina}
 
-A contagem direta de rompimentos por lote não é comparável entre lotes de tamanhos e usos distintos. Um lote consumido por seis máquinas durante uma semana acumula mais oportunidades de rompimento que um lote consumido por uma máquina durante um turno, mesmo que a qualidade da matéria-prima seja idêntica. A métrica adotada para padronizar essa exposição é a hora-máquina, unidade composta de exposição da tradição de confiabilidade apresentada na Subseção~\ref{subsec:metricas_exposicao}. Quando uma máquina opera por uma hora, contabiliza-se uma hora-máquina. Quando duas máquinas operam em paralelo por uma hora, contabilizam-se duas horas-máquina. Essa métrica é acumulada para cada combinação de lote, material e máquina sobre todos os intervalos com status \textsc{operando} registrados pela tabela de status.
+A contagem direta de rompimentos por lote não é comparável entre lotes de tamanhos e usos distintos. Um lote consumido por seis máquinas durante uma semana acumula mais oportunidades de rompimento que um lote consumido por uma máquina durante um turno, mesmo que a qualidade da matéria-prima seja idêntica. A métrica adotada para padronizar essa exposição é a hora-máquina, unidade composta de exposição da engenharia de confiabilidade apresentada na Subseção~\ref{subsec:metricas_exposicao}. Quando uma máquina opera por uma hora, contabiliza-se uma hora-máquina. Quando duas máquinas operam em paralelo por uma hora, contabilizam-se duas horas-máquina. Essa métrica é acumulada para cada combinação de lote, material e máquina sobre todos os intervalos com status \textsc{operando} registrados pela tabela de status.
 
 A taxa bruta de rompimento de uma combinação de lote e material em uma máquina é definida como a razão entre o número de rompimentos observados e a hora-máquina acumulada na mesma combinação. Essa taxa é a unidade básica sobre a qual são construídos os indicadores comparativos descritos nas Subseções~\ref{subsec:taxa_relativa} e~\ref{subsec:contaminacao_cruzada}.
 
@@ -207,7 +207,7 @@ A fórmula combina dois fatores. O primeiro, $n_A / n_E$, expressa a proporção
 
 Cabe notar que o $\text{SCC}$ mede o espalhamento dos rompimentos entre máquinas, não o volume total de eventos. A intensidade absoluta do problema é capturada pela taxa relativa ao lote definida na Subseção~\ref{subsec:taxa_relativa}, e a evidência histórica final do pilar nasce da combinação dos dois indicadores na tabela de decisão apresentada na Subseção~\ref{subsec:saidas_pilar_historico}. Valores elevados de $\text{SCC}$ indicam espalhamento entre as máquinas que efetivamente processaram o lote, mas não são interpretados isoladamente como diagnóstico de matéria-prima.
 
-A Tabela~\ref{tab:scc_casos} apresenta o comportamento do indicador para configurações canônicas de exposição e afetação, servindo como referência interpretativa preliminar antes da calibração empírica das faixas.
+A Tabela~\ref{tab:scc_casos} sintetiza o comportamento do indicador para configurações canônicas de exposição e afetação, servindo como referência interpretativa preliminar antes da calibração empírica das faixas.
 
 \begin{table}[htbp]
     \centering
