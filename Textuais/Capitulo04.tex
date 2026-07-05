@@ -2,13 +2,13 @@
 \label{cap:proposta}
 
 
-Este capítulo apresenta o WireSense, a proposta desta dissertação para a inferência da provável origem de eventos de rompimento em fabricação de fios. A Seção~\ref{sec:contexto_definicoes} estabelece o contexto da proposta e define os termos empregados ao longo do capítulo. A Seção~\ref{sec:requisitos} enuncia os requisitos funcionais e não funcionais que delimitam o comportamento esperado. As seções seguintes apresentam a arquitetura, os dois pilares de evidência e a regra de integração que produz o diagnóstico final. A materialização da proposta sobre o estudo de caso da fábrica, incluindo fontes de dados, preparação, protótipo e plano de validação, é apresentada no Capítulo~\ref{cap:experimentacao}.
+Este capítulo apresenta o WireSense, a proposta desta dissertação para a inferência da origem de eventos de rompimento em fabricação de fios. A Seção~\ref{sec:contexto_definicoes} estabelece o contexto da proposta e define os termos empregados ao longo do capítulo. A Seção~\ref{sec:requisitos} enuncia os requisitos funcionais e não funcionais que delimitam o comportamento esperado. As seções seguintes apresentam a arquitetura, os dois pilares de evidência e a regra de integração que produz o diagnóstico final. A materialização da proposta sobre o estudo de caso da fábrica, incluindo fontes de dados, preparação, protótipo e plano de validação, é apresentada no Capítulo~\ref{cap:experimentacao}.
 
 
 \section{Contexto e definições}
 \label{sec:contexto_definicoes}
 
-WireSense designa a proposta desta dissertação: uma arquitetura de apoio à decisão que infere a provável origem de eventos de rompimento pela combinação de duas vertentes independentes de evidência. A contribuição científica reside na arquitetura e na regra de integração, definidas neste capítulo em termos de componentes, relações e fluxos independentes de tecnologia específica. A materialização dessa arquitetura em uma ferramenta executável constitui a prova de conceito da proposta, associada ao estudo de caso e às escolhas tecnológicas descritas no Capítulo~\ref{cap:experimentacao}.
+WireSense designa a proposta desta dissertação: uma arquitetura de apoio à decisão que infere a origem de eventos de rompimento pela combinação de duas vertentes independentes de evidência. A contribuição científica reside na arquitetura e na regra de integração, definidas neste capítulo em termos de componentes, relações e fluxos independentes de tecnologia específica. A materialização dessa arquitetura em uma ferramenta executável constitui a prova de conceito da proposta, associada ao estudo de caso e às escolhas tecnológicas descritas no Capítulo~\ref{cap:experimentacao}.
 
 A leitura do capítulo apoia-se nas seguintes definições:
 
@@ -22,7 +22,7 @@ A leitura do capítulo apoia-se nas seguintes definições:
     \item \textbf{Diagnóstico}: classificação final atribuída a um evento de rompimento pela regra de integração, acompanhada da evidência de apoio que a sustentou.
 \end{itemize}
 
-As duas vertentes de evidência respondem a perguntas complementares. A evidência sensorial responde se a máquina específica apresentou comportamento anômalo no entorno do evento. A evidência histórica responde se o lote em consumo apresenta padrão de rompimentos atípico quando observado em todas as máquinas que o processaram. A combinação das duas respostas fundamenta a inferência da provável origem, conforme os requisitos enunciados na Seção~\ref{sec:requisitos}.
+As duas vertentes de evidência respondem a perguntas complementares. A evidência sensorial responde se a máquina específica apresentou comportamento anômalo no entorno do evento. A evidência histórica responde se o lote em consumo apresenta padrão de rompimentos atípico quando observado em todas as máquinas que o processaram. A combinação das duas respostas fundamenta a inferência da origem, conforme os requisitos enunciados na Seção~\ref{sec:requisitos}.
 
 
 \section{Requisitos da proposta}
@@ -31,7 +31,7 @@ As duas vertentes de evidência respondem a perguntas complementares. A evidênc
 Os requisitos que delimitam o comportamento esperado do WireSense derivam do problema de pesquisa enunciado na Seção~\ref{sec:problema_pesquisa} e das necessidades operacionais da equipe técnica que consome o diagnóstico. Os requisitos funcionais definem o que a proposta deve produzir:
 
 \begin{itemize}
-    \item \textbf{RF1}: produzir, para cada evento de rompimento registrado, uma classificação da provável origem entre as classes definidas pela regra de integração.
+    \item \textbf{RF1}: produzir, para cada evento de rompimento registrado, uma classificação da origem entre as classes definidas pela regra de integração.
     \item \textbf{RF2}: avaliar a evidência sensorial da máquina na janela operacional do evento e classificá-la por intensidade de anomalia.
     \item \textbf{RF3}: calcular indicadores estatísticos por lote normalizados pela exposição produtiva, cobrindo a intensidade dos rompimentos e o seu espalhamento entre as máquinas expostas.
     \item \textbf{RF4}: classificar a evidência histórica de matéria-prima em classes ordinais a partir dos indicadores estatísticos do lote.
@@ -57,7 +57,7 @@ As seções seguintes apresentam os componentes que realizam esses requisitos: a
 \section{Visão geral da arquitetura}
 \label{sec:arquitetura}
 
-O WireSense organiza a análise em dois pilares independentes de evidência, cada um operando sobre uma natureza distinta de dado e produzindo uma saída interpretável sobre o evento de rompimento. A inferência da provável origem decorre da combinação dessas saídas pelas regras de integração apresentadas na Seção~\ref{sec:regras_integracao}. A Figura~\ref{fig:wiresense_arquitetura} ilustra a visão geral da arquitetura.
+O WireSense organiza a análise em dois pilares independentes de evidência, cada um operando sobre uma natureza distinta de dado e produzindo uma saída interpretável sobre o evento de rompimento. A inferência da origem decorre da combinação dessas saídas pelas regras de integração apresentadas na Seção~\ref{sec:regras_integracao}. A Figura~\ref{fig:wiresense_arquitetura} ilustra a visão geral da arquitetura.
 
 \begin{figure}[htbp]
     \centering
@@ -180,7 +180,7 @@ A escolha por percentil em lugar de cortes fixos sobre a taxa relativa apoia-se 
 \subsection{Cruzamento de falhas por máquina}
 \label{subsec:contaminacao_cruzada}
 
-A contagem direta de rompimentos por lote, mesmo normalizada por hora-máquina como na Subseção~\ref{subsec:taxa_relativa}, não distingue dois cenários de implicações opostas. Cinco rompimentos concentrados em uma única máquina sugerem problema local de equipamento, enquanto cinco rompimentos distribuídos entre cinco máquinas que processaram o mesmo lote sugerem defeito embarcado na matéria-prima. Para a inferência da provável origem do evento, importa não apenas o volume de rompimentos, mas o espalhamento desses eventos entre as máquinas expostas ao lote.
+A contagem direta de rompimentos por lote, mesmo normalizada por hora-máquina como na Subseção~\ref{subsec:taxa_relativa}, não distingue dois cenários de implicações opostas. Cinco rompimentos concentrados em uma única máquina sugerem problema local de equipamento, enquanto cinco rompimentos distribuídos entre cinco máquinas que processaram o mesmo lote sugerem defeito embarcado na matéria-prima. Para a inferência da origem do evento, importa não apenas o volume de rompimentos, mas o espalhamento desses eventos entre as máquinas expostas ao lote.
 
 Uma métrica ingênua de espalhamento seria a razão entre o número de máquinas afetadas e o tamanho da frota da fábrica. Essa formulação, no entanto, distorce o indicador para os lotes que circularam por uma fração pequena do parque. Em uma frota de dezenas de máquinas, um lote consumido por três máquinas e rompido em todas as três registraria razão da ordem de poucos por cento, sinal aparentemente fraco que mascara o fato de que o lote rompeu em cem por cento das máquinas que efetivamente o processaram. O denominador correto é a exposição real do lote, não a frota total.
 
@@ -266,7 +266,7 @@ A categoria \textbf{Sem evidência MP} não deve ser lida como confirmação de 
 \section{Regras de integração e diagnóstico final}
 \label{sec:regras_integracao}
 
-A produção do diagnóstico final de provável origem do evento de rompimento é realizada por uma segunda etapa de classificação, que combina a saída do Pilar de Histórico Estatístico com a saída do Pilar de Sinais Operacionais. A separação em duas etapas preserva a interpretabilidade da inferência, pois cada etapa responde a uma pergunta que pode ser auditada de forma independente. A primeira etapa, descrita na Subseção~\ref{subsec:saidas_pilar_historico}, responde sobre a existência de evidência histórica de matéria-prima associada ao lote em consumo. A segunda etapa, apresentada nesta seção, responde sobre a origem provável do evento dado o cruzamento entre essa evidência histórica e a evidência sensorial específica da máquina no entorno temporal do rompimento.
+A produção do diagnóstico final da origem do evento de rompimento é realizada por uma segunda etapa de classificação, que combina a saída do Pilar de Histórico Estatístico com a saída do Pilar de Sinais Operacionais. A separação em duas etapas preserva a interpretabilidade da inferência, pois cada etapa responde a uma pergunta que pode ser auditada de forma independente. A primeira etapa, descrita na Subseção~\ref{subsec:saidas_pilar_historico}, responde sobre a existência de evidência histórica de matéria-prima associada ao lote em consumo. A segunda etapa, apresentada nesta seção, responde sobre a origem do evento dado o cruzamento entre essa evidência histórica e a evidência sensorial específica da máquina no entorno temporal do rompimento.
 
 A entrada da segunda etapa é constituída por dois eixos. O primeiro é a categoria de evidência histórica de matéria-prima produzida pelo Pilar de Histórico Estatístico, com cinco valores possíveis: Evidência MP forte, Evidência MP moderada, Evidência MP fraca, Sem evidência MP e Evidência conflitante. O segundo é a categoria de anomalia sensorial produzida pelo Pilar de Sinais Operacionais, com quatro valores possíveis: FORTE, MODERADA, AUSENTE e SEM MODELO. As faixas AUSENTE e SEM MODELO carregam significados qualitativamente distintos. AUSENTE corresponde a evidência sensorial observada de normalidade relativa, isto é, o modelo treinado da máquina avaliou a janela e não identificou anomalia. SEM MODELO corresponde aos casos em que o pilar sensorial não dispõe de modelo treinado válido para a máquina específica do evento, conforme as condições enunciadas na Seção~\ref{sec:impl_sinais}, e portanto não pode emitir avaliação sobre a janela. A distinção entre os dois estados é preservada como informação registrada do pilar, ainda que a regra de decisão da Figura~\ref{fig:tabela_diagnostico_final} produza saídas equivalentes para ambos, conforme discutido nos princípios apresentados adiante.
 

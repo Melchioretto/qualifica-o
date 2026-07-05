@@ -17,7 +17,7 @@ Esta seção detalha o protocolo de \sigla{PBS}, termo que designa neste texto a
 A revisão sistemática é orientada pela seguinte pergunta de pesquisa, formulada a partir do problema enunciado na Seção~\ref{sec:problema_pesquisa}:
 
 \begin{quote}
-Como a literatura de computação aplicada a sistemas industriais aborda a combinação de sinais operacionais de máquina e de evidências estatísticas históricas de falhas para apoiar a inferência da provável origem de eventos de falha em manufatura?
+Como a literatura de computação aplicada a sistemas industriais aborda a combinação de sinais operacionais de máquina e de evidências estatísticas históricas de falhas para apoiar a inferência da origem de eventos de falha em manufatura?
 \end{quote}
 
 A pergunta orientadora desdobra-se em quatro perguntas específicas, cada uma associada a uma das vertentes metodológicas que sustentam a proposta apresentada no Capítulo~\ref{cap:proposta}:
@@ -213,7 +213,7 @@ A segunda acepção, a fusão de fontes heterogêneas, aparece com clareza no Ro
 
 Na mesma vertente de fusão entre dado e conhecimento simbólico, uma proposta para diagnóstico de falhas em centros de usinagem combina grafo de conhecimento com modelos de linguagem de grande porte para raciocínio sobre causa e geração de recomendação de manutenção \cite{nie2026knowledge}. A adição do modelo de linguagem amplia a capacidade do sistema de produzir texto interpretável pela equipe técnica, mantendo o grafo de conhecimento como repositório estruturado de relações entre falhas e componentes. A combinação aponta para uma evolução natural da arquitetura híbrida em direção a interfaces conversacionais, direção também sinalizada na agenda de trabalho futuro discutida na Seção~\ref{sec:trabalhos_futuros}.
 
-As fusões realizadas nos trabalhos desta categoria concentram-se ou em técnicas computacionais sobre uma mesma fonte de dados ou em combinações entre dados numéricos e conhecimento simbólico estruturado. Nenhum dos trabalhos do conjunto integra evidência sensorial em série temporal com evidência estatística histórica segmentada por lote ou fornecedor como pilares de igual peso em um único sistema de inferência. Essa configuração específica de fusão é a que a proposta desta dissertação materializa por meio da regra de integração apresentada no Capítulo~\ref{cap:proposta}, combinando a evidência sensorial com a evidência estatística histórica para produzir o diagnóstico da provável origem do evento de rompimento.
+As fusões realizadas nos trabalhos desta categoria concentram-se ou em técnicas computacionais sobre uma mesma fonte de dados ou em combinações entre dados numéricos e conhecimento simbólico estruturado. Nenhum dos trabalhos do conjunto integra evidência sensorial em série temporal com evidência estatística histórica segmentada por lote ou fornecedor como pilares de igual peso em um único sistema de inferência. Essa configuração específica de fusão é a que a proposta desta dissertação materializa por meio da regra de integração apresentada no Capítulo~\ref{cap:proposta}, combinando a evidência sensorial com a evidência estatística histórica para produzir o diagnóstico da origem do evento de rompimento.
 
 
 \subsection{Explicabilidade em diagnóstico industrial}
@@ -291,7 +291,7 @@ O terceiro achado é a presença ainda restrita do eixo E7. Apenas três dos dez
 
 Este capítulo conduziu a revisão sistemática que fundamenta a parte computacional da dissertação, partindo de 1871 registros brutos das três bases consultadas e chegando, pelo funil de seleção, a dezesseis trabalhos correlatos discutidos em quatro temas. Três elementos da revisão devem ser retidos para a leitura dos capítulos seguintes.
 
-O primeiro é a lacuna identificada, que motiva a proposta apresentada no Capítulo~\ref{cap:proposta}: a combinação simultânea, em um único sistema aplicado ao domínio de fabricação de fios, dos quatro eixos centrais E1, E2, E3 e E4. Os trabalhos correlatos evidenciam que cada um desses eixos é tratável isoladamente com as técnicas computacionais disponíveis, mas nenhum oferece uma arquitetura que integre detecção de anomalias em sinal sensorial, análise estatística histórica segmentada por lote e fornecedor, fusão dessas duas vertentes de evidência e diagnóstico interpretável da provável origem do evento.
+O primeiro é a lacuna identificada, que motiva a proposta apresentada no Capítulo~\ref{cap:proposta}: a combinação simultânea, em um único sistema aplicado ao domínio de fabricação de fios, dos quatro eixos centrais E1, E2, E3 e E4. Os trabalhos correlatos evidenciam que cada um desses eixos é tratável isoladamente com as técnicas computacionais disponíveis, mas nenhum oferece uma arquitetura que integre detecção de anomalias em sinal sensorial, análise estatística histórica segmentada por lote e fornecedor, fusão dessas duas vertentes de evidência e diagnóstico interpretável da origem do evento.
 
 O segundo é o conjunto de escolhas técnicas legitimadas pela literatura examinada. O uso de detecção de anomalias baseada em isolamento em contexto industrial, a segmentação estatística por categoria de produção e o tratamento da interpretabilidade como propriedade distribuída entre componentes aparecem em trabalhos do corpus e sustentam as decisões de projeto do capítulo seguinte.
 
